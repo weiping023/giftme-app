@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
+//import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -18,7 +17,10 @@ import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 import { PaymentPage } from '../pages/payment/payment';
 import { DeliveryPage } from '../pages/delivery/delivery';
-import { LogoutPage } from '../pages/logout/logout';
+
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+//import { ProductProvider } from '../providers/product/product';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,6 @@ import { LogoutPage } from '../pages/logout/logout';
     ShoppingCartPage,
     PaymentPage,
     DeliveryPage,
-    LogoutPage
   ],
   imports: [
     BrowserModule,
@@ -57,12 +58,12 @@ import { LogoutPage } from '../pages/logout/logout';
     ShoppingCartPage,
     PaymentPage,
     DeliveryPage,
-    LogoutPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    //{provide: ErrorHandler, useClass: IonicErrorHandler},
+    //ProductProvider,
   ]
 })
 export class AppModule {}

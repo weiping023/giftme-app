@@ -1,13 +1,58 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Homepage</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>  	
+    <ion-title>GiftMe</ion-title>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding> 
-  <p>
-    Contain sidebar menu
-  </p>
-  <p>
-  	Contain featured shops (left scroll for more) and products
-  </p>
+  
+  <h1>Featured Shops</h1>
+  <ion-slides pager slidesPerView="3" autoplay="10000" loop>  	
+    <ion-slide>      
+    	<ion-img width="200" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg"></ion-img><br>
+    	Fiona Treadwell
+    	<!-- each image can link to specific shop/ product page-->
+    </ion-slide> 
+
+    <ion-slide>  
+    	<ion-img width="120" height="120" src="./assets/imgs/shop2-floral-garage-logo.jpg"></ion-img> <br> 	
+    	Floral Garage
+    </ion-slide> 
+
+    <ion-slide>    
+    	<ion-img width="235" height="120" src="./assets/imgs/shop3-angel-florist-logo.png"></ion-img> <br> 	      	
+    	Angel Florist
+    </ion-slide> 
+
+    <ion-slide>      
+    	Shop 4
+    </ion-slide> 
+  </ion-slides>
+
+  <h1>Featured Products</h1>
+  <ion-slides pager autoplay="10000" slidesPerView="3" loop>
+    <ion-slide>    
+    	<ion-img width="120" height="120" src="./assets/imgs/prdt1-Premium-Freestyle-Bouquet.jpg"></ion-img> <br> 	  
+    	Premium Freestyle Bouquet
+    </ion-slide> 
+
+    <ion-slide>      
+    	<ion-img width="85" height="130" src="./assets/imgs/prdt2-Valentines-Day-bouquet.jpg"></ion-img> <br> 	  
+    	Valentine's Day Bouquet
+    </ion-slide> 
+
+    <ion-slide>      
+    	<ion-img width="120" height="120" src="./assets/imgs/prdt3-choco-hamper.png"></ion-img> <br> 	  
+    	Chocolate Hamper
+    </ion-slide> 
+
+    <ion-slide>      
+    	Product 4
+    </ion-slide>
+  </ion-slides>
+
+
 </ion-content>

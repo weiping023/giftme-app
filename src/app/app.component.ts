@@ -15,7 +15,6 @@ import { ProductCatPage } from '../pages/product-cat/product-cat';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 //import { PaymentPage } from '../pages/payment/payment';
 //import { DeliveryPage } from '../pages/delivery/delivery';
-import { LogoutPage } from '../pages/logout/logout';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,18 +25,20 @@ export class MyApp {
   rootPage: any = HomePage;
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, 
+              public statusBar: StatusBar, 
+              public splashScreen: SplashScreen) 
+  {
     this.initializeApp();
 
     this.pages = [
-      {title: 'Home', component: HomePage},
-      {title: 'Login', component: LoginPage},
+      {title: 'Home', component: HomePage},      
       {title: 'Profile', component: ProfilePage},
       {title: 'Shops', component: ShopsPage},
       {title: 'Products - Category', component: ProductCatPage},
       {title: 'View Shopping Cart', component: ShoppingCartPage},
-      {title: 'Logout', component: LogoutPage},
-      //{title: 'Exit', component: null}
+      {title: 'Login/Logout', component: LoginPage},
+      {title: 'Exit', component: null}
     ];
   }
 
@@ -49,10 +50,11 @@ export class MyApp {
   }
   
   openPage(page) {
-    if(page.title == "Logout") {
-      this.nav.setRoot(HomePage);          
-    } else {
-      this.nav.setRoot(page.component);
-    }
+    if (page.title == "Exit"){
+      this.platform.exitApp();
+    }     
+    else {
+      this.nav.setRoot(page.component);          
+    }         
   }
 }
