@@ -1,6 +1,6 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" (ionClose)="collapseMenuOptions()">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="secondary">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -11,6 +11,9 @@
         {{p.title}}
       </button>
     </ion-list>
+
+    <!-- Side Menu -->    
+    <side-menu-content [settings]="sideMenuSettings" [options]="options" (selectOption)="selectOption($event)"></side-menu-content>
   </ion-content>
 
 </ion-menu>

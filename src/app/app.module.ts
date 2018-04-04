@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 //import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -22,6 +23,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 //import { ProductProvider } from '../providers/product/product';
 
+// Custom components
+import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -37,6 +41,7 @@ import { StatusBar } from '@ionic-native/status-bar';
     ShoppingCartPage,
     PaymentPage,
     DeliveryPage,
+    SideMenuContentComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +69,9 @@ import { StatusBar } from '@ionic-native/status-bar';
     SplashScreen,
     //{provide: ErrorHandler, useClass: IonicErrorHandler},
     //ProductProvider,
-  ]
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
 })
 export class AppModule {}
