@@ -8,7 +8,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
-import { RegisterPage } from '../pages/register/register';
+import { SignupPage } from '../pages/signup/signup';
 import { ProfilePage } from '../pages/profile/profile';
 import { ViewTransactionsPage } from '../pages/viewTransactions/viewTransactions';
 import { ShopsPage } from '../pages/shops/shops';
@@ -21,7 +21,10 @@ import { DeliveryPage } from '../pages/delivery/delivery';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+
 //import { ProductProvider } from '../providers/product/product';
+import { User } from '../providers/user/user';
+import { Api } from '../providers/api/api';
 
 // Custom components
 import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
@@ -31,7 +34,7 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage,
+    SignupPage,
     ProfilePage,
     ViewTransactionsPage,
     ShopsPage,
@@ -53,7 +56,7 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage,
+    SignupPage,
     ProfilePage,
     ViewTransactionsPage,
     ShopsPage,

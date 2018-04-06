@@ -4,6 +4,9 @@ import { NgForm } from '@angular/forms';
 import { AlertController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 
+import { HomePage } from '../home/home';
+import { SignupPage } from '../signup/signup';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -19,9 +22,9 @@ export class LoginPage {
 	password: string;
 
 	constructor(public navCtrl: NavController, 				
-  						public alertCtrl: AlertController,  						
-  						public navParams: NavParams,
-  						public toastCtrl: ToastController) 
+  				public alertCtrl: AlertController,  						
+  				public navParams: NavParams,
+  				public toastCtrl: ToastController) 
 	{
 	  this.submitted = false;
 		this.isLogin = false;		
@@ -94,8 +97,9 @@ export class LoginPage {
 	}
 
 	logout(){
-		console.log("Logout");
-		//this.navCtrl.popToRoot(); need to figure out how to redirect to homepage directly
+		console.log("Logout");		
+		sessionStorage.setItem("isLogin", "false");		
+		this.navCtrl.setRoot(HomePage); 
 
 		let toast = this.toastCtrl.create(
 		{
@@ -105,5 +109,16 @@ export class LoginPage {
 		});
 		
 		toast.present();
+	}
+
+	register(){		
+
+		let toast = this.toastCtrl.create(
+		{
+			message: 'Redirect to Signup.',
+			cssClass: 'toast',
+			duration: 3000
+		});	
+		this.navCtrl.push(SignupPage);
 	}	
 }

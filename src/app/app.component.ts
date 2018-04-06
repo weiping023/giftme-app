@@ -10,7 +10,6 @@ import { MenuController, AlertController } from 'ionic-angular';
 //Pages
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
-//import { RegisterPage } from '../pages/register/register';
 import { ProfilePage } from '../pages/profile/profile';
 //import { ViewTransactionsPage } from '../pages/viewTransactions/viewTransactions';
 import { ShopsPage } from '../pages/shops/shops';
@@ -51,9 +50,7 @@ export class MyApp {
       ios: '64px',
       wp: '56px'
     }
-  };
-
-  pages: Array<{title: string, component: any}>;
+  };  
 
   constructor(public platform: Platform, 
               public statusBar: StatusBar, 
@@ -62,11 +59,7 @@ export class MyApp {
               private menuCtrl: MenuController) 
   {
     this.initializeApp();
-
-    this.pages = [      
-      {title: 'Login/Logout', component: LoginPage},
-      {title: 'Exit', component: null}
-    ];
+    
   }
 
   initializeApp() {
@@ -94,52 +87,47 @@ export class MyApp {
     });
 
     this.options.push({
-      iconName: 'apps',
+      iconName: 'person',
       displayName: 'Profile',
       component: ProfilePage
     });    
 
-    // Load options with nested items (with icons)
+    // Load options with nested items
     // -----------------------------------------------
     this.options.push({
       displayName: 'Product',
       subItems: [
         {
-          iconName: 'basket',
+          iconName: 'flower',
           displayName: 'Flowers',
           component: ProductIndivPage //to replace
         },
         {
-          iconName: 'bookmark',
+          iconName: 'basket',
           displayName: 'Confectionary',
           component: ProductIndivPage //to replace
         },
         {
-          iconName: 'bookmark',
+          iconName: 'basket',
           displayName: 'Plushies',
           component: ProductIndivPage //to replace
         }
       ]
     });
-
-    // Load options with nested items (without icons)
-    // -----------------------------------------------
+    
     this.options.push({
       displayName: 'Shop',
       subItems: [
         {
+          iconName: 'pin',
           displayName: 'Location',
-          component: ShopsPage
-        },        
-        {
-          displayName: 'Sub Option 7',
           component: ShopsPage
         }
       ]
     });
     
     this.options.push({
-      iconName: 'basket',
+      iconName: 'cart',
       displayName: 'Shopping Cart',
       component: ShoppingCartPage
     });
@@ -147,34 +135,26 @@ export class MyApp {
     // Load special options
     // -----------------------------------------------
     this.options.push({
+      iconName: 'log-in',
       displayName: 'Login/ Logout',
-      subItems: [
-        {
-          iconName: 'log-in',
-          displayName: 'Login',
-          custom: {
-            isLogin: true
-          }
-        },
-        {
-          iconName: 'log-out',
-          displayName: 'Logout',
-          custom: {
-            isLogout: true
-          }
-        }        
-      ]
+      component: LoginPage
     });
     
+    this.options.push({
+      iconName: 'exit',
+      displayName: 'Exit',   
+      custom: {
+        isExit: true
+      }      
+    });
   }
 
   public selectOption(option: MenuOptionModel): void {
     this.menuCtrl.close().then(() => {
-      if (option.custom && option.custom.isLogin) {
-        this.presentAlert('You\'ve clicked the login option!');
-      } else if (option.custom && option.custom.isLogout) {
-        this.presentAlert('You\'ve clicked the logout option!');
-      } else {
+      if (option.custom && option.custom.isExit) {
+        this.platform.exitApp();
+      }
+      else {
         // Redirect to the selected page
         this.navCtrl.setRoot(option.component);
       }
