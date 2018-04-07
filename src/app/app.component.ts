@@ -104,7 +104,7 @@ export class MyApp {
         },
         {
           iconName: 'basket',
-          displayName: 'Confectionary',
+          displayName: 'Confectionery',
           component: ProductIndivPage //to replace
         },
         {

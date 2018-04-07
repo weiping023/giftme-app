@@ -72,6 +72,8 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     SplashScreen,
     //{provide: ErrorHandler, useClass: IonicErrorHandler},
     //ProductProvider,
+    User,
+    Api
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

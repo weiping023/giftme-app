@@ -18,7 +18,7 @@ export class LoginPage {
 	isLogin: boolean;
 	firstName: string;
 	lastName: string;
-	username: string;
+	email: string;
 	password: string;
 
 	constructor(public navCtrl: NavController, 				
@@ -44,19 +44,18 @@ export class LoginPage {
 
   	clear()
 	{
-		this.username = "";
+		this.email = "";
 		this.password = "";
 	}
 
 	login(loginForm: NgForm)
 	{
-		this.submitted = true;
-		
+		this.submitted = true;		
 		if (loginForm.valid) 
 		{
-			if((this.username == "admin") && (this.password == "password"))
+			if((this.email == "giftmeadmin@gmail.com") && (this.password == "password"))
 			{				
-				if(this.username == "admin")
+				if(this.email == "giftmeadmin@gmail.com")
 				{
 					this.firstName = "Admin";			
 				}				
@@ -68,7 +67,7 @@ export class LoginPage {
 				sessionStorage.setItem("lastName", this.lastName);				
 				sessionStorage.setItem("isLogin", "true");
 				
-				//this.productProvider.setLoginCredential(this.username, this.password);
+				//this.productProvider.setLoginCredential(this.email, this.password);
 				
 				let toast = this.toastCtrl.create(
 				{
@@ -111,8 +110,7 @@ export class LoginPage {
 		toast.present();
 	}
 
-	register(){		
-
+	register(){				
 		let toast = this.toastCtrl.create(
 		{
 			message: 'Redirect to Signup.',
