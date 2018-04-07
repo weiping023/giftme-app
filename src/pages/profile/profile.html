@@ -3,7 +3,7 @@
     <button ion-button menuToggle colour="dark">
           <ion-icon name="menu"></ion-icon>
       </button>  
-    <ion-title>Profile</ion-title>
+    <ion-title>Manage Profile</ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="light" (click)="cartTapped($event, page)">
             <ion-icon name="cart"></ion-icon>
@@ -14,6 +14,7 @@
 </ion-header>
 
 <ion-content padding> 
+<h4> Profile Details </h4>
 
   <div *ngIf="!isUpdated">
     <form #updateProfileForm="ngForm" (ngSubmit)="updateProfile(updateProfileForm)">
