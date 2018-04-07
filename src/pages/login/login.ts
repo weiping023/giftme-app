@@ -21,8 +21,8 @@ export class LoginPage {
 	email: string;
 	password: string;
 
-	constructor(public navCtrl: NavController, 				
-  				public alertCtrl: AlertController,  						
+	constructor(public navCtrl: NavController, 		
+  				public alertCtrl: AlertController,
   				public navParams: NavParams,
   				public toastCtrl: ToastController) 
 	{

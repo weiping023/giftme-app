@@ -11,7 +11,7 @@ import { MenuController, AlertController } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
-//import { ViewTransactionsPage } from '../pages/viewTransactions/viewTransactions';
+import { ViewTransactionsPage } from '../pages/viewTransactions/viewTransactions';
 import { ShopsPage } from '../pages/shops/shops';
 //import { ShopIndivPage } from '../pages/shop-indiv/shop-indiv';
 import { ProductCatPage } from '../pages/product-cat/product-cat';
@@ -86,16 +86,27 @@ export class MyApp {
 
       // This option is already selected
       selected: true
-    });
+    });  
 
-    this.options.push({
-      iconName: 'person',
-      displayName: 'Profile',
-      component: ProfilePage
-    });    
 
     // Load options with nested items
     // -----------------------------------------------
+    this.options.push({      
+      displayName: 'Profile',
+      subItems: [
+        {
+          iconName: 'person',
+          displayName: 'Manage Profile',
+          component: ProfilePage
+        },
+        {
+          iconName: 'basket',
+          displayName: 'View Transactions',
+          component: ViewTransactionsPage
+        }
+      ]
+    });
+
     this.options.push({
       displayName: 'Product',
       subItems: [

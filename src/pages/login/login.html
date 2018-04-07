@@ -1,15 +1,14 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>    	
-    <ion-title>Login</ion-title>
-  </ion-navbar>
+  <ion-toolbar color="primary">
+    <button ion-button menuToggle colour="dark">
+    	<ion-icon name="menu"></ion-icon>
+    </button>      
+    <ion-title>Login</ion-title>    
+  </ion-toolbar>
 </ion-header>
+
 <ion-content padding>
-	<div *ngIf="!isLogin">
-	
-		<h3>Login</h3>
+	<div *ngIf="!isLogin">		
 		
 		<form #loginForm="ngForm" (ngSubmit)="login(loginForm)" >	
 			
@@ -22,7 +21,10 @@
 						Email must be at least 4 characters long.
 					</div>
 					<div *ngIf="inemail.errors.maxlength">
-						email cannot exceed 50 characters.
+						Email cannot exceed 50 characters.
+					</div>
+					<div *ngIf="inemail.errors?.email">
+						Email must be valid.
 					</div>
 				</div>
 				
@@ -41,27 +43,30 @@
 				<div *ngIf="loginErrorMessage" class="errorText">
 					{{loginErrorMessage}}
 				</div>				
+				
 			</div>
 
 			<ion-list>
 				<ion-item>
 					<ion-label fixed>Email</ion-label>
-					<ion-input type="email" id="email" name="email" [(ngModel)]="email" minlength="4" maxlength="32" required="true" #inemail="ngModel"></ion-input>
+					<ion-input type="email" placeholder="Eg. test@gmail.com" id="email" name="email" [(ngModel)]="email" minlength="4" maxlength="32" required="true" email #inemail="ngModel"></ion-input>
 				</ion-item>
 
 				<ion-item>
 					<ion-label fixed>Password</ion-label>
-					<ion-input type="password" id="password" name="password" [(ngModel)]="password" minlength="4" maxlength="32" required="true" #inpassword="ngModel"></ion-input>
+					<ion-input type="password" placeholder="Eg. password" id="password" name="password" [(ngModel)]="password" minlength="4" maxlength="32" required="true" #inpassword="ngModel"></ion-input>
 				</ion-item>
-				
-				<ion-item>					
-					<button type="submit" ion-button block>
-						Login
-					</button>
-					<button ion-button block (click)="register()"> 
-						Sign Up
-					</button>					
-				</ion-item>
+								
+				<ion-item>
+					<div align="center">
+						<button type="submit" ion-button outline>
+							Login
+						</button>
+						<button ion-button outline (click)="register()"> 
+							Sign Up
+						</button>					
+					</div>
+				</ion-item>				
 			</ion-list>
 
 		</form>
@@ -71,7 +76,7 @@
 		<h3>Welcome Back!</h3>
 		You are login as {{firstName}} {{lastName}}
 
-		<button ion-button block (click)="logout()">
+		<button ion-button align="center" (click)="logout()">
 			Log out
 		</button>
 	</div>

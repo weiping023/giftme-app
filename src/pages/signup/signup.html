@@ -1,50 +1,81 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>{{ 'Sign Up as a new User!'}}</ion-title>
-  </ion-navbar>
-
+<ion-header>      
+  <ion-navbar color="dark">
+    <ion-title>Sign Up</ion-title>
+  </ion-navbar>  
 </ion-header>
 
 
 <ion-content>
-  <form (submit)="doSignup()">
+  <form #signupForm="ngForm" (ngSubmit)="signup(signupForm)">
+
+      <div>     
+        <div *ngIf="inemail.invalid && (inemail.dirty || inemail.touched || submitted)" class="errorText">
+          <div *ngIf="inemail.errors.required">
+            Email is required.
+          </div>
+          <div *ngIf="inemail.errors.minlength">
+            Email must be at least 4 characters long.
+          </div>
+          <div *ngIf="inemail.errors.maxlength">
+            Email cannot exceed 50 characters.
+          </div>
+          <div *ngIf="inemail.errors?.email">
+            Email must be valid.
+          </div>
+        </div>
+        
+        <div *ngIf="inpassword.invalid && (inpassword.dirty || inpassword.touched || submitted)" class="errorText">
+          <div *ngIf="inpassword.errors.required">
+            Password is required.
+          </div>
+          <div *ngIf="inpassword.errors.minlength">
+            Password must be at least 4 characters long.
+          </div>
+          <div *ngIf="inpassword.errors.maxlength">
+            Password cannot exceed 32 characters.
+          </div>
+        </div>
+        
+        <div *ngIf="signupErrorMessage" class="errorText">
+          {{signupErrorMessage}}
+        </div>        
+        
+      </div>
+      
     <ion-list>          
 
       <ion-item>
         <ion-label floating>{{ 'Email'}}</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+        <ion-input type="email" [(ngModel)]="account.email" name="email" minlength="4" maxlength="32" required="true" 
+        email #inemail="ngModel"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>{{ 'Password' }}</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+        <ion-input type="password" [(ngModel)]="account.password" name="password" minlength="4" maxlength="32" required="true" #inpassword="ngModel"></ion-input>
       </ion-item>
 
-      <h4 align="center">Profile Details</h4>
+      <div style="padding: 13px">
+        <h4>Profile Details</h4>
+      </div>
 
       <ion-item>
         <ion-label fixed>{{ 'First Name'}}</ion-label>
-        <ion-input type="text" [(ngModel)]="account.firstname" name="firstName"></ion-input>
+        <ion-input type="text" placeholder="Eg. firstname" [(ngModel)]="account.firstname" name="firstName" required="true"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label fixed>{{ 'Last Name'}}</ion-label>
-        <ion-input type="text" [(ngModel)]="account.lastname" name="lastName"></ion-input>
+        <ion-input type="text" placeholder="Eg. lastname" [(ngModel)]="account.lastname" name="lastName" required="true"></ion-input>
       </ion-item>                  
 
       <ion-item>
         <ion-label fixed>{{ 'Contact' }}</ion-label>
-        <ion-input type="text" [(ngModel)]="account.phoneNum" name="phoneNum"></ion-input>
-      </ion-item>
+        <ion-input type="text" placeholder="Eg. 901234567" [(ngModel)]="account.phoneNum" name="phoneNum" length="8" required="true"></ion-input>
+      </ion-item> <br/>
 
-      <ion-item>
-        <ion-label fixed>{{ 'Age' }}</ion-label>
-        <ion-input type="text" [(ngModel)]="account.age" name="age"></ion-input>
-      </ion-item>
-
-      <div padding>
-        <button ion-button color="primary" block>{{ 'Sign Up' }}</button>
+      <div>
+        <button type="submit" ion-button outline color="primary">{{ 'Sign Up' }}</button>
       </div>
 
     </ion-list>
