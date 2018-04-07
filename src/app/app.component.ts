@@ -19,8 +19,7 @@ import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 //import { PaymentPage } from '../pages/payment/payment';
 
-// Uncomment it after checkout page is done
-import { DeliveryPage } from '../pages/delivery/delivery';
+//import { DeliveryPage } from '../pages/delivery/delivery';
 
 //Side Menu Component
 import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
