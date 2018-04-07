@@ -160,15 +160,7 @@ export class MyApp {
         isExit: true
       }      
     });
-
-    // Load pages for testing only
-    // TO BE DELETED WHEN CHECKOUT PAGE IS DONE
-    // -----------------------------------------------
-    this.options.push({
-      iconName: 'car',
-      displayName: 'Delivery',
-      component: DeliveryPage
-    });
+    
   }
 
   public selectOption(option: MenuOptionModel): void {
