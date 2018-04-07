@@ -1,8 +1,15 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Shop: Individual</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Shop: Individual Page</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left color="light" (click)="cartTapped($event, page)">
+            <ion-icon name="cart"></ion-icon>
+            Cart
+          </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding>
 	<p>
 		Displays products from that particular shop

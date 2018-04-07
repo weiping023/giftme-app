@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { PaymentPage } from '../payment/payment';
 
 @Component({
   selector: 'page-delivery',
@@ -12,5 +13,9 @@ export class DeliveryPage {
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad DeliveryPage');
+  }
+
+  buttonTapped(event, page) {
+  	this.navCtrl.push(PaymentPage, page);
   }
 }

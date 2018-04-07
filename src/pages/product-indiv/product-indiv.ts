@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 
 @IonicPage()
 @Component({
@@ -13,6 +14,10 @@ export class ProductIndivPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductIndivPage');
+  }
+
+  cartTapped(event, page) {
+  	this.navCtrl.push(ShoppingCartPage, page);
   }
 
 }

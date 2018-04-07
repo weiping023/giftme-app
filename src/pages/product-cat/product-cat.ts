@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 
 @Component({
   selector: 'page-product-cat',
@@ -13,5 +14,9 @@ export class ProductCatPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductCatPage');
   }
+
+ 	cartTapped(event, page) {
+		this.navCtrl.push(ShoppingCartPage, page);
+	}
 
 }

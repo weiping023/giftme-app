@@ -1,11 +1,18 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>  	 	
+  <ion-toolbar color="primary">
+    <button ion-button menuToggle colour="dark">
+          <ion-icon name="menu"></ion-icon>
+      </button>  
     <ion-title>Shops</ion-title>
-  </ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-left color="light" (click)="cartTapped($event, page)">
+            <ion-icon name="cart"></ion-icon>
+            Cart
+          </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
+
 <ion-content padding>
 	<p>
 		Allow users to input Postal Code, then display shops based on similar location area.

@@ -18,7 +18,9 @@ import { ProductCatPage } from '../pages/product-cat/product-cat';
 import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 //import { PaymentPage } from '../pages/payment/payment';
-//import { DeliveryPage } from '../pages/delivery/delivery';
+
+// Uncomment it after checkout page is done
+import { DeliveryPage } from '../pages/delivery/delivery';
 
 //Side Menu Component
 import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
@@ -146,6 +148,15 @@ export class MyApp {
       custom: {
         isExit: true
       }      
+    });
+
+    // Load pages for testing only
+    // TO BE DELETED WHEN CHECKOUT PAGE IS DONE
+    // -----------------------------------------------
+    this.options.push({
+      iconName: 'car',
+      displayName: 'Delivery',
+      component: DeliveryPage
     });
   }
 

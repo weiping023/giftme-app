@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
+import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 
 @Component({
 	selector: 'page-profile',
@@ -18,6 +19,10 @@ export class ProfilePage {
 				public navParams: NavParams, 
 				public toastCtrl: ToastController) {
 		this.submitted = false;
+	}
+
+	cartTapped(event, page) {
+		this.navCtrl.push(ShoppingCartPage, page);
 	}
 
 	ionViewDidLoad() {

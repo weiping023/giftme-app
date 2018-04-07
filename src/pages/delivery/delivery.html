@@ -1,10 +1,45 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle color="dark">
+          <ion-icon name="menu"></ion-icon>
+      </button>  
     <ion-title>Delivery</ion-title>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding> 
-  <p>
-    Select Delivery address and timing
-  </p>
+    <ion-list>
+        <ion-list-header>
+            Unit Number
+        </ion-list-header>
+        <ion-item>
+            <ion-input type="text" placeholder="Eg. #06-01"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+            Street Name
+        </ion-list-header>
+        <ion-item>
+            <ion-input type="text" placeholder="Eg. Orchard Road"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+            Postal Code
+        </ion-list-header>
+        <ion-item>
+            <ion-input type="text" placeholder="Eg. 123456"></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-list-header>
+            Date and Time
+        </ion-list-header>
+        <ion-item>
+            <ion-label>Select Date Time</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A" [(ngModel)]="dateTime"></ion-datetime>
+        </ion-item>
+    </ion-list>
+
+    <button ion-button color="primary" outline (click)="buttonTapped($event, page)">Make Payment</button>
 </ion-content>

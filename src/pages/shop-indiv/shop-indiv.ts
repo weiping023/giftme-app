@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 
 @Component({
   selector: 'page-shop-indiv',
@@ -12,5 +13,9 @@ export class ShopIndivPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopIndivPage');
+  }
+
+  cartTapped(event, page) {
+  	this.navCtrl.push(ShoppingCartPage, page);
   }
 }

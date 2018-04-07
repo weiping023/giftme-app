@@ -1,15 +1,21 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>       
+  <ion-toolbar color="primary">
+    <button ion-button menuToggle colour="dark">
+          <ion-icon name="menu"></ion-icon>
+      </button>  
     <ion-title>Profile</ion-title>
-  </ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-left color="light" (click)="cartTapped($event, page)">
+            <ion-icon name="cart"></ion-icon>
+            Cart
+          </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
+
 <ion-content padding> 
 
   <div *ngIf="!isUpdated">
-    <h3>Profile</h3>
     <form #updateProfileForm="ngForm" (ngSubmit)="updateProfile(updateProfileForm)">
       <div>
         <div *ngIf="(infirstname.dirty || infirstname.touched || submitted)" class="errorText">
@@ -115,5 +121,5 @@
       </ion-list>
     </form>
   </div>
-  <button ion-button clear>Save Changes</button>
+  <button ion-button color="primary" outline>Save Changes</button>
 </ion-content>

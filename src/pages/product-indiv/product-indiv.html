@@ -1,8 +1,15 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Product: Individual page</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Product: Individual Page</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left color="light" (click)="cartTapped($event, page)">
+            <ion-icon name="cart"></ion-icon>
+            Cart
+          </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding>
 	<ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg"></ion-img><br>
 
@@ -11,5 +18,5 @@
 	<p>Product Price: </p>
 	<p>Select Quantity: </p>
 
-	<button ion-button color="dark">Add to Cart</button>
+	<button ion-button color="primary" outline>Add to Cart</button>
 </ion-content>
