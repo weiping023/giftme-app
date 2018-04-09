@@ -8,7 +8,84 @@
 </ion-header>
 
 <ion-content padding>
-	<p>
-		Key in all payment details before selecting delivery time and address
-	</p>
+<!-- 	<div *ngIf="!isPaid">
+		<form #paymentForm="ngForm" (ngSubmit)="pay(paymentForm">
+			<div>
+				<div *ngIf="inemail.invalid && (inemail.dirty || inemail.touched || submitted)" class="errorText">
+					<div *ngIf="inemail.errors.required">
+						Email is required.
+					</div>
+					<div *ngIf="inemail.errors.minlength">
+						Email must be at least 4 characters long.
+					</div>
+					<div *ngIf="inemail.errors.maxlength">
+						Email cannot exceed 50 characters.
+					</div>
+					<div *ngIf="inemail.errors?.email">
+						Email must be valid.
+					</div>
+				</div>
+			</div>
+		</form>
+	</div> -->
+
+	<h4>Card Details</h4>
+	<ion-list>
+		<ion-list-header>
+            Card Holder Name
+        </ion-list-header>
+        <ion-item>
+            <ion-input type="text" placeholder="Full Name on Card"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+            Card Number
+        </ion-list-header>
+        <ion-item>
+            <ion-input type="text" placeholder="16-digit Card Number"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+            Expiry Date
+        </ion-list-header>
+        <ion-item>
+  			<ion-label>Date</ion-label>
+  			<ion-datetime displayFormat="MM/YYYY" pickerFormat="MMMM YYYY"></ion-datetime>
+		</ion-item>
+
+		<ion-list-header>
+            CVC
+        </ion-list-header>
+        <ion-item>
+            <ion-input type="text" placeholder="3-digit Number on the back of the Card"></ion-input>
+        </ion-item>
+
+        <h4>Billing Address</h4>
+        <ion-list-header>
+            Unit Number
+        </ion-list-header>
+        <ion-item>
+            <ion-input type="text" placeholder="Eg. #06-01"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+            Street Name
+        </ion-list-header>
+        <ion-item>
+            <ion-input type="text" placeholder="Eg. Orchard Road"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+            Postal Code
+        </ion-list-header>
+        <ion-item>
+            <ion-input type="text" placeholder="Eg. 123456"></ion-input>
+        </ion-item>
+
+        <h4>Promo Code</h4>
+        <ion-item>
+        	<ion-input type="text" placeholder="Eg. ABC123"></ion-input>
+        </ion-item>
+	</ion-list>
+	<button ion-button color="primary" outline (click)="buttonTapped($event, page)">Confirm Payment</button>
 </ion-content>

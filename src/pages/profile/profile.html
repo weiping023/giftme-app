@@ -38,7 +38,10 @@
         </div>
 
         <div *ngIf="(inmobilenum.dirty || inmobilenum.touched || submitted)" class="errorText">
-          <div *ngIf="inmobilenum.errors.exactlength">
+          <div *ngIf="inmobilenum.errors.minlength">
+            Mobile number must be 8 characters long.
+          </div>
+          <div *ngIf="inmobilenum.errors.maxlength">
             Mobile number must be 8 characters long.
           </div>
         </div>
@@ -99,7 +102,7 @@
 
         <ion-item>
           <ion-label fixed>Contact</ion-label>
-          <ion-input type="text" placeholder ="12345678" id="mobilenum" name="mobilenum" [(ngModel)]="mobilenum" exactlength="8" required="false" #inmobilenum="ngModel">
+          <ion-input type="text" placeholder ="12345678" id="mobilenum" name="mobilenum" [(ngModel)]="mobilenum" minlength="8" maxlength="8" required="false" #inmobilenum="ngModel">
           </ion-input>
         </ion-item>
 
@@ -119,8 +122,17 @@
           <ion-label fixed>Verify</ion-label>
           <ion-input type="password" id="verifypassword" name="verifypassword" [(ngModel)]="verifypassword" minlength="4" maxlength="32" required="false" #inverifypassword="ngModel"></ion-input>
         </ion-item>
+
+        <ion-item>
+          <button type="submit" ion-button outline>
+            Save changes
+          </button>      
+        </ion-item> 
       </ion-list>
     </form>
   </div>
-  <button ion-button color="primary" outline>Save Changes</button>
+
+  <div *ngIf="isUpdated">
+    <h3>Successfully Updated Profile</h3>
+  </div>
 </ion-content>
