@@ -18,6 +18,7 @@ import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 import { PaymentPage } from '../pages/payment/payment';
 import { DeliveryPage } from '../pages/delivery/delivery';
+import { ConfirmTransactionPage } from '../pages/confirm-transaction/confirm-transaction';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -44,6 +45,7 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     ShoppingCartPage,
     PaymentPage,
     DeliveryPage,
+    ConfirmTransactionPage,
     SideMenuContentComponent
   ],
   imports: [
@@ -66,6 +68,7 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     ShoppingCartPage,
     PaymentPage,
     DeliveryPage,
+    ConfirmTransactionPage
   ],
   providers: [
     StatusBar,
