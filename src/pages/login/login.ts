@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
-import { AlertController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
+import { AlertController, ToastController } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 import { SignupPage } from '../signup/signup';

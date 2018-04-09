@@ -1,22 +1,73 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Product: Individual Page</ion-title>
+    <ion-list *ngIf="product != null">
+      <ion-title>{{product.productName}}</ion-title>
+    </ion-list>
     <ion-buttons end>
       <button ion-button icon-left color="light" (click)="cartTapped($event, page)">
-            <ion-icon name="cart"></ion-icon>
-            Cart
-          </button>
+        <ion-icon name="cart"></ion-icon>
+          Cart
+        </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-	<ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg"></ion-img><br>
+<ion-content padding>	
 
-	<p>Product Name: </p>
-	<p>Product Description: </p>
-	<p>Product Price: </p>
-	<p>Select Quantity: </p>
+  <div *ngIf="errorMessage" class="errorText">
+    {{errorMessage}}
+  </div>
+  
+  <div *ngIf="infoMessage" class="infoText">
+    {{infoMessage}}
+  </div>
 
-	<button ion-button color="primary" outline>Add to Cart</button>
+  <ion-list *ngIf="product != null">
+    <ion-grid>
+      <ion-row center>
+        <ion-col text-center>        
+          <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg"></ion-img><br>          
+          <ion-item>
+            <b>Product Name: </b>{{product.productName}}
+          </ion-item>
+
+          <ion-item>
+            <b>Product Description:</b><br/> {{product.description}} <br/><br/>
+            <b>Product Price:</b> <br/> ${{product.price}} <br/>
+          </ion-item>
+          
+          <form #addToCartForm="ngForm" (ngSubmit)="addToCart(addToCartForm)">         
+           
+            <div>         
+              <div *ngIf="inquantity.invalid && (inquantity.dirty || inquantity.touched || submitted)" class="errorText">
+                <div *ngIf="inquantity.errors.required">
+                  Quantity is required.
+                </div>
+                <div *ngIf="inquantity.errors.min">
+                  Quantity must be at least 1.
+                </div>
+                <div *ngIf="inquantity.errors.max">
+                  Quantity selected is more than maximum quantity in stock. Please Reselect Quantity.                
+                </div>                            
+              </div>
+
+              <div *ngIf="addToCartErrorMessage" class="errorText">
+                {{addToCartErrorMessage}}
+              </div>  
+            </div>
+              
+            <ion-item>                                 
+              <ion-label><b>{{ 'Quantity:' }}</b></ion-label>                                            
+              <ion-input type="number" placeholder="Select Quantity" [(ngModel)]="cart.quantity" name="quantity" min="1" max="{{product.quantityOnHand}}" required="true" #inquantity="ngModel"></ion-input>
+            </ion-item>  
+
+            <button type="submit" ion-button color="primary" outline>{{ 'Add to Cart' }}</button>
+
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+
 </ion-content>
