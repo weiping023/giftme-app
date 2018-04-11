@@ -1,110 +1,110 @@
 <ion-header>
   <ion-navbar color="primary">
     <button ion-button menuToggle color="dark">
-        <ion-icon name="menu"></ion-icon>
-    </button>  
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Delivery</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding> 
-    <div *ngIf="!deliveryUpdated">
-        <form #deliveryForm="ngForm" (ngSubmit)="updateDelivery(deliveryForm)">
-            <div>
-                <div *ngIf="inunitnum.invalid && (inunitnum.dirty || inunitnum.touched || submitted)" class="errorText">
-                    <div *ngIf="inunitnum.errors.required">
-                        Unit number is required.
-                    </div>
-                    <div *ngIf="inunitnum.errors.minlength">
-                        Unit number must be at least 4 characters long.
-                    </div>
-                    <div *ngIf="inunitnum.errors.maxlength">
-                        Unit number cannot exceed 50 characters.
-                    </div>
-                </div>
+<ion-content padding>
+  <div *ngIf="!deliveryUpdated">
+    <form #deliveryForm="ngForm" (ngSubmit)="updateDelivery(deliveryForm)">
+      <div>
+        <div *ngIf="inunitnum.invalid && (inunitnum.dirty || inunitnum.touched || submitted)" class="errorText">
+          <div *ngIf="inunitnum.errors.required">
+            Unit number is required.
+          </div>
+          <div *ngIf="inunitnum.errors.minlength">
+            Unit number must be at least 4 characters long.
+          </div>
+          <div *ngIf="inunitnum.errors.maxlength">
+            Unit number cannot exceed 32 characters.
+          </div>
+        </div>
 
-                <div *ngIf="instreetname.invalid && (instreetname.dirty || instreetname.touched || submitted)" class="errorText">
-                    <div *ngIf="instreetname.errors.required">
-                        Street name is required.
-                    </div>
-                    <div *ngIf="instreetname.errors.minlength">
-                        Street name must be at least 4 characters long.
-                    </div>
-                    <div *ngIf="instreetname.errors.maxlength">
-                        Street name cannot exceed 70 characters.
-                    </div>
-                </div>
+        <div *ngIf="instreetname.invalid && (instreetname.dirty || instreetname.touched || submitted)" class="errorText">
+          <div *ngIf="instreetname.errors.required">
+            Street name is required.
+          </div>
+          <div *ngIf="instreetname.errors.minlength">
+            Street name must be at least 4 characters long.
+          </div>
+          <div *ngIf="instreetname.errors.maxlength">
+            Street name cannot exceed 70 characters.
+          </div>
+        </div>
 
-                <div *ngIf="inpostalcode.invalid && (inpostalcode.dirty || inpostalcode.touched || submitted)" class="errorText">
-                    <div *ngIf="inpostalcode.errors.required">
-                        Postal code is required.
-                    </div>
-                    <div *ngIf="inpostalcode.errors.minlength">
-                        Street name must be 6 characters long.
-                    </div>
-                    <div *ngIf="inpostalcode.errors.maxlength">
-                        Street name must be 6 characters long.
-                    </div>
-                </div>
+        <div *ngIf="inpostalcode.invalid && (inpostalcode.dirty || inpostalcode.touched || submitted)" class="errorText">
+          <div *ngIf="inpostalcode.errors.required">
+            Postal code is required.
+          </div>
+          <div *ngIf="inpostalcode.errors.minlength">
+            Postal code must be 6 characters long.
+          </div>
+          <div *ngIf="inpostalcode.errors.maxlength">
+            Postal code must be 6 characters long.
+          </div>
+        </div>
 
-                <div *ngIf="indatetime.invalid && (indatetime.dirty || indatetime.touched || submitted)" class="errorText">
-                    <div *ngIf="indatetime.errors.required">
-                        Date and time are required.
-                    </div>
-                </div>
+        <div *ngIf="indatetime.invalid && (indatetime.dirty || indatetime.touched || submitted)" class="errorText">
+          <div *ngIf="indatetime.errors.required">
+            Date and time are required.
+          </div>
+        </div>
 
-                <div *ngIf="updateDeliveryErrorMessage" class="errorText">
-                    {{updateDeliveryErrorMessage}}
-                </div>
-            </div>
+        <div *ngIf="updateDeliveryErrorMessage" class="errorText">
+          {{updateDeliveryErrorMessage}}
+        </div>
+      </div>
 
-            <ion-list>
-                <ion-list-header>
-                    Unit Number
-                </ion-list-header>
-                <ion-item>
-                    <ion-input type="text" placeholder="Eg. #06-01" id="unitnum" name="unitnum" [(ngModel)]="unitnum" minlength="4" maxlength="32" required="true" #inunitnum="ngModel"></ion-input>
-                </ion-item>
+      <ion-list>
+        <ion-list-header>
+          Unit Number
+        </ion-list-header>
+        <ion-item>
+          <ion-input type="text" placeholder="Eg. #06-01" id="unitnum" name="unitnum" [(ngModel)]="unitnum" minlength="4" maxlength="32" required="true" #inunitnum="ngModel"></ion-input>
+        </ion-item>
 
-                <ion-list-header>
-                    Street Name
-                </ion-list-header>
-                <ion-item>
-                    <ion-input type="text" placeholder="Eg. Orchard Road" id="streetname" name="streetname" [(ngModel)]="streetname" minlength="4" maxlength="70" required="true" #instreetname="ngModel"></ion-input>
-                </ion-item>
+        <ion-list-header>
+          Street Name
+        </ion-list-header>
+        <ion-item>
+          <ion-input type="text" placeholder="Eg. Orchard Road" id="streetname" name="streetname" [(ngModel)]="streetname" minlength="4" maxlength="70" required="true" #instreetname="ngModel"></ion-input>
+        </ion-item>
 
-                <ion-list-header>
-                    Postal Code
-                </ion-list-header>
-                <ion-item>
-                    <ion-input type="text" placeholder="Eg. 123456" id="postalcode" name="postalcode" [(ngModel)]="postalcode" minlength="6" maxlength="6" required="true" #inpostalcode="ngModel"></ion-input>
-                </ion-item>
-            </ion-list>
+        <ion-list-header>
+          Postal Code
+        </ion-list-header>
+        <ion-item>
+          <ion-input type="text" placeholder="Eg. 123456" id="postalcode" name="postalcode" [(ngModel)]="postalcode" minlength="6" maxlength="6" required="true" #inpostalcode="ngModel"></ion-input>
+        </ion-item>
+      </ion-list>
 
-            <ion-list>
-                <ion-list-header>
-                    Date and Time
-                </ion-list-header>
-                <ion-item>
-                    <ion-label>Select Date Time</ion-label>
-                    <ion-datetime displayFormat="DD/MMMM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A" type = "text" min = "2018" max = "2018-12-31" id = "datetime" name = "datetime" [(ngModel)]="dateTime" required = "true" #indatetime="ngModel"></ion-datetime>
-                </ion-item>
+      <ion-list>
+        <ion-list-header>
+          Date and Time
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Select Date Time</ion-label>
+          <ion-datetime displayFormat="DD/MMMM/YYYY h:mm A" pickerFormat="DD MM YYYY h mm A" type="text" min="2018" max="2018-12-31" id="datetime" name="datetime" [(ngModel)]="dateTime" required="true" #indatetime="ngModel"></ion-datetime>
+        </ion-item>
 
-                <ion-item>
-                    <button type="submit" ion-button outline>
-                        Submit
-                    </button>                 
-                </ion-item> 
-            </ion-list>
-        </form>
-    </div>
+        <ion-item>
+          <button type="submit" ion-button outline>
+            Submit
+          </button>
+        </ion-item>
+      </ion-list>
+    </form>
+  </div>
 
-    <div *ngIf="deliveryUpdated">
-        <h4>Delivery Details Confirmed</h4>
-        <p>Address: {{unitNum}} {{streetName}} {{postalCode}}</p>
-        <p>Date and Time: {{datetime}}</p>
-        <p>Delivered By: Mr Jack Ma</p>
-        <p>Contact Number: 90909090</p>
-        <button ion-button color="primary" outline (click)="buttonTapped($event, page)">Make Payment</button>
-    </div>
+  <div *ngIf="deliveryUpdated">
+    <h4>Delivery Details Confirmed</h4>
+    <p>Address: {{unitnum}} {{streetname}} {{postalCode}}</p>
+    <p>Date and Time: {{datetime}}</p>
+    <p>Delivered By: Mr Jack Ma</p>
+    <p>Contact Number: 90909090</p>
+    <button ion-button color="primary" outline (click)="buttonTapped($event, page)">Make Payment</button>
+  </div>
 </ion-content>
