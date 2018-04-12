@@ -4,7 +4,8 @@ import { ToastController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
-import { ChangePasswordPage } from '../change-password/change-password'
+import { ChangePasswordPage } from '../change-password/change-password';
+import { HomePage } from '../home/home';
 
 @Component({
 	selector: 'page-profile',
@@ -42,7 +43,7 @@ export class ProfilePage {
 			this.isUpdated = true;
 			sessionStorage.setItem("firstName", this.firstName);
 			sessionStorage.setItem("lastName", this.lastName);
-			sessionStorage.setItem("mobileNum");
+			sessionStorage.setItem("mobileNum", this.mobileNum);
 			sessionStorage.setItem("isUpdated", "true");
 
 			let toast = this.toastCtrl.create(
@@ -55,8 +56,8 @@ export class ProfilePage {
 		} else {
 			let alert = this.alertCtrl.create(
 			{
-				title: 'Invalid profile details',
-				subTitle: '',
+				title: 'Profile',
+				subTitle: 'Invalid profile details',
 				buttons: ['OK']
 			});
 			alert.present();
@@ -70,4 +71,8 @@ export class ProfilePage {
 	buttonTapped(event, page) {
 		this.navCtrl.push(ChangePasswordPage, page);
 	}
+
+	homeTapped(event, page) {
+    this.navCtrl.push(HomePage, page);
+  }
 }

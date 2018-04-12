@@ -8,7 +8,9 @@ import { ToastController } from 'ionic-angular';
 })
 export class ConfirmTransactionPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {

@@ -17,12 +17,13 @@ import { ShopsPage } from '../pages/shops/shops';
 import { ProductCatPage } from '../pages/product-cat/product-cat';
 import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
+import { ReviewPage } from '../pages/review/review';
 //import { PaymentPage } from '../pages/payment/payment';
 import { CatConfectioneryPage } from '../pages/category-confectionery/category-confectionery';
 import { CatFlowersPage } from '../pages/category-flowers/category-flowers';
 import { CatPlushiesPage } from '../pages/category-plushies/category-plushies';
-
 //import { DeliveryPage } from '../pages/delivery/delivery';
+
 
 //Side Menu Component
 import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
@@ -37,13 +38,13 @@ export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
 
   //@viewchild: to get access to component and methods
-  @ViewChild(SideMenuContentComponent) sideMenu: SideMenuContentComponent; 
+  @ViewChild(SideMenuContentComponent) sideMenu: SideMenuContentComponent;
 
   rootPage: any = HomePage;
 
   // Options to show in the SideMenuComponent
-  options: Array<MenuOptionModel>; 
-  
+  options: Array<MenuOptionModel>;
+
   // Settings for the SideMenuComponent
   public sideMenuSettings: SideMenuSettings = {
     accordionMode: true,
@@ -54,16 +55,16 @@ export class MyApp {
       ios: '64px',
       wp: '56px'
     }
-  };  
+  };
 
-  constructor(public platform: Platform, 
-              public statusBar: StatusBar, 
+  constructor(public platform: Platform,
+              public statusBar: StatusBar,
               public splashScreen: SplashScreen,
               private alertCtrl: AlertController,
-              private menuCtrl: MenuController) 
+              private menuCtrl: MenuController)
   {
     this.initializeApp();
-    
+
   }
 
   initializeApp() {
@@ -88,12 +89,12 @@ export class MyApp {
 
       // This option is already selected
       selected: true
-    });  
+    });
 
 
     // Load options with nested items
     // -----------------------------------------------
-    this.options.push({      
+    this.options.push({
       displayName: 'Profile',
       subItems: [
         {
@@ -129,7 +130,7 @@ export class MyApp {
         }
       ]
     });
-    
+
     this.options.push({
       displayName: 'Shop',
       subItems: [
@@ -140,11 +141,17 @@ export class MyApp {
         }
       ]
     });
-    
+
     this.options.push({
       iconName: 'cart',
       displayName: 'Shopping Cart',
       component: ShoppingCartPage
+    });
+
+    this.options.push({
+      iconName: 'create',
+      displayName: 'Review',
+      component: ReviewPage
     });
 
     // Load special options
@@ -154,15 +161,15 @@ export class MyApp {
       displayName: 'Login/ Logout',
       component: LoginPage
     });
-    
+
     this.options.push({
       iconName: 'exit',
-      displayName: 'Exit',   
+      displayName: 'Exit',
       custom: {
         isExit: true
-      }      
+      }
     });
-    
+
   }
 
   public selectOption(option: MenuOptionModel): void {
@@ -194,9 +201,9 @@ export class MyApp {
   openPage(page) {
     if (page.title == "Exit"){
       this.platform.exitApp();
-    }     
+    }
     else {
-      this.navCtrl.setRoot(page.component);          
-    }         
+      this.navCtrl.setRoot(page.component);
+    }
   }
 }

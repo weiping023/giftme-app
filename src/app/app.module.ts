@@ -19,6 +19,7 @@ import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 import { PaymentPage } from '../pages/payment/payment';
 import { DeliveryPage } from '../pages/delivery/delivery';
 import { ConfirmTransactionPage } from '../pages/confirm-transaction/confirm-transaction';
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { CatConfectioneryPage } from '../pages/category-confectionery/category-confectionery';
 import { CatFlowersPage } from '../pages/category-flowers/category-flowers';
 import { CatPlushiesPage } from '../pages/category-plushies/category-plushies';
@@ -49,6 +50,7 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     PaymentPage,
     DeliveryPage,
     ConfirmTransactionPage,
+    ChangePasswordPage,
     CatConfectioneryPage,
     CatFlowersPage,
     CatPlushiesPage,
@@ -75,6 +77,7 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     PaymentPage,
     DeliveryPage,
     ConfirmTransactionPage,
+    ChangePasswordPage
     CatConfectioneryPage,
     CatFlowersPage,
     CatPlushiesPage
