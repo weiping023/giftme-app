@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
 
 import { ProductIndivPage } from './product-indiv';
@@ -9,8 +8,7 @@ import { ProductIndivPage } from './product-indiv';
     ProductIndivPage,
   ],
   imports: [
-    IonicPageModule.forChild(ProductIndivPage),
-    TranslateModule.forChild()
+    IonicPageModule.forChild(ProductIndivPage),    
   ],
   exports: [
     ProductIndivPage

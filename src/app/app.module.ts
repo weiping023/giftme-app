@@ -23,7 +23,7 @@ import { ConfirmTransactionPage } from '../pages/confirm-transaction/confirm-tra
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
-//import { ProductProvider } from '../providers/product/product';
+import { ProductProvider } from '../providers/product/product';
 import { User } from '../providers/user/user';
 import { Api } from '../providers/api/api';
 
@@ -74,7 +74,7 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     StatusBar,
     SplashScreen,
     //{provide: ErrorHandler, useClass: IonicErrorHandler},
-    //ProductProvider,
+    ProductProvider,
     User,
     Api
   ],

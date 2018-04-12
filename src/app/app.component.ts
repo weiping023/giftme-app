@@ -112,7 +112,7 @@ export class MyApp {
         {
           iconName: 'flower',
           displayName: 'Flowers',
-          component: ProductIndivPage //to replace
+          component: ProductCatPage //to replace
         },
         {
           iconName: 'basket',
