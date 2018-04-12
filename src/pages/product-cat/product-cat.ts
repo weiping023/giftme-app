@@ -38,7 +38,7 @@ export class ProductCatPage {
 
   productClicked(productClicked){
   	this.navCtrl.push(ProductIndivPage, {
-  		productId: productClicked.productId;
+  		productId: productClicked.productId
   	});
   }
  	cartTapped(event, page) {

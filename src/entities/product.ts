@@ -9,7 +9,7 @@ export class Product
 	productId: number;
 	productName: string;
 	quantityOnHand: number;
-	shop: Shop[];
+	shop: Shop;
 	skuCode: string;                
 		
 	constructor()

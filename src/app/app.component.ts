@@ -18,6 +18,9 @@ import { ProductCatPage } from '../pages/product-cat/product-cat';
 import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 //import { PaymentPage } from '../pages/payment/payment';
+import { CatConfectioneryPage } from '../pages/category-confectionery/category-confectionery';
+import { CatFlowersPage } from '../pages/category-flowers/category-flowers';
+import { CatPlushiesPage } from '../pages/category-plushies/category-plushies';
 
 //import { DeliveryPage } from '../pages/delivery/delivery';
 
@@ -112,17 +115,17 @@ export class MyApp {
         {
           iconName: 'flower',
           displayName: 'Flowers',
-          component: ProductCatPage //to replace
+          component: CatFlowersPage
         },
         {
           iconName: 'basket',
           displayName: 'Confectionery',
-          component: ProductIndivPage //to replace
+          component: CatConfectioneryPage
         },
         {
           iconName: 'basket',
           displayName: 'Plushies',
-          component: ProductIndivPage //to replace
+          component: CatPlushiesPage
         }
       ]
     });

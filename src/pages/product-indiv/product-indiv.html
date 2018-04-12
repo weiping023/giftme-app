@@ -28,15 +28,30 @@
         <ion-col text-center>        
           <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg"></ion-img><br>          
           <ion-item>
-            <b>Product Name: </b>{{productToView.productName}}
+            <b>Product Name: </b>{{productToView.productName}} <br/>
+            <p class="text-sm text-gray">{{productToView.description}}</p> 
           </ion-item>
 
-          <ion-item>
-            <b>Product Description:</b><br/> {{productToView.description}} <br/><br/>
-            <b>Product Price:</b> <br/> ${{productToView.price}} <br/>
-            <b>SKU:</b> <br/> {{productToView.skuCode}} <br/>
-            <b>Category:</b> <br/> {{productToView.category}} <br/>
-            <!--<b>Shop Name:</b> <br/> {{productToView.shop.shopName}} <br/>-->
+          <ion-item>            
+            <div class="product-price">
+              <strong>Product Price:</strong>  
+              <span>${{productToView.price}}</span>
+            </div> <br/>
+
+            <div class="product-sku">
+                <strong>SKU: </strong>
+                <span>{{productToView.skuCode}}</span>
+            </div> <br/>
+
+            <div class="product-category">
+                <strong>Category: </strong>
+                <a href="#">{{productToView.category}}</a>
+            </div> <br/>
+
+            <span class="product-rating text-warning">
+                <strong>Seller: </strong>
+                <a routerLink='/home'>{{productToView.shop?.shopName}}</a>
+            </span>
           </ion-item>                    
            
             <div>         
@@ -59,7 +74,7 @@
               
             <ion-item>                                 
               <ion-label><b>{{ 'Quantity:' }}</b></ion-label>                                            
-              <ion-input type="number" placeholder="Select Quantity" [(ngModel)]="cart.quantity" name="quantity" min="1" max="{{product.quantityOnHand}}" required="true" #inquantity="ngModel"></ion-input>
+              <ion-input type="number" placeholder="Select Quantity" [(ngModel)]="productToView.quantity" name="quantity" min="1" max="{{productToView.quantityOnHand}}" required="true" #inquantity="ngModel"></ion-input>
             </ion-item>  
             
             <button (click) = "addToCart()" ion-button color="primary" outline>{{ 'Add to Cart' }}</button>        

@@ -19,6 +19,9 @@ import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 import { PaymentPage } from '../pages/payment/payment';
 import { DeliveryPage } from '../pages/delivery/delivery';
 import { ConfirmTransactionPage } from '../pages/confirm-transaction/confirm-transaction';
+import { CatConfectioneryPage } from '../pages/category-confectionery/category-confectionery';
+import { CatFlowersPage } from '../pages/category-flowers/category-flowers';
+import { CatPlushiesPage } from '../pages/category-plushies/category-plushies';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -46,6 +49,9 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     PaymentPage,
     DeliveryPage,
     ConfirmTransactionPage,
+    CatConfectioneryPage,
+    CatFlowersPage,
+    CatPlushiesPage,
     SideMenuContentComponent
   ],
   imports: [
@@ -68,7 +74,10 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     ShoppingCartPage,
     PaymentPage,
     DeliveryPage,
-    ConfirmTransactionPage
+    ConfirmTransactionPage,
+    CatConfectioneryPage,
+    CatFlowersPage,
+    CatPlushiesPage
   ],
   providers: [
     StatusBar,

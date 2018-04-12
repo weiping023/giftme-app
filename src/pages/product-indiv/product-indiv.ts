@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { NgForm } from '@angular/forms';
+import { AlertController } from 'ionic-angular';
 
 //Provider
 import { ProductProvider } from '../../providers/product/product';
@@ -22,28 +23,20 @@ export class ProductIndivPage {
   productToView: Product;
   productToAddToCart: CartProduct;  
 
-  cart: { quantity: number, skuCode: number, productName: String, productPrice: number } = {
-    quantity: 0,
-    skuCode: 0,
-    productName: '',
-    productPrice: 0
-  };
-
   private addToCartErrorMessage: string;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public productProvider: ProductProvider,
-              public toastCtrl: ToastController)
+              public toastCtrl: ToastController,
+              public alertCtrl: AlertController)
   {        
     this.productToView = new Product();
     this.productToAddToCart = new CartProduct;
-    this.productId = navCtrl.get('productId');
+    this.productId = navParams.get('productId');
   }
 
-  ionViewDidLoad() {
-
-    this.productId = parseInt(this.navController.getChild(params));
+  ionViewDidLoad() {    
 
     console.log('ionViewDidLoad ProductIndivPage');
     this.productProvider.retrieveProduct(1).subscribe(
@@ -68,14 +61,7 @@ export class ProductIndivPage {
     // Cart doesn't exist => Create Cart
     if (sessionStorage.getItem("Cart") === null) {
       tempSessionStorage[0] = this.productToAddToCart;
-      sessionStorage.setItem("Cart", JSON.stringify(tempSessionStorage));      
-    
-      let toast = this.toastCtrl.create({
-        message: 'Add to Cart Successful!',
-        cssClass: 'toast',
-        duration: 3000,
-      });
-      toast.present();             
+      sessionStorage.setItem("Cart", JSON.stringify(tempSessionStorage));                      
 
     } else {
       // Cart already exists, retrieve the cart
@@ -93,10 +79,18 @@ export class ProductIndivPage {
       }
 
       if ((imaginaryCartQuantity.quantityInCart + this.productToAddToCart.quantityInCart) > this.productToView.quantityOnHand) {
-        console.log("Cannot add anymore, not enough product in stock");
-        this.error("Product was not successfully added in cart - Not enough stock");
+        console.log("Cannot add anymore, not enough product in stock");        
+          let alert = this.alertCtrl.create(
+          {
+            title: 'Add Product to Cart',
+            subTitle: 'Product was not successfully added to cart - Not enough stock',
+            buttons: ['OK']
+          });
+          
+          alert.present();        
         cartTooFull = true;
       } else if (cartTooFull === false){
+          
           let sameProductAdded = false;
           // check if this.productToView exists inside the array already
           // if it does, then ADD QUANTITY of productToView
@@ -118,6 +112,7 @@ export class ProductIndivPage {
 
               sameProductAdded = true;
             }
+
           }
 
           if (!sameProductAdded) {
@@ -125,7 +120,14 @@ export class ProductIndivPage {
             sessionStorage.setItem("Cart", JSON.stringify(tempSessionStorage));
           }
 
-          this.success("Product has been added into cart");
+          let alert = this.alertCtrl.create(
+          {
+            title: 'Add Product to Cart',
+            subTitle: 'Product has been added into cart',
+            buttons: ['OK']
+          });
+          
+          alert.present();
         }
       }
     }
@@ -139,8 +141,9 @@ export class ProductIndivPage {
       if (this.productToAddToCart.quantityInCart !== 1) {
         this.productToAddToCart.quantityInCart--;
       }
-    }  
+    }          
 
   cartTapped(event, page) {
   	this.navCtrl.push(ShoppingCartPage, page);
   }
+}  
