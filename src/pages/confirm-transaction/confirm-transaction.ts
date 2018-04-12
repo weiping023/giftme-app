@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-confirm-transaction',
@@ -12,6 +13,14 @@ export class ConfirmTransactionPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfirmTransactionPage');
+
+    let toast = this.toastCtrl.create(
+    {
+      message: 'This thing works',
+      cssClass: 'toast',
+      duration: 3000
+    });
+    toast.present();
   }
 
 }
