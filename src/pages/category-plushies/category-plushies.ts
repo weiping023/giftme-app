@@ -12,7 +12,7 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-category-plushies',
   templateUrl: 'category-plushies.html',
 })
-export class CategoryPlushiesPage {
+export class CatPlushiesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
