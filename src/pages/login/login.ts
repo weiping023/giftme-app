@@ -12,7 +12,7 @@ import { SignupPage } from '../signup/signup';
 })
 
 export class LoginPage {
-	
+
 	submitted: boolean;
 	isLogin: boolean;
 	firstName: string;
@@ -20,13 +20,13 @@ export class LoginPage {
 	email: string;
 	password: string;
 
-	constructor(public navCtrl: NavController, 		
+	constructor(public navCtrl: NavController,
   				public alertCtrl: AlertController,
   				public navParams: NavParams,
-  				public toastCtrl: ToastController) 
+  				public toastCtrl: ToastController)
 	{
 	  this.submitted = false;
-		this.isLogin = false;		
+		this.isLogin = false;
  	}
 
 	ionViewDidLoad() {
@@ -36,9 +36,11 @@ export class LoginPage {
 		{
 			this.isLogin = true;
 		}
-			
-		this.firstName = sessionStorage.getItem("firstName")
-		this.lastName = sessionStorage.getItem("lastName")
+
+		this.firstName = sessionStorage.getItem("firstName");
+		this.lastName = sessionStorage.getItem("lastName");
+    this.email = sessionStorage.getItem("email");
+    this.password = sessionStorage.getItem("password");
 	}
 
   	clear()
@@ -49,32 +51,34 @@ export class LoginPage {
 
 	login(loginForm: NgForm)
 	{
-		this.submitted = true;		
-		if (loginForm.valid) 
+		this.submitted = true;
+		if (loginForm.valid)
 		{
 			if((this.email == "giftmeadmin@gmail.com") && (this.password == "password"))
-			{				
+			{
 				if(this.email == "giftmeadmin@gmail.com")
 				{
-					this.firstName = "Admin";			
-				}				
-				
+					this.firstName = "Admin";
+				}
+
 				this.lastName = "Default";
 				this.isLogin = true;
-				
+
 				sessionStorage.setItem("firstName", this.firstName);
-				sessionStorage.setItem("lastName", this.lastName);				
+				sessionStorage.setItem("lastName", this.lastName);
 				sessionStorage.setItem("isLogin", "true");
-				
+        sessionStorage.setItem("email", this.email);
+        sesisonStorage.setItem("password", this.password);
+
 				//this.productProvider.setLoginCredential(this.email, this.password);
-				
+
 				let toast = this.toastCtrl.create(
 				{
 					message: 'Log in Successful. Welcome back ' + this.firstName + ' ' + this.lastName,
 					cssClass: 'toast',
 					duration: 3000
 				});
-				
+
 				toast.present();
 			}
 			else
@@ -85,8 +89,8 @@ export class LoginPage {
 					subTitle: 'Invalid login credential',
 					buttons: ['OK']
 				});
-				
-				alert.present();			
+
+				alert.present();
 			}
 		}
 		else
@@ -95,9 +99,9 @@ export class LoginPage {
 	}
 
 	logout(){
-		console.log("Logout");		
-		sessionStorage.setItem("isLogin", "false");		
-		this.navCtrl.setRoot(HomePage); 
+		console.log("Logout");
+		sessionStorage.setItem("isLogin", "false");
+		this.navCtrl.setRoot(HomePage);
 
 		let toast = this.toastCtrl.create(
 		{
@@ -105,17 +109,17 @@ export class LoginPage {
 			cssClass: 'toast',
 			duration: 3000
 		});
-		
+
 		toast.present();
 	}
 
-	register(){				
+	register(){
 		let toast = this.toastCtrl.create(
 		{
 			message: 'Redirect to Signup.',
 			cssClass: 'toast',
 			duration: 3000
-		});	
+		});
 		this.navCtrl.push(SignupPage);
-	}	
+	}
 }

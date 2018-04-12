@@ -64,7 +64,7 @@ export class PaymentPage {
         this.streetname = sessionStorage.getItem("streetname");
         this.postalcode = sessionStorage.getItem("postalcode");
 
-        if (promocode != null) {
+        if (this.promocode != null) {
           sessionStorage.setItem("promocode", this.promocode);
           this.promocode = sessionStorage.getItem("promocode");
         }
