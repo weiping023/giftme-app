@@ -18,11 +18,9 @@ import { ProductCatPage } from '../pages/product-cat/product-cat';
 import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 import { ReviewPage } from '../pages/review/review';
-//import { PaymentPage } from '../pages/payment/payment';
 import { CatConfectioneryPage } from '../pages/category-confectionery/category-confectionery';
 import { CatFlowersPage } from '../pages/category-flowers/category-flowers';
 import { CatPlushiesPage } from '../pages/category-plushies/category-plushies';
-//import { DeliveryPage } from '../pages/delivery/delivery';
 
 
 //Side Menu Component

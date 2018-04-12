@@ -12,7 +12,7 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-category-flowers',
   templateUrl: 'category-flowers.html',
 })
-export class CategoryFlowersPage {
+export class CatFlowersPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

@@ -68,7 +68,7 @@ export class LoginPage {
 				sessionStorage.setItem("lastName", this.lastName);
 				sessionStorage.setItem("isLogin", "true");
         sessionStorage.setItem("email", this.email);
-        sesisonStorage.setItem("password", this.password);
+        sessionStorage.setItem("password", this.password);
 
 				//this.productProvider.setLoginCredential(this.email, this.password);
 

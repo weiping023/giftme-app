@@ -12,12 +12,12 @@ import { Product } from '../../entities/product';
   selector: 'page-category-confectionery',
   templateUrl: 'category-confectionery.html',
 })
-export class CategoryConfectioneryPage {
+export class CatConfectioneryPage {
 
 	errorMessage: string;
 	products: Product[];
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
   						public navParams: NavParams,
   						public productProvider: ProductProvider) {
   }
@@ -29,7 +29,7 @@ export class CategoryConfectioneryPage {
 			response => {
 				this.products = response.products
 			},
-			error => {				
+			error => {
 				this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
 			}
 		);
