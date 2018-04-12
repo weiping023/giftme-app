@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-list *ngIf="product != null">
-      <ion-title>{{product.productName}}</ion-title>
+    <ion-list *ngIf="productToView != null">
+      <ion-title>{{productToView.productName}}</ion-title>
     </ion-list>
     <ion-buttons end>
       <button ion-button icon-left color="light" (click)="cartTapped($event, page)">
@@ -22,21 +22,22 @@
     {{infoMessage}}
   </div>
 
-  <ion-list *ngIf="product != null">
+  <ion-list *ngIf="productToView != null">
     <ion-grid>
       <ion-row center>
         <ion-col text-center>        
           <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg"></ion-img><br>          
           <ion-item>
-            <b>Product Name: </b>{{product.productName}}
+            <b>Product Name: </b>{{productToView.productName}}
           </ion-item>
 
           <ion-item>
-            <b>Product Description:</b><br/> {{product.description}} <br/><br/>
-            <b>Product Price:</b> <br/> ${{product.price}} <br/>
-          </ion-item>
-          
-          <form #addToCartForm="ngForm" (ngSubmit)="addToCart(addToCartForm)">         
+            <b>Product Description:</b><br/> {{productToView.description}} <br/><br/>
+            <b>Product Price:</b> <br/> ${{productToView.price}} <br/>
+            <b>SKU:</b> <br/> {{productToView.skuCode}} <br/>
+            <b>Category:</b> <br/> {{productToView.category}} <br/>
+            <!--<b>Shop Name:</b> <br/> {{productToView.shop.shopName}} <br/>-->
+          </ion-item>                    
            
             <div>         
               <div *ngIf="inquantity.invalid && (inquantity.dirty || inquantity.touched || submitted)" class="errorText">
@@ -60,10 +61,8 @@
               <ion-label><b>{{ 'Quantity:' }}</b></ion-label>                                            
               <ion-input type="number" placeholder="Select Quantity" [(ngModel)]="cart.quantity" name="quantity" min="1" max="{{product.quantityOnHand}}" required="true" #inquantity="ngModel"></ion-input>
             </ion-item>  
-
-            <button type="submit" ion-button color="primary" outline>{{ 'Add to Cart' }}</button>
-
-          </form>
+            
+            <button (click) = "addToCart()" ion-button color="primary" outline>{{ 'Add to Cart' }}</button>        
         </ion-col>
       </ion-row>
     </ion-grid>
