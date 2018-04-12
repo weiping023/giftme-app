@@ -1,0 +1,45 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <button ion-button menuToggle colour="dark">
+          <ion-icon name="menu"></ion-icon>
+      </button>  
+    <ion-title>View All Products</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left color="light" (click)="cartTapped($event, page)">
+        <ion-icon name="cart"></ion-icon>
+          Cart
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+	<div *ngIf="errorMessage" class="errorText">
+    {{errorMessage}}
+  </div>
+
+  <ion-grid>    
+    <ion-row>
+      <ion-list *ngFor="let product of products">
+        <ion-col col-md-6>
+          <ion-card>
+          
+            <ion-item>
+              <ion-img>Product Image</ion-img><br>
+              <b>Product Name:</b>
+              {{product.productName}}
+            </ion-item>
+
+            <ion-item>        
+              <b>Product Price:</b>
+              ${{product.price}}
+            </ion-item>
+          </ion-card>
+
+        </ion-col>
+      </ion-list>      
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
+import { ProductIndivPage } from '../product-indiv/product-indiv';
 
 //Provider
 import { ProductProvider } from '../../providers/product/product';
@@ -35,6 +36,11 @@ export class ProductCatPage {
 		);
   }
 
+  productClicked(productClicked){
+  	this.navCtrl.push(ProductIndivPage, {
+  		productId: productClicked.productId
+  	});
+  }
  	cartTapped(event, page) {
 		this.navCtrl.push(ShoppingCartPage, page);
 	}
