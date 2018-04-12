@@ -18,9 +18,9 @@ export class DeliveryPage {
   datetime: string;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public alertCtrl: AlertController,
-              public toastCtrl: ToastController) {
+        public navParams: NavParams,
+        public alertCtrl: AlertController,
+        public toastCtrl: ToastController) {
     this.submitted = false;
     this.deliveryUpdated = false;
   }

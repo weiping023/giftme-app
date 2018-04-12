@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <button ion-button menuToggle colour="dark">
           <ion-icon name="menu"></ion-icon>
-      </button>  
+      </button>
     <ion-title>Manage Profile</ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="light" (click)="cartTapped($event, page)">
@@ -13,7 +13,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding> 
+<ion-content padding>
 <h4> Profile Details </h4>
 
   <div *ngIf="!isUpdated">
@@ -46,42 +46,6 @@
           </div>
         </div>
 
-        <div *ngIf="incurrpassword.invalid && (incurrpassword.dirty || incurrpassword.touched || submitted)" class="errorText">
-          <div *ngIf="incurrpassword.errors.required">
-            Password is required.
-          </div>
-          <div *ngIf="incurrpassword.errors.minlength">
-            Password must be at least 4 characters long.
-          </div>
-          <div *ngIf="incurrpassword.errors.maxlength">
-            Password cannot exceed 32 characters.
-          </div>
-        </div>
-
-        <div *ngIf="innewpassword.invalid && (innewpassword.dirty || innewpassword.touched || submitted)" class="errorText">
-          <div *ngIf="innewpassword.errors.required">
-            Password is required.
-          </div>
-          <div *ngIf="innewpassword.errors.minlength">
-            Password must be at least 4 characters long.
-          </div>
-          <div *ngIf="innewpassword.errors.maxlength">
-            Password cannot exceed 32 characters.
-          </div>
-        </div>
-
-        <div *ngIf="inverifypassword.invalid && (inverifypassword.dirty || inverifypassword.touched || submitted)" class="errorText">
-          <div *ngIf="inverifypassword.errors.required">
-            Password is required.
-          </div>
-          <div *ngIf="inverifypassword.errors.minlength">
-            Password must be at least 4 characters long.
-          </div>
-          <div *ngIf="inverifypassword.errors.maxlength">
-            Password cannot exceed 32 characters.
-          </div>
-        </div>
-
         <div *ngIf="updateProfileErrorMessage" class="errorText">
           {{updateProfileErrorMessage}}
         </div>
@@ -106,28 +70,11 @@
           </ion-input>
         </ion-item>
 
-        <h4>Password</h4>
-
-        <ion-item>
-          <ion-label fixed>Current</ion-label>
-          <ion-input type="password" id="currpassword" name="currpassword" [(ngModel)]="currpassword" minlength="4" maxlength="32" required="false" #incurrpassword="ngModel"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label fixed>New</ion-label>
-          <ion-input type="password" id="newpassword" name="newpassword" [(ngModel)]="newpassword" minlength="4" maxlength="32" required="false" #innewpassword="ngModel"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label fixed>Verify</ion-label>
-          <ion-input type="password" id="verifypassword" name="verifypassword" [(ngModel)]="verifypassword" minlength="4" maxlength="32" required="false" #inverifypassword="ngModel"></ion-input>
-        </ion-item>
-
         <ion-item>
           <button type="submit" ion-button outline>
             Save changes
-          </button>      
-        </ion-item> 
+          </button>
+        </ion-item>
       </ion-list>
     </form>
   </div>
@@ -135,4 +82,6 @@
   <div *ngIf="isUpdated">
     <h3>Successfully Updated Profile</h3>
   </div>
+
+  <button ion-button color="primary" outline (click)="buttonTapped($event, page)">Change Password</button>
 </ion-content>
