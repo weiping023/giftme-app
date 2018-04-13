@@ -45,8 +45,8 @@ export class ProfilePage {
 		if (sessionStorage.getItem("isLogin") === "true") {
 			this.isLogin = true;
 			this.user = JSON.parse(sessionStorage.getItem("user")).customer;
-			this.email = this.user.getEmail();
-			this.password = this.user.getPassword();
+			this.email = this.user.email;
+			this.password = this.user.password;
 		} else {
 			this.navCtrl.push(LoginPage);
 		}
@@ -56,37 +56,33 @@ export class ProfilePage {
 		this.submitted = true;
 		if (updateProfileForm.valid) {
 			this.isUpdated = true;
-			// this.userProvider.updateCustomer(this.profile).subscribe(
-			// 	response => {
-			// 		let toast = this.toastCtrl.create(
-			// 		{
-			// 			message: 'Details Updated',
-			// 			cssClass: 'toast',
-			// 			duration: 3000
-			// 		});
-			// 		toast.present();
+			this.userProvider.updateCustomer(this.email, this.firstName, this.lastName, this.mobileNum, this.password).subscribe(
+				response => {
+					let toast = this.toastCtrl.create(
+					{
+						message: 'Details Updated',
+						cssClass: 'toast',
+						duration: 3000
+					});
+					toast.present();
 
-					// sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
-					// sessionStorage.setItem("firstName", firstName);
-					// sessionStorage.setItem("lastName", lastName);
-					// sessionStorage.setItem("mobileNum", mobileNum);
-					// sessionStorage.setItem("isUpdated", "true");
-					// sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+					sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+					sessionStorage.setItem("isUpdated", "true");
+				},
+				error => {
+					//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
+					let alert = this.alertCtrl.create(
+					{
+						title: 'Profile',
+						subTitle: 'Invalid profile details',
+						buttons: ['OK']
+					});
+					alert.present();
+					this.navCtrl.push(HomePage);
 				}
-		// 		error => {
-		// 			//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
-		// 			this.navCtrl.push(HomePage);
-		// 		}
-		// 	);
-		// } else {
-		// 	let alert = this.alertCtrl.create(
-		// 	{
-		// 		title: 'Profile',
-		// 		subTitle: 'Invalid profile details',
-		// 		buttons: ['OK']
-		// 	});
-		// 	alert.present();
+			);
 		}
+	}
 
 	cartTapped(event, page) {
 		this.navCtrl.push(ShoppingCartPage, page);
