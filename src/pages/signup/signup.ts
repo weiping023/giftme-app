@@ -19,13 +19,6 @@ export class SignupPage {
   email: string;
   password: string;
 
-  account: { email: string, firstName: string, lastName: string, mobileNumber: string,  password: string } = {
-    email: '',
-    firstName: '',
-    lastName: '',
-    mobileNumber: '',
-    password: ''
-  };
 
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController, public userProvider: UserProvider, public alertCtrl: AlertController) {
@@ -35,12 +28,13 @@ export class SignupPage {
     this.lastName = "";
     this.mobileNumber = "";
     this.password = "";
+    this.user = new User();
   }
 
   signup(signupForm: NgForm) {
     this.submitted = true;
     if (signupForm.valid) {
-      this.userProvider.createCustomer(this.account).subscribe (
+      this.userProvider.createCustomer(this.user).subscribe (
         response => {
           sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
           let toast = this.toastCtrl.create({

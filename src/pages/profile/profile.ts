@@ -54,6 +54,7 @@ export class ProfilePage {
 
 	updateProfile(updateProfileForm: NgForm) {
 		this.submitted = true;
+		console.log(this.email);
 		if (updateProfileForm.valid) {
 			this.isUpdated = true;
 			this.userProvider.updateCustomer(this.email, this.firstName, this.lastName, this.mobileNum, this.password).subscribe(
