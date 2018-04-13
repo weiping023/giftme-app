@@ -1,9 +1,15 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>review</ion-title>
+  <ion-navbar color="secondary">
+    <ion-list *ngIf="productToView != null">
+      <ion-title>{{productToView.productName}}</ion-title>
+    </ion-list>
+    <ion-buttons end>
+      <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
+        <ion-icon name="cart"></ion-icon>
+          Cart
+        </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
