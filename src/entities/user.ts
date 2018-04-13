@@ -6,22 +6,22 @@ export class User {
   password: string;
 
   getEmail() {
-    return email;
+    return this.email;
   }
 
   getFirstName() {
-    return firstName;
+    return this.firstName;
   }
 
   getLastName() {
-    return lastName;
+    return this.lastName;
   }
 
   getMobileNumber() {
-    return mobileNumber;
+    return this.mobileNumber;
   }
 
   getPassword() {
-    return password;
+    return this.password;
   }
 }
