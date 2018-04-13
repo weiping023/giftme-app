@@ -123,7 +123,8 @@ export class ProductIndivPage {
           let alert = this.alertCtrl.create(
           {
             title: 'Add Product to Cart',
-            subTitle: 'Product has been added into cart',
+            subTitle: 'Product has been added into cart!',
+            cssClass:'buttonCss',
             buttons: ['OK']
           });
           

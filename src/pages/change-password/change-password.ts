@@ -56,6 +56,7 @@ export class ChangePasswordPage {
     			{
     				title: 'Passwords do not match',
     				subTitle: '',
+            cssClass:'buttonCss',
     				buttons: ['OK']
     			});
     			alert.present();
@@ -65,6 +66,7 @@ export class ChangePasswordPage {
         {
           title: 'Incorrect current password',
           subTitle: '',
+          cssClass:'buttonCss',
           buttons: ['OK']
         });
         alert.present();

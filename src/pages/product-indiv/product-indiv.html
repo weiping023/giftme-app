@@ -45,12 +45,12 @@
 
             <div class="product-category">
                 <strong>Category: </strong>
-                <a href="#">{{productToView.category}}</a>
+                <a href="#"><font color="FF00CC">{{productToView.category}}</font></a>
             </div> <br/>
 
             <span class="product-rating text-warning">
-                <strong>Seller: </strong>
-                <a routerLink='/home'>{{productToView.shop?.shopName}}</a>
+                <strong>Seller: </strong>                
+                <a><font color="FF00CC">{{productToView.shop?.shopName}}</font></a>
             </span>
           </ion-item>                    
            
@@ -77,7 +77,7 @@
               <ion-input type="number" placeholder="Select Quantity" [(ngModel)]="productToView.quantity" name="quantity" min="1" max="{{productToView.quantityOnHand}}" required="true" #inquantity="ngModel"></ion-input>
             </ion-item>  
             
-            <button (click) = "addToCart()" ion-button color="primary" outline>{{ 'Add to Cart' }}</button>        
+            <button (click) = "addToCart()" ion-button color="dark" outline>{{ 'Add to Cart' }}</button>        
         </ion-col>
       </ion-row>
     </ion-grid>

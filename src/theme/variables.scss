@@ -34,12 +34,19 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #FAFAFA, //off-white
-  secondary:  #999999, //light-grey
+  primary:    #999999, //off-white
+  secondary:  #FAFAFA, //light-grey
   danger:     #EFE1D4, //beige
   light:      #f4f4f4, 
   dark:       #333333 //dark grey
 );
+
+.buttonCss {
+
+    button.alert-button{
+      color: grey;
+    }    
+}
 
 // App iOS Variables
 // --------------------------------------------------
