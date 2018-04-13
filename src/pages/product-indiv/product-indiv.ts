@@ -80,14 +80,14 @@ export class ProductIndivPage {
 
       if ((imaginaryCartQuantity.quantityInCart + this.productToAddToCart.quantityInCart) > this.productToView.quantityOnHand) {
         console.log("Cannot add anymore, not enough product in stock");        
-          let alert = this.alertCtrl.create(
-          {
-            title: 'Add Product to Cart',
-            subTitle: 'Product was not successfully added to cart - Not enough stock',
-            buttons: ['OK']
-          });
-          
-          alert.present();        
+        let alert = this.alertCtrl.create(
+        {
+          title: 'Add Product to Cart',
+          subTitle: 'Product was not successfully added to cart - Not enough stock',
+          buttons: ['OK']
+        });
+        
+        alert.present();        
         cartTooFull = true;
       } else if (cartTooFull === false){
           
