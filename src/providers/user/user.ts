@@ -59,7 +59,6 @@ export class UserProvider {
     } else {
       path = this.fullBaseUrl;
     }
-console.error('****************************** '+ account);
     let createCustomerReq = {
       'customer': account
     }
