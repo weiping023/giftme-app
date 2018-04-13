@@ -26,18 +26,17 @@ export class ProfilePage {
 	password: string;
 	errorMessage: string;
 
-	profile: { firstname: string, lastname: string, mobilenum: string } = {
-    firstname: '',
-    lastname: '',
-    mobilenum: '',
-  };
-
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams,
 				public toastCtrl: ToastController,
 				public alertCtrl: AlertController, public userProvider: UserProvider) {
 		this.submitted = false;
 		this.isUpdated = false;
+		this.firstName = "";
+		this.lastName = "";
+		this.mobileNum = "";
+		this.email = "";
+		this.password = "";
 	}
 
 	ionViewDidLoad() {
@@ -46,34 +45,11 @@ export class ProfilePage {
 		if (sessionStorage.getItem("isLogin") === "true") {
 			this.isLogin = true;
 			this.user = JSON.parse(sessionStorage.getItem("user")).customer;
-			// this.email = sessionStorage.getItem("email");
-			// this.password = sessionStorage.getItem("password");
-			//
-			// this.user.subscribe(
-			// 	response => {
-			// 		this.user = response.customerEntity;
-			// 		let toast = this.toastCtrl.create(
-			// 		{
-			// 			message: 'User Details loaded successfully',
-			// 			cssClass: 'toast',
-			// 			duration: 3000
-			// 		});
-			// 	},
-			// 	error => {
-			// 		this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
-			// 	}
-			// );
-			//
-			//
-			// console.log("this.user", this.user);
-			// this.firstName = sessionStorage.getItem("firstname");
-			// this.lastName = sessionStorage.getItem("lastname");
-			// this.mobileNum = sessionStorage.getItem("mobilenum");
+			this.email = this.user.getEmail();
+			this.password = this.user.getPassword();
 		} else {
 			this.navCtrl.push(LoginPage);
 		}
-
-
 	}
 
 	updateProfile(updateProfileForm: NgForm) {

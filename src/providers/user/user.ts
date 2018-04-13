@@ -67,7 +67,7 @@ export class UserProvider {
     );
   }
 
-  updateCustomer(profile: any): Observable<any> {
+  updateCustomer(email: string, firstName: string, lastName: string, mobileNumber: string, password: string): Observable<any> {
     let path: string = "";
     if (this.platform.is('core') || this.platform.is('mobileweb')) {
       path = this.baseUrl;
@@ -76,9 +76,7 @@ export class UserProvider {
     }
 
     let updateCustomerReq = {
-      "firstName": this.firstName,
-      "lastName": this.lastName,
-      "mobileNum": this.mobileNumber
+      "email":
     };
 
     return this.httpClient.post<any>(path, updateCustomerReq, httpOptions).pipe (
@@ -95,48 +93,6 @@ export class UserProvider {
 		return new ErrorObservable(error);
   }
 
-  /**
-   * Send a POST request to our login endpoint with the data
-   * the user entered on the form.
-   */
-  login(accountInfo: any) {
-    let seq = this.api.post('login', accountInfo).share();
-
-    seq.subscribe((res: any) => {
-      // If the API returned a successful response, mark the user as logged in
-      if (res.status == 'success') {
-        this._loggedIn(res);
-      } else {
-      }
-    }, err => {
-      console.error('ERROR', err);
-    });
-
-    return seq;
-  }
-
-  /**
-   * Send a POST request to our signup endpoint with the data
-   * the user entered on the form.
-   */
-  // signup(accountInfo: any) {
-  //   let seq = this.api.post('signup', accountInfo).share();
-  //
-  //   seq.subscribe((res: any) => {
-  //     // If the API returned a successful response, mark the user as logged in
-  //     if (res.status == 'success') {
-  //       this._loggedIn(res);
-  //     }
-  //   }, err => {
-  //     console.error('ERROR', err);
-  //   });
-  //
-  //   return seq;
-  // }
-
-  /**
-   * Log the user out, which forgets the session
-   */
   logout() {
     this._user = null;
   }
