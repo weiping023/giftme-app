@@ -76,7 +76,11 @@ export class UserProvider {
     }
 
     let updateCustomerReq = {
-      "email": ""
+      "email": this.email,
+      "firstName": this.firstName,
+      "lastName": this.lastName,
+      "mobileNumber": this.mobileNumber,
+      "password": this.password,
     }
 
     return this.httpClient.post<any>(path, updateCustomerReq, httpOptions).pipe (
