@@ -2,17 +2,17 @@
   <ion-toolbar color="primary">
     <button ion-button menuToggle colour="dark">
     	<ion-icon name="menu"></ion-icon>
-    </button>      
-    <ion-title>Login</ion-title>    
+    </button>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-	<div *ngIf="!isLogin">		
-		
-		<form #loginForm="ngForm" (ngSubmit)="login(loginForm)" >	
-			
-			<div>			
+	<div *ngIf="!isLogin">
+
+		<form #loginForm="ngForm" (ngSubmit)="login(loginForm)" >
+
+			<div>
 				<div *ngIf="inemail.invalid && (inemail.dirty || inemail.touched || submitted)" class="errorText">
 					<div *ngIf="inemail.errors.required">
 						Email is required.
@@ -27,7 +27,7 @@
 						Email must be valid.
 					</div>
 				</div>
-				
+
 				<div *ngIf="inpassword.invalid && (inpassword.dirty || inpassword.touched || submitted)" class="errorText">
 					<div *ngIf="inpassword.errors.required">
 						Password is required.
@@ -39,11 +39,11 @@
 						Password cannot exceed 32 characters.
 					</div>
 				</div>
-				
+
 				<div *ngIf="loginErrorMessage" class="errorText">
 					{{loginErrorMessage}}
-				</div>				
-				
+				</div>
+
 			</div>
 
 			<ion-list>
@@ -56,25 +56,24 @@
 					<ion-label fixed>Password</ion-label>
 					<ion-input type="password" placeholder="Eg. password" id="password" name="password" [(ngModel)]="password" minlength="4" maxlength="32" required="true" #inpassword="ngModel"></ion-input>
 				</ion-item>
-								
+
 				<ion-item>
 					<div align="center">
 						<button type="submit" ion-button outline>
 							Login
 						</button>
-						<button ion-button outline (click)="register()"> 
+						<button ion-button outline (click)="register()">
 							Sign Up
-						</button>					
+						</button>
 					</div>
-				</ion-item>				
+				</ion-item>
 			</ion-list>
 
 		</form>
 	</div>
-	
+
 	<div *ngIf="isLogin">
 		<h3>Welcome Back!</h3>
-		You are login as {{firstName}} {{lastName}}
 		<br/>
 		<button ion-button align="center" (click)="logout()">
 			Log out

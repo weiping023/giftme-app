@@ -20,14 +20,14 @@ export class UserProvider {
   ipAddress = '192.168.170.1';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Customer';
-  baseUrl = "/api/User";
+  baseUrl = "/api/Customer";
 
   email = "";
   password = "";
+  loginCredential = "";
   firstName = "";
   lastName = "";
-  mobileNum = "";
-  loginCredential = "";
+  mobileNumber = "";
 
   constructor(public api: Api, public platform: Platform, private httpClient: HttpClient) {
     console.log('Hello UserProvider Provider');
@@ -46,10 +46,27 @@ export class UserProvider {
 		} else {
 			path = this.fullBaseUrl;
 		}
-		return this.httpClient.get<any>(path + "/retrieveProduct/" + productId + this.loginCredential).pipe(
-      catchError(this.handleError)
+    console.log(path + "/getCustomer" + "?email=" + email + "&password=" + password);
+		return this.httpClient.get<any>(path + "/getCustomer" + "?email=" + email + "&password=" + password).pipe
+    (catchError(this.handleError)
 		);
 	}
+
+  createCustomer(account: any): Observable<any> {
+    let path: string = "";
+    if (this.platform.is('core') || this.platform.is('mobileweb')) {
+      path = this.baseUrl;
+    } else {
+      path = this.fullBaseUrl;
+    }
+console.error('****************************** '+ account);
+    let createCustomerReq = {
+      'customer': account
+    }
+    return this.httpClient.put<any>(path, createCustomerReq, httpOptions).pipe (
+      catchError(this.handleError)
+    );
+  }
 
   updateCustomer(profile: any): Observable<any> {
     let path: string = "";
@@ -62,7 +79,7 @@ export class UserProvider {
     let updateCustomerReq = {
       "firstName": this.firstName,
       "lastName": this.lastName,
-      "mobileNum": this.mobileNum
+      "mobileNum": this.mobileNumber
     };
 
     return this.httpClient.post<any>(path, updateCustomerReq, httpOptions).pipe (
@@ -103,20 +120,20 @@ export class UserProvider {
    * Send a POST request to our signup endpoint with the data
    * the user entered on the form.
    */
-  signup(accountInfo: any) {
-    let seq = this.api.post('signup', accountInfo).share();
-
-    seq.subscribe((res: any) => {
-      // If the API returned a successful response, mark the user as logged in
-      if (res.status == 'success') {
-        this._loggedIn(res);
-      }
-    }, err => {
-      console.error('ERROR', err);
-    });
-
-    return seq;
-  }
+  // signup(accountInfo: any) {
+  //   let seq = this.api.post('signup', accountInfo).share();
+  //
+  //   seq.subscribe((res: any) => {
+  //     // If the API returned a successful response, mark the user as logged in
+  //     if (res.status == 'success') {
+  //       this._loggedIn(res);
+  //     }
+  //   }, err => {
+  //     console.error('ERROR', err);
+  //   });
+  //
+  //   return seq;
+  // }
 
   /**
    * Log the user out, which forgets the session
