@@ -76,8 +76,8 @@ export class UserProvider {
     }
 
     let updateCustomerReq = {
-      "email":
-    };
+      "email": ""
+    }
 
     return this.httpClient.post<any>(path, updateCustomerReq, httpOptions).pipe (
       catchError(this.handleError)
