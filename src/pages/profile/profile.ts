@@ -24,6 +24,7 @@ export class ProfilePage {
 	mobileNum: string;
 	email: string;
 	password: string;
+	errorMessage: string;
 
 	profile: { firstname: string, lastname: string, mobilenum: string } = {
     firstname: '',
@@ -44,29 +45,30 @@ export class ProfilePage {
 		//if login liao can just update else direct to login page
 		if (sessionStorage.getItem("isLogin") === "true") {
 			this.isLogin = true;
-			this.email = sessionStorage.getItem("email");
-			this.password = sessionStorage.getItem("password");
-
-			this.user.subscribe(
-				response => {
-					this.user = response.customerEntity;
-					let toast = this.toastCtrl.create(
-					{
-						message: 'User Details loaded successfully',
-						cssClass: 'toast',
-						duration: 3000
-					});
-				},
-				error => {
-					this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
-				}
-			);
-
-			// this.user = JSON.parse(sessionStorage.getItem("user")).customer;
+			this.user = JSON.parse(sessionStorage.getItem("user")).customer;
+			// this.email = sessionStorage.getItem("email");
+			// this.password = sessionStorage.getItem("password");
+			//
+			// this.user.subscribe(
+			// 	response => {
+			// 		this.user = response.customerEntity;
+			// 		let toast = this.toastCtrl.create(
+			// 		{
+			// 			message: 'User Details loaded successfully',
+			// 			cssClass: 'toast',
+			// 			duration: 3000
+			// 		});
+			// 	},
+			// 	error => {
+			// 		this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
+			// 	}
+			// );
+			//
+			//
 			// console.log("this.user", this.user);
-			this.firstName = sessionStorage.getItem("firstname");
-			this.lastName = sessionStorage.getItem("lastname");
-			this.mobileNum = sessionStorage.getItem("mobilenum");
+			// this.firstName = sessionStorage.getItem("firstname");
+			// this.lastName = sessionStorage.getItem("lastname");
+			// this.mobileNum = sessionStorage.getItem("mobilenum");
 		} else {
 			this.navCtrl.push(LoginPage);
 		}
@@ -78,37 +80,37 @@ export class ProfilePage {
 		this.submitted = true;
 		if (updateProfileForm.valid) {
 			this.isUpdated = true;
-			this.userProvider.updateCustomer(this.profile).subscribe(
-				response => {
-					let toast = this.toastCtrl.create(
-					{
-						message: 'Details Updated',
-						cssClass: 'toast',
-						duration: 3000
-					});
-					toast.present();
+			// this.userProvider.updateCustomer(this.profile).subscribe(
+			// 	response => {
+			// 		let toast = this.toastCtrl.create(
+			// 		{
+			// 			message: 'Details Updated',
+			// 			cssClass: 'toast',
+			// 			duration: 3000
+			// 		});
+			// 		toast.present();
 
-					sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
-					sessionStorage.setItem("firstName", firstName);
-					sessionStorage.setItem("lastName", lastName);
-					sessionStorage.setItem("mobileNum", mobileNum);
-					sessionStorage.setItem("isUpdated", "true");
-				},
-				error => {
-					//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
-					this.navCtrl.push(HomePage);
+					// sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+					// sessionStorage.setItem("firstName", firstName);
+					// sessionStorage.setItem("lastName", lastName);
+					// sessionStorage.setItem("mobileNum", mobileNum);
+					// sessionStorage.setItem("isUpdated", "true");
+					// sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
 				}
-			);
-		} else {
-			let alert = this.alertCtrl.create(
-			{
-				title: 'Profile',
-				subTitle: 'Invalid profile details',
-				buttons: ['OK']
-			});
-			alert.present();
+		// 		error => {
+		// 			//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
+		// 			this.navCtrl.push(HomePage);
+		// 		}
+		// 	);
+		// } else {
+		// 	let alert = this.alertCtrl.create(
+		// 	{
+		// 		title: 'Profile',
+		// 		subTitle: 'Invalid profile details',
+		// 		buttons: ['OK']
+		// 	});
+		// 	alert.present();
 		}
-	}
 
 	cartTapped(event, page) {
 		this.navCtrl.push(ShoppingCartPage, page);

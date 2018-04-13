@@ -1,72 +1,66 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, AlertController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
-
 import { UserProvider } from '../../providers/user/user';
 import { HomePage } from '../home/home';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { User } from '../../entities/user';
 
-@IonicPage()
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html'
 })
 export class SignupPage {
-
   submitted: boolean;
+  user: User;
+  firstName: string;
+  lastName: string;
+  mobileNumber: string;
+  email: string;
+  password: string;
 
-
-  // The account fields for the signup form.
-  account: { firstname: string, lastname: string, email: string, password: string, phoneNum: string } = {
-    firstname: '',
-    lastname: '',
+  account: { email: string, firstName: string, lastName: string, mobileNumber: string,  password: string } = {
     email: '',
-    password: '',
-    phoneNum: '',
+    firstName: '',
+    lastName: '',
+    mobileNumber: '',
+    password: ''
   };
 
-  // Our text strings
-  private signupErrorString: string;
-
   constructor(public navCtrl: NavController,
-              public user: User,
-              public toastCtrl: ToastController)
-  {
+              public toastCtrl: ToastController, public userProvider: UserProvider, public alertCtrl: AlertController) {
     this.submitted = false;
+    this.email = "";
+    this.firstName = "";
+    this.lastName = "";
+    this.mobileNumber = "";
+    this.password = "";
   }
 
   signup(signupForm: NgForm) {
-
     this.submitted = true;
-
     if (signupForm.valid) {
-
-      //need to push to backend!
-
-      let toast = this.toastCtrl.create({
-        message: 'Sign up is Successful!',
-        cssClass: 'toast',
-        duration: 3000,
-      });
-      toast.present();
-
-      // Attempt to signup in through our User service
-      this.user.signup(this.account).subscribe((resp) => {
-        console.log('signup worked')
-        this.navCtrl.push(HomePage);
-      }, (err) => {
-
-        this.navCtrl.push(HomePage);
-
-        // Unable to sign up
-        let toast = this.toastCtrl.create({
-          message: this.signupErrorString,
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present();
-      });
+      this.userProvider.createCustomer(this.account).subscribe (
+        response => {
+          sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+          let toast = this.toastCtrl.create({
+            message: 'Sign up is Successful!',
+            cssClass: 'toast',
+            duration: 3000,
+          });
+          toast.present();
+          this.navCtrl.push(HomePage);
+        },
+        error => {
+          let alert = this.alertCtrl.create(
+    			{
+    				title: 'Register',
+    				subTitle: 'Invalid details',
+    				buttons: ['OK']
+    			});
+    			alert.present();
+        }
+      )
     }
   }
 }

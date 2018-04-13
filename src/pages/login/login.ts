@@ -5,6 +5,8 @@ import { AlertController, ToastController } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 import { SignupPage } from '../signup/signup';
+import { UserProvider } from '../../providers/user/user';
+import { User } from '../../entities/user';
 
 @Component({
   selector: 'page-login',
@@ -15,87 +17,59 @@ export class LoginPage {
 
 	submitted: boolean;
 	isLogin: boolean;
-	firstName: string;
-	lastName: string;
 	email: string;
 	password: string;
+  user: User;
+  loginCredential: string;
 
 	constructor(public navCtrl: NavController,
   				public alertCtrl: AlertController,
   				public navParams: NavParams,
-  				public toastCtrl: ToastController)
+  				public toastCtrl: ToastController, public userProvider: UserProvider)
 	{
 	  this.submitted = false;
 		this.isLogin = false;
+    this.loginCredential = "";
  	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad LoginPage');
 
-	    if(sessionStorage.getItem("isLogin") === "true")
-		{
+	  if(sessionStorage.getItem("isLogin") === "true") {
 			this.isLogin = true;
 		}
-
-		this.firstName = sessionStorage.getItem("firstName");
-		this.lastName = sessionStorage.getItem("lastName");
-    this.email = sessionStorage.getItem("email");
-    this.password = sessionStorage.getItem("password");
 	}
 
-  	clear()
-	{
-		this.email = "";
-		this.password = "";
-	}
-
-	login(loginForm: NgForm)
-	{
+	login(loginForm: NgForm) {
 		this.submitted = true;
-		if (loginForm.valid)
-		{
-			if((this.email == "giftmeadmin@gmail.com") && (this.password == "password"))
-			{
-				if(this.email == "giftmeadmin@gmail.com")
-				{
-					this.firstName = "Admin";
-				}
+    //try to get customer if valid and catch any error
+    console.log(this.email, this.password);
+    if (loginForm.valid) {
+      this.userProvider.getCustomer(this.email, this.password).subscribe (
+        response => {
+          this.user = response.customer;
+          sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+          this.isLogin = true;
+          sessionStorage.setItem("isLogin", "true");
 
-				this.lastName = "Default";
-				this.isLogin = true;
-
-				sessionStorage.setItem("firstName", this.firstName);
-				sessionStorage.setItem("lastName", this.lastName);
-				sessionStorage.setItem("isLogin", "true");
-        sessionStorage.setItem("email", this.email);
-        sessionStorage.setItem("password", this.password);
-
-				//this.productProvider.setLoginCredential(this.email, this.password);
-
-				let toast = this.toastCtrl.create(
-				{
-					message: 'Log in Successful. Welcome back ' + this.firstName + ' ' + this.lastName,
-					cssClass: 'toast',
-					duration: 3000
-				});
-
-				toast.present();
-			}
-			else
-			{
-				let alert = this.alertCtrl.create(
-				{
-					title: 'Login',
-					subTitle: 'Invalid login credential',
-					buttons: ['OK']
-				});
-
-				alert.present();
-			}
-		}
-		else
-		{
-		}
+          let toast = this.toastCtrl.create({
+  					message: 'Log in Successful. Welcome back',
+  					cssClass: 'toast',
+  					duration: 3000
+  				});
+  				toast.present();
+        },
+        error => {
+          let alert = this.alertCtrl.create(
+    			{
+    				title: 'Login',
+    				subTitle: 'Invalid login details',
+    				buttons: ['OK']
+    			});
+    			alert.present();
+        }
+      )
+    }
 	}
 
 	logout(){
@@ -113,13 +87,7 @@ export class LoginPage {
 		toast.present();
 	}
 
-	register(){
-		let toast = this.toastCtrl.create(
-		{
-			message: 'Redirect to Signup.',
-			cssClass: 'toast',
-			duration: 3000
-		});
-		this.navCtrl.push(SignupPage);
+	register(event, page){
+		this.navCtrl.push(SignupPage, page);
 	}
 }
