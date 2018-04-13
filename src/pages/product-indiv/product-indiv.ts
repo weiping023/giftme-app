@@ -33,13 +33,13 @@ export class ProductIndivPage {
   {        
     this.productToView = new Product();
     this.productToAddToCart = new CartProduct;
-    this.productId = navParams.get('productId');
+    this.productId = this.navParams.get('productId');
   }
 
   ionViewDidLoad() {    
 
     console.log('ionViewDidLoad ProductIndivPage');
-    this.productProvider.retrieveProduct(1).subscribe(
+    this.productProvider.retrieveProduct(this.productId).subscribe(
       response => {
         this.productToView = response.product
 

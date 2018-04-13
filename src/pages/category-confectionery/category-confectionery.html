@@ -24,7 +24,7 @@
     <ion-row>
       <ion-list *ngFor="let product of products">
         <ion-col col-md-6>
-          <ion-card>
+          <ion-card (click)="viewProduct(product.productId)">
           
             <ion-item>
               <ion-img>Product Image</ion-img><br>

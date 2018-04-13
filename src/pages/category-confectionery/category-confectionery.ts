@@ -35,11 +35,13 @@ export class CatConfectioneryPage {
 		);
   }
 
-  productClicked(productClicked){
-  	this.navCtrl.push(ProductIndivPage, {
-  		productId: productClicked.productId
-  	});
+  viewProduct(productId){
+    console.log(productId)
+    this.navCtrl.push(ProductIndivPage, {
+      productId
+    });
   }
+  
  	cartTapped(event, page) {
 		this.navCtrl.push(ShoppingCartPage, page);
 	}
