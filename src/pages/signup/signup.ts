@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 
-import { User } from '../../providers/user/user';
+import { UserProvider } from '../../providers/user/user';
 import { HomePage } from '../home/home';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
+import { User } from '../../entities/user';
 
 @IonicPage()
 @Component({
@@ -16,13 +17,13 @@ export class SignupPage {
   submitted: boolean;
 
 
-  // The account fields for the signup form.  
+  // The account fields for the signup form.
   account: { firstname: string, lastname: string, email: string, password: string, phoneNum: string } = {
     firstname: '',
     lastname: '',
     email: '',
     password: '',
-    phoneNum: '',    
+    phoneNum: '',
   };
 
   // Our text strings
@@ -30,17 +31,17 @@ export class SignupPage {
 
   constructor(public navCtrl: NavController,
               public user: User,
-              public toastCtrl: ToastController) 
-  {    
+              public toastCtrl: ToastController)
+  {
     this.submitted = false;
   }
 
   signup(signupForm: NgForm) {
 
-    this.submitted = true;   
-    
+    this.submitted = true;
+
     if (signupForm.valid) {
-      
+
       //need to push to backend!
 
       let toast = this.toastCtrl.create({
@@ -48,7 +49,7 @@ export class SignupPage {
         cssClass: 'toast',
         duration: 3000,
       });
-      toast.present();        
+      toast.present();
 
       // Attempt to signup in through our User service
       this.user.signup(this.account).subscribe((resp) => {

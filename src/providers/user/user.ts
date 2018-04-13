@@ -2,34 +2,82 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/share';
 
 import { Injectable } from '@angular/core';
-
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Api } from '../api/api';
+import { Observable } from 'rxjs/Observable';
+import { catchError } from 'rxjs/operators';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { Platform } from 'ionic-angular';
+import { User } from '../../entities/user';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
-/**
- * Most apps have the concept of a User. This is a simple provider
- * with stubs for login/signup/etc.
- *
- * This User provider makes calls to our API at the `login` and `signup` endpoints.
- *
- * By default, it expects `login` and `signup` to return a JSON object of the shape:
- *
- * ```json
- * {
- *   status: 'success',
- *   user: {
- *     // User fields your app needs, like "id", "name", "email", etc.
- *   }
- * }Ø
- * ```
- *
- * If the `status` field is not `success`, then an error is detected and returned.
- */
 @Injectable()
-export class User {
+export class UserProvider {
   _user: any;
+  ipAddress = '192.168.170.1';
+  portNo = "8080";
+  fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Customer';
+  baseUrl = "/api/User";
 
-  constructor(public api: Api) { }
+  email = "";
+  password = "";
+  firstName = "";
+  lastName = "";
+  mobileNum = "";
+  loginCredential = "";
+
+  constructor(public api: Api, public platform: Platform, private httpClient: HttpClient) {
+    console.log('Hello UserProvider Provider');
+  }
+
+  setLoginCredential(email: string, password: string) {
+		this.email = email;
+		this.password = password;
+		this.loginCredential = "?email=" + email + "&password=" + password;
+	}
+
+  getCustomer(email: string, password: string): Observable<any> {
+		let path: string = '';
+		if(this.platform.is('core') || this.platform.is('mobileweb')) {
+			path = this.baseUrl;
+		} else {
+			path = this.fullBaseUrl;
+		}
+		return this.httpClient.get<any>(path + "/retrieveProduct/" + productId + this.loginCredential).pipe(
+      catchError(this.handleError)
+		);
+	}
+
+  updateCustomer(profile: any): Observable<any> {
+    let path: string = "";
+    if (this.platform.is('core') || this.platform.is('mobileweb')) {
+      path = this.baseUrl;
+    } else {
+      path = this.fullBaseUrl;
+    }
+
+    let updateCustomerReq = {
+      "firstName": this.firstName,
+      "lastName": this.lastName,
+      "mobileNum": this.mobileNum
+    };
+
+    return this.httpClient.post<any>(path, updateCustomerReq, httpOptions).pipe (
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+		if (error.error instanceof ErrorEvent) {
+			console.error('An unknown error has occurred:', error.error.message);
+		} else {
+			console.error(" A HTTP error has occurred: " + `HTTP ${error.status}: ${error.error.message}`);
+		}
+		return new ErrorObservable(error);
+  }
 
   /**
    * Send a POST request to our login endpoint with the data
