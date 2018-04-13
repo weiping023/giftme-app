@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 //import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicModule } from 'ionic-angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { MyApp } from './app.component';
@@ -29,7 +29,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { ProductProvider } from '../providers/product/product';
-import { User } from '../providers/user/user';
+import { UserProvider } from '../providers/user/user';
 import { Api } from '../providers/api/api';
 
 // Custom components
@@ -90,7 +90,7 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     SplashScreen,
     //{provide: ErrorHandler, useClass: IonicErrorHandler},
     ProductProvider,
-    User,
+    UserProvider,
     Api
   ],
   schemas: [

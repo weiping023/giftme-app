@@ -1,14 +1,14 @@
-<ion-header>      
+<ion-header>
   <ion-navbar color="dark">
     <ion-title>Sign Up</ion-title>
-  </ion-navbar>  
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content>
   <form #signupForm="ngForm" (ngSubmit)="signup(signupForm)">
 
-      <div>     
+      <div>
         <div *ngIf="inemail.invalid && (inemail.dirty || inemail.touched || submitted)" class="errorText">
           <div *ngIf="inemail.errors.required">
             Email is required.
@@ -23,7 +23,7 @@
             Email must be valid.
           </div>
         </div>
-        
+
         <div *ngIf="inpassword.invalid && (inpassword.dirty || inpassword.touched || submitted)" class="errorText">
           <div *ngIf="inpassword.errors.required">
             Password is required.
@@ -35,18 +35,30 @@
             Password cannot exceed 32 characters.
           </div>
         </div>
-        
+
+        <div *ngIf="inphoneNum.invalid && (inphoneNum.dirty || inphoneNum.touched || submitted)" class="errorText">
+          <div *ngIf="inphoneNum.errors.required">
+            Mobile number is required.
+          </div>
+          <div *ngIf="inphoneNum.errors.minlength">
+            Mobile number must be at least 4 characters long.
+          </div>
+          <div *ngIf="inphoneNum.errors.maxlength">
+            Mobile number cannot exceed 32 characters.
+          </div>
+        </div>
+
         <div *ngIf="signupErrorMessage" class="errorText">
           {{signupErrorMessage}}
-        </div>        
-        
+        </div>
+
       </div>
-      
-    <ion-list>          
+
+    <ion-list>
 
       <ion-item>
         <ion-label floating>{{ 'Email'}}</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email" minlength="4" maxlength="32" required="true" 
+        <ion-input type="email" [(ngModel)]="account.email" name="email" minlength="4" maxlength="32" required="true"
         email #inemail="ngModel"></ion-input>
       </ion-item>
 
@@ -67,7 +79,7 @@
       <ion-item>
         <ion-label fixed>{{ 'Last Name'}}</ion-label>
         <ion-input type="text" placeholder="Eg. lastname" [(ngModel)]="account.lastname" name="lastName" required="true"></ion-input>
-      </ion-item>                  
+      </ion-item>
 
       <ion-item>
         <ion-label fixed>{{ 'Contact' }}</ion-label>
