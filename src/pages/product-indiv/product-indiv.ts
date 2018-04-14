@@ -23,8 +23,7 @@ export class ProductIndivPage {
   productId: number;
   productToView: Product;
   productToAddToCart: CartProduct;   
-  quantityToAdd: number;
-  isLogin: sessionStorage;  
+  quantityToAdd: number;  
 
   private addToCartErrorMessage: string;
 
@@ -74,7 +73,7 @@ export class ProductIndivPage {
         tempSessionStorage = (JSON.parse(sessionStorage.getItem("Cart")));
 
         let imaginaryCartQuantity = (JSON.parse(sessionStorage.getItem("Cart")));
-        console.log("Product to add to cart's quantity", this.productToAddToCart.quantityInCart);
+        // console.log("Product to add to cart's quantity", this.productToAddToCart.quantityInCart);
         console.log("Imaginary cart quantity", imaginaryCartQuantity);
 
         for (var j = 0; j < imaginaryCartQuantity.length; j++) {
@@ -141,7 +140,7 @@ export class ProductIndivPage {
     this.navCtrl.push(LoginPage);
     }
   }
-  
+
   cartTapped(event, page) {
   	this.navCtrl.push(ShoppingCartPage, page);
   }
