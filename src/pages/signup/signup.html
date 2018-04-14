@@ -8,66 +8,70 @@
 <ion-content class="bg-style">
   <div>
     <form #signupForm="ngForm" (ngSubmit)="signup(signupForm)">
+        <div *ngIf="errorMessage" class="errorText">
+			      {{errorMessage}}
+		    </div>
+
         <div>
-          <div *ngIf="inemail.invalid && (inemail.dirty || inemail.touched || submitted)" class="errorText">
-  					<div *ngIf="inemail.errors.required">
+          <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" class="errorText">
+  					<div *ngIf="email.errors.required">
   						Email is required.
   					</div>
-  					<div *ngIf="inemail.errors.minlength">
+  					<div *ngIf="email.errors.minlength">
   						Email must be at least 4 characters long.
   					</div>
-  					<div *ngIf="inemail.errors.maxlength">
+  					<div *ngIf="email.errors.maxlength">
   						Email cannot exceed 50 characters.
   					</div>
-  					<div *ngIf="inemail.errors.email">
+  					<div *ngIf="email.errors.email">
   						Email must be valid.
   					</div>
   				</div>
 
-  				<div *ngIf="inpassword.invalid && (inpassword.dirty || inpassword.touched || submitted)" class="errorText">
-  					<div *ngIf="inpassword.errors.required">
+          <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" class="errorText">
+  					<div *ngIf="password.errors.required">
   						Password is required.
   					</div>
-  					<div *ngIf="inpassword.errors.minlength">
+  					<div *ngIf="password.errors.minlength">
   						Password must be at least 4 characters long.
   					</div>
-  					<div *ngIf="inpassword.errors.maxlength">
+  					<div *ngIf="password.errors.maxlength">
   						Password cannot exceed 32 characters.
   					</div>
   				</div>
 
-          <div *ngIf="infirstname.invalid &&(infirstname.dirty || infirstname.touched || submitted)" class="errorText">
-            <div *ngIf="infirstname.errors.required">
+          <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched || submitted)" class="errorText">
+            <div *ngIf="firstname.errors.required">
   						First Name is required.
   					</div>
-            <div *ngIf="infirstname.errors.minlength">
+            <div *ngIf="firstname.errors.minlength">
               First Name must be at least 3 characters long.
             </div>
-            <div *ngIf="infirstname.errors.maxlength">
+            <div *ngIf="firstname.errors.maxlength">
               First Name cannot exceed 32 characters.
             </div>
           </div>
 
-          <div *ngIf="inlastname.invalid &&(inlastname.dirty || inlastname.touched || submitted)" class="errorText">
-            <div *ngIf="inlastname.errors.required">
+          <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched || submitted)" class="errorText">
+            <div *ngIf="lastname.errors.required">
   						Last Name is required.
   					</div>
-            <div *ngIf="inlastname.errors.minlength">
+            <div *ngIf="lastname.errors.minlength">
               Last Name must be at least 3 characters long.
             </div>
-            <div *ngIf="inlastname.errors.maxlength">
+            <div *ngIf="lastname.errors.maxlength">
               Last Name cannot exceed 32 characters.
             </div>
           </div>
 
-          <div *ngIf="inmobilenum.invalid &&(inmobilenum.dirty || inmobilenum.touched || submitted)" class="errorText">
-            <div *ngIf="inmobilenum.errors.required">
+          <div *ngIf="mobilenum.invalid && (mobilenum.dirty || mobilenum.touched || submitted)" class="errorText">
+            <div *ngIf="mobilenum.errors.required">
   						Mobile Number is required.
   					</div>
-            <div *ngIf="inmobilenum.errors.minlength">
+            <div *ngIf="mobilenum.errors.minlength">
               Mobile number must be 8 characters long.
             </div>
-            <div *ngIf="inmobilenum.errors.maxlength">
+            <div *ngIf="mobilenum.errors.maxlength">
               Mobile number must be 8 characters long.
             </div>
           </div>
@@ -80,13 +84,13 @@
       <ion-list>
         <ion-item>
           <ion-label fixed>Email</ion-label>
-          <ion-input type="text" placeholder="eg. ahbeng@gmail.com" id="email" name="email" [(ngModel)]="email" minlength="4" maxlength="50" required="true" #inemail="ngModel">
+          <ion-input type="text" placeholder="eg. ahbeng@gmail.com" id="email" name="email" [(ngModel)]="newUser.email" minlength="4" maxlength="50" required="true" #email="ngModel">
           </ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label fixed>Password</ion-label>
-          <ion-input type="text" placeholder="eg. password" id="password" name="password" [(ngModel)]="password" minlength="4" maxlength="32" required="true" #inpassword="ngModel">
+          <ion-input type="text" placeholder="eg. password" id="password" name="password" [(ngModel)]="newUser.password" minlength="4" maxlength="32" required="true" #password="ngModel">
           </ion-input>
         </ion-item>
 
@@ -96,19 +100,19 @@
 
         <ion-item>
           <ion-label fixed>First Name</ion-label>
-          <ion-input type="text" placeholder="eg. Ah Beng" id="firstname" name="firstname" [(ngModel)]="firstname" minlength="3" maxlength="32" required="true" #infirstname="ngModel">
+          <ion-input type="text" placeholder="eg. Ah Beng" id="firstname" name="firstname" [(ngModel)]="newUser.firstname" minlength="3" maxlength="32" required="true" #firstname="ngModel">
           </ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label fixed>Last Name</ion-label>
-          <ion-input type="text" placeholder="Eg. Tan" id="lastname" name="lastname" [(ngModel)]="lastname" minlength="3" maxlength="32" required="true" #inlastname="ngModel">
+          <ion-input type="text" placeholder="Eg. Tan" id="lastname" name="lastname" [(ngModel)]="newUser.lastname" minlength="3" maxlength="32" required="true" #lastname="ngModel">
           </ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label fixed>Contact</ion-label>
-          <ion-input type="text" placeholder="Eg. 12345678" id="mobilenum" name="mobilenum" [(ngModel)]="mobilenum" minlength="8" maxlength="8" required="true" #inmobilenum="ngModel">
+          <ion-input type="text" placeholder="Eg. 12345678" id="mobilenum" name="mobilenum" [(ngModel)]="newUser.mobilenum" minlength="8" maxlength="8" required="true" #mobilenum="ngModel">
           </ion-input>
         </ion-item>
 

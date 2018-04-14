@@ -105,6 +105,157 @@
     <p>Date and Time: {{datetime}}</p>
     <p>Delivered By: Mr Jack Ma</p>
     <p>Contact Number: 90909090</p>
-    <button ion-button color="primary" outline (click)="buttonTapped($event, page)">Make Payment</button>
+  </div>
+
+  <div *ngIf="!paid">
+    <form #paymentForm="ngForm" (ngSubmit)="updatePayment(paymentForm)">
+      <div>
+        <div *ngIf="inname.invalid && (inname.dirty || inname.touched || submitted)" class="errorText">
+          <div *ngIf="inname.errors.required">
+            Card Holder Name is required.
+          </div>
+          <div *ngIf="inname.errors.minlength">
+            Card Holder Name must be at least 4 characters long.
+          </div>
+          <div *ngIf="inname.errors.maxlength">
+            Card Holder Name cannot exceed 50 characters.
+          </div>
+		    </div>
+
+        <div *ngIf="incardnum.invalid && (incardnum.dirty || incardnum.touched || submitted)" class="errorText">
+          <div *ngIf="incardnum.errors.required">
+            Card Number is required.
+          </div>
+          <div *ngIf="incardnum.errors.minlength">
+            Card Number must be 16 characters long.
+          </div>
+          <div *ngIf="incardnum.errors.maxlength">
+            Card Number must be 16 characters long.
+          </div>
+        </div>
+
+        <div *ngIf="inexpirydate.invalid && (inexpirydate.dirty || inexpirydate.touched || submitted)" class="errorText">
+		      <div *ngIf="inexpirydate.errors.required">
+			      Expiry Date is required.
+		      </div>
+		    </div>
+
+        <div *ngIf="incvcnum.invalid && (incvcnum.dirty || incvcnum.touched || submitted)" class="errorText">
+          <div *ngIf="incvcnum.errors.required">
+            CVC is required.
+          </div>
+          <div *ngIf="incvcnum.errors.minlength">
+            CVC must be 3 characters long.
+          </div>
+          <div *ngIf="incvcnum.errors.maxlength">
+            CVC must be 3 characters long.
+          </div>
+		    </div>
+
+        <div *ngIf="inunitnum.invalid && (inunitnum.dirty || inunitnum.touched || submitted)" class="errorText">
+          <div *ngIf="inunitnum.errors.required">
+            Unit number is required.
+          </div>
+          <div *ngIf="inunitnum.errors.minlength">
+            Unit number must be at least 4 characters long.
+          </div>
+          <div *ngIf="inunitnum.errors.maxlength">
+            Unit number cannot exceed 32 characters.
+          </div>
+        </div>
+
+        <div *ngIf="instreetname.invalid && (instreetname.dirty || instreetname.touched || submitted)" class="errorText">
+          <div *ngIf="instreetname.errors.required">
+            Street name is required.
+          </div>
+          <div *ngIf="instreetname.errors.minlength">
+            Street name must be at least 4 characters long.
+          </div>
+          <div *ngIf="instreetname.errors.maxlength">
+            Street name cannot exceed 70 characters.
+          </div>
+        </div>
+
+        <div *ngIf="inpostalcode.invalid && (inpostalcode.dirty || inpostalcode.touched || submitted)" class="errorText">
+          <div *ngIf="inpostalcode.errors.required">
+            Postal code is required.
+          </div>
+          <div *ngIf="inpostalcode.errors.minlength">
+            Postal code must be 6 characters long.
+          </div>
+          <div *ngIf="inpostalcode.errors.maxlength">
+            Postal code must be 6 characters long.
+          </div>
+        </div>
+
+        <div *ngIf="updatePaymentErrorMessage" class="errorText">
+          {{updatePaymentErrorMessage}}
+        </div>
+      </div>
+      <h4>Card Details</h4>
+      <ion-list>
+        <ion-list-header>
+          Card Holder Name
+        </ion-list-header>
+        <ion-item>
+          <ion-input type="text" placeholder="Full Name on Card" id="name" name="name" [(ngModel)]="name" minlength="4" maxlength="50" required="true" #inname="ngModel"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+          Card Number
+        </ion-list-header>
+        <ion-item>
+          <ion-input type="text" placeholder="16-digit Card Number" id="cardnum" name="cardnum" [(ngModel)]="cardnum" minlength="16" maxlength="16" required="true" #incardnum="ngModel"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+          Expiry Date
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Date</ion-label>
+          <ion-datetime displayFormat="MM/YYYY" pickerFormat="MMMM YYYY" type="text" min="2018" max="2032" id="expirydate" name="expirydate" [(ngModel)]="expirydate" required="true" #inexpirydate="ngModel"></ion-datetime>
+        </ion-item>
+
+        <ion-list-header>
+          CVC
+        </ion-list-header>
+        <ion-item>
+          <ion-input type="text" placeholder="3-digit Number on the back of the Card" id="cvcnum" name="cvcnum" [(ngModel)]="cvcnum" minlength="3" maxlength="3" required="true" #incvcnum="ngModel"></ion-input>
+        </ion-item>
+
+        <h4>Billing Address</h4>
+        <ion-list-header>
+          Unit Number
+        </ion-list-header>
+        <ion-item>
+          <ion-input type="text" placeholder="Eg. #06-01" id="unitnum" name="unitnum" [(ngModel)]="unitnum" minlength="4" maxlength="32" required="true" #inunitnum="ngModel"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+          Street Name
+        </ion-list-header>
+        <ion-item>
+          <ion-input type="text" placeholder="Eg. Orchard Road" id="streetname" name="streetname" [(ngModel)]="streetname" minlength="4" maxlength="70" required="true" #instreetname="ngModel"></ion-input>
+        </ion-item>
+
+        <ion-list-header>
+          Postal Code
+        </ion-list-header>
+        <ion-item>
+          <ion-input type="text" placeholder="Eg. 123456" id="postalcode" name="postalcode" [(ngModel)]="postalcode" minlength="6" maxlength="6" required="true" #inpostalcode="ngModel"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <button type="submit" ion-button outline>
+            Confirm Payment
+          </button>
+        </ion-item>
+      </ion-list>
+    </form>
+  </div>
+
+  <div *ngIf="paid">
+    <h4>Payment Confirmed</h4>
+    <button ion-button color="primary" outline (click)="buttonTapped($event, page)">Confirm Transaction</button>
   </div>
 </ion-content>

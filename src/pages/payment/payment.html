@@ -10,7 +10,6 @@
 <ion-content padding class="bg-style">
   <div *ngIf="!paid">
     <form #paymentForm="ngForm" (ngSubmit)="updatePayment(paymentForm)">
-
       <div>
         <div *ngIf="inname.invalid && (inname.dirty || inname.touched || submitted)" class="errorText">
           <div *ngIf="inname.errors.required">

@@ -6,7 +6,7 @@ import { AlertController, ToastController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { SignupPage } from '../signup/signup';
 import { UserProvider } from '../../providers/user/user';
-import { User } from '../../entities/user';
+import { Customer } from '../../entities/user';
 
 @Component({
   selector: 'page-login',
@@ -16,10 +16,10 @@ import { User } from '../../entities/user';
 export class LoginPage {
 
 	submitted: boolean;
-	isLogin: boolean;
+  isLogin: boolean;
 	email: string;
 	password: string;
-  user: User;
+  user: Customer;
   loginCredential: string;
 
 	constructor(public navCtrl: NavController,
@@ -28,29 +28,27 @@ export class LoginPage {
   				public toastCtrl: ToastController, public userProvider: UserProvider)
 	{
 	  this.submitted = false;
-		this.isLogin = false;
     this.loginCredential = "";
  	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad LoginPage');
-
-	  if(sessionStorage.getItem("isLogin") === "true") {
-			this.isLogin = true;
-		}
+    if (sessionStorage.getItem("isLogin") !== null) {
+      this.isLogin = true;
+    }
 	}
 
 	login(loginForm: NgForm) {
 		this.submitted = true;
     //try to get customer if valid and catch any error
-    console.log(this.email, this.password);
     if (loginForm.valid) {
       this.userProvider.getCustomer(this.email, this.password).subscribe (
         response => {
           this.user = response.customer;
           sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+
           this.isLogin = true;
-          sessionStorage.setItem("isLogin", "true");
+          sessionStorage.setItem("isLogin", this.email);
 
           let toast = this.toastCtrl.create({
   					message: 'Log in Successful. Welcome back',
@@ -74,7 +72,7 @@ export class LoginPage {
 
 	logout(){
 		console.log("Logout");
-		sessionStorage.setItem("isLogin", "false");
+		sessionStorage.clear();
 		this.navCtrl.setRoot(HomePage);
 
 		let toast = this.toastCtrl.create(

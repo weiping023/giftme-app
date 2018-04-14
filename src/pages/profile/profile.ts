@@ -8,7 +8,7 @@ import { ChangePasswordPage } from '../change-password/change-password';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 import { UserProvider } from '../../providers/user/user';
-import { User } from '../../entities/user';
+import { Customer } from '../../entities/user';
 
 @Component({
 	selector: 'page-profile',
@@ -16,7 +16,7 @@ import { User } from '../../entities/user';
 })
 export class ProfilePage {
 	submitted: boolean;
-	user: User;
+	user: Customer;
 	isLogin: boolean;
 	isUpdated: boolean;
 	firstName: string;
@@ -54,6 +54,7 @@ export class ProfilePage {
 
 	updateProfile(updateProfileForm: NgForm) {
 		this.submitted = true;
+		console.log(this.email);
 		if (updateProfileForm.valid) {
 			this.isUpdated = true;
 			this.userProvider.updateCustomer(this.email, this.firstName, this.lastName, this.mobileNum, this.password).subscribe(

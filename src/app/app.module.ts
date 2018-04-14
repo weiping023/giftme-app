@@ -16,7 +16,6 @@ import { ShopIndivPage } from '../pages/shop-indiv/shop-indiv';
 import { ProductCatPage } from '../pages/product-cat/product-cat';
 import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
-import { PaymentPage } from '../pages/payment/payment';
 import { DeliveryPage } from '../pages/delivery/delivery';
 import { ConfirmTransactionPage } from '../pages/confirm-transaction/confirm-transaction';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
@@ -48,7 +47,6 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     ProductCatPage,
     ProductIndivPage,
     ShoppingCartPage,
-    PaymentPage,
     DeliveryPage,
     ConfirmTransactionPage,
     ChangePasswordPage,
@@ -76,7 +74,6 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     ProductCatPage,
     ProductIndivPage,
     ShoppingCartPage,
-    PaymentPage,
     DeliveryPage,
     ConfirmTransactionPage,
     ChangePasswordPage,
