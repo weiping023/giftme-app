@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { UserProvider } from '../../providers/user/user';
 import { HomePage } from '../home/home';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
-import { User } from '../../entities/user';
+import { Customer } from '../../entities/user';
 
 @Component({
   selector: 'page-signup',
@@ -12,31 +12,37 @@ import { User } from '../../entities/user';
 })
 export class SignupPage {
   submitted: boolean;
-  user: User;
-  firstName: string;
-  lastName: string;
-  mobileNumber: string;
-  email: string;
-  password: string;
+  newUser: Customer;
+  errorMessage: string;
+  // firstName: string;
+  // lastName: string;
+  // mobileNumber: string;
+  // email: string;
+  // password: string;
 
 
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController, public userProvider: UserProvider, public alertCtrl: AlertController) {
     this.submitted = false;
-    this.email = "";
-    this.firstName = "";
-    this.lastName = "";
-    this.mobileNumber = "";
-    this.password = "";
-    this.user = new User();
+    // this.email = "";
+    // this.firstName = "";
+    // this.lastName = "";
+    // this.mobileNumber = "";
+    // this.password = "";
+    this.newUser = new Customer();
   }
+
+  ionViewDidLoad() {
+		console.log('ionViewDidLoad SignupPage');
+	}
 
   signup(signupForm: NgForm) {
     this.submitted = true;
+    console.log(this.newUser.email);
     if (signupForm.valid) {
-      this.userProvider.createCustomer(this.user).subscribe (
+      this.userProvider.createCustomer(this.newUser).subscribe (
         response => {
-          sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+          sessionStorage.setItem("user", JSON.stringify({"customer": this.newUser}));
           let toast = this.toastCtrl.create({
             message: 'Sign up is Successful!',
             cssClass: 'toast',
@@ -46,6 +52,7 @@ export class SignupPage {
           this.navCtrl.push(HomePage);
         },
         error => {
+          console.log(this.newUser.email);
           let alert = this.alertCtrl.create(
     			{
     				title: 'Register',

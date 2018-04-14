@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Platform } from 'ionic-angular';
-import { User } from '../../entities/user';
+import { Customer } from '../../entities/user';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,8 +16,8 @@ const httpOptions = {
 
 @Injectable()
 export class UserProvider {
-  _user: any;
-  ipAddress = '172.25.105.196';
+  _user: any = Customer;
+  ipAddress = '172.25.101.80';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Customer';
   baseUrl = "/api/Customer";
@@ -52,7 +52,7 @@ export class UserProvider {
 		);
 	}
 
-  createCustomer(user: User): Observable<any> {
+  createCustomer(user: Customer): Observable<any> {
     let path: string = "";
     if (this.platform.is('core') || this.platform.is('mobileweb')) {
       path = this.baseUrl;
@@ -60,9 +60,7 @@ export class UserProvider {
       path = this.fullBaseUrl;
     }
     let createCustomerReq = {
-      "email": this.email,
-      "password": this.password,
-      "CustomerEntity": user
+      "customer": user
     }
     return this.httpClient.put<any>(path, createCustomerReq, httpOptions).pipe (
       catchError(this.handleError)
