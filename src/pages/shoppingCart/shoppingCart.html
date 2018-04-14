@@ -8,9 +8,14 @@
 </ion-header>
 
 <ion-content padding class="bg-style">
-	<p>
-		Displays items in cart
-	</p>
+  
+  <div *ngIf="cartExists">
 
-	<button ion-button color="primary" outline (click)="buttonTapped($event, page)">Select Delivery Details</button>
+
+  <button ion-button color="primary" outline (click)="buttonTapped($event, page)">Checkout</button>
+  </div>
+
+  <div *ngIf="!cartExists">
+		<h3>Your cart is empty</h3>				
+	</div>	
 </ion-content>

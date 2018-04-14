@@ -74,7 +74,7 @@
                         
             <ion-item>
               <ion-label><b>{{ 'Quantity:' }}</b></ion-label>                                            
-              <ion-input type="number" placeholder="Select Quantity" [(ngModel)]=productToAddToCart.quantityInCart name="quantity" min="1" max="{{productToView.quantityOnHand}}" required="true" #inquantity="ngModel"></ion-input>
+              <ion-input type="number" placeholder="Select Quantity" [(ngModel)]="quantitySelected" name="quantity" min=1 max={{productToView.quantityOnHand}} required="true" #inquantity="ngModel"></ion-input>
             </ion-item>  
             
             <button (click) = "addToCart()" ion-button color="dark" outline>{{ 'Add to Cart' }}</button>        
