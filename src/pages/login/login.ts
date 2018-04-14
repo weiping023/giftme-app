@@ -44,8 +44,10 @@ export class LoginPage {
     if (loginForm.valid) {
       this.userProvider.getCustomer(this.email, this.password).subscribe (
         response => {
+          console.log(this.email);
           this.user = response.customer;
           sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+          console.log(this.email);
 
           this.isLogin = true;
           sessionStorage.setItem("isLogin", this.email);
@@ -58,6 +60,7 @@ export class LoginPage {
   				toast.present();
         },
         error => {
+          console.log(this.email + " not working again");
           let alert = this.alertCtrl.create(
     			{
     				title: 'Login',

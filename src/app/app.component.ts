@@ -154,11 +154,21 @@ export class MyApp {
 
     // Load special options
     // -----------------------------------------------
-    this.options.push({
-      iconName: 'log-in',
-      displayName: 'Login/ Logout',
-      component: LoginPage
-    });
+    if (sessionStorage.getItem("isLogin") == null) {
+      this.options.push({
+        iconName: 'log-in',
+        displayName: 'Login',
+        component: LoginPage
+      });
+    }
+
+    if (sessionStorage.getItem("isLogin") !== null) {
+      this.options.push({
+        iconName: 'log-out',
+        displayName: 'Logout',
+        component: LoginPage
+      });
+    }
 
     this.options.push({
       iconName: 'exit',
