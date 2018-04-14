@@ -10,9 +10,62 @@
 <ion-content padding class="bg-style">
   
   <div *ngIf="cartExists">
+    <div class="shopping-cart" *ngFor="let product of products">
 
+      <ion-card>
+        <ion-item>
+          
+          <div class="row">
+            <div class="column">
+              <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg"></ion-img>
+            </div> 
 
-  <button ion-button color="primary" outline (click)="buttonTapped($event, page)">Checkout</button>
+            <div class="column" padding>
+              <div class="product-name">
+                <strong>Product Name:</strong>
+                <span>{{product.product.productName}}</span> 
+              </div> <br/>
+
+              <div class="product-price">
+                <b>Product Price:</b>
+                ${{product.product.price}} 
+              </div><br/>
+
+              <b>Quantity:</b>           
+              {{product.quantityInCart}} <br/>            
+          </div>
+        </div>
+        </ion-item>
+      </ion-card>
+    </div>
+  
+    <ion-row right>
+      <ion-col col-md-4>
+        <ion-card>
+          <div>
+            <b>Subtotal: </b>
+            ${{subtotal}} <br/>
+          </div>
+          <div>
+            <b>Delivery Fee:</b>
+            ${{deliveryFee}} <br/>
+          </div>
+          <div>
+            <ion-input type=text [ngModel]>apply</ion-input>
+            <button ion-button>Apply Promo Code</button> <br/>
+            <span>
+              <b>Total: </b>
+              ${{total}}<br/> 
+            </span>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    
+
+    <ion-buttons end>
+      <button ion-button color="primary" outline (click)="buttonTapped($event, page)">Checkout</button>
+    </ion-buttons>
   </div>
 
   <div *ngIf="!cartExists">
