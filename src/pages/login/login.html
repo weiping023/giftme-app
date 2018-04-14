@@ -9,8 +9,7 @@
 
 <ion-content padding class="bg-style">
 	<div *ngIf="!isLogin">
-
-		<form #loginForm="ngForm" (ngSubmit)="login(loginForm)" >
+		<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
 
 			<div>
 				<div *ngIf="inemail.invalid && (inemail.dirty || inemail.touched || submitted)" class="errorText">

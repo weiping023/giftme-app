@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController, AlertController } from 'ionic-angular';
-import { NgForm } from '@angular/forms';
 import { UserProvider } from '../../providers/user/user';
 import { HomePage } from '../home/home';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { Customer } from '../../entities/user';
+import {
+  NgForm,
+  PatternValidator,
+  FormGroup,
+  FormBuilder,
+  Validators,
+  EmailValidator
+} from "@angular/forms";
 
 @Component({
   selector: 'page-signup',
@@ -13,22 +20,12 @@ import { Customer } from '../../entities/user';
 export class SignupPage {
   submitted: boolean;
   newUser: Customer;
-  errorMessage: string;
-  // firstName: string;
-  // lastName: string;
-  // mobileNumber: string;
-  // email: string;
-  // password: string;
-
+  register: FormGroup;
+  registerErrorMessage: string;
 
   constructor(public navCtrl: NavController,
-              public toastCtrl: ToastController, public userProvider: UserProvider, public alertCtrl: AlertController) {
+              public toastCtrl: ToastController, public userProvider: UserProvider, public alertCtrl: AlertController, private frmBuilder: FormBuilder,) {
     this.submitted = false;
-    // this.email = "";
-    // this.firstName = "";
-    // this.lastName = "";
-    // this.mobileNumber = "";
-    // this.password = "";
     this.newUser = new Customer();
   }
 
@@ -36,11 +33,48 @@ export class SignupPage {
 		console.log('ionViewDidLoad SignupPage');
 	}
 
-  signup(signupForm: NgForm) {
+  get firstName() {
+    return this.register.get("firstName");
+  }
+  get lastName() {
+    return this.register.get("lastName");
+  }
+  get mobileNumber() {
+    return this.register.get("mobileNumber");
+  }
+  get email() {
+    return this.register.get("email");
+  }
+  get password() {
+    return this.register.get("password");
+  }
+  get verify() {
+    return this.register.get("verify");
+  }
+
+  ngOnInit() {
+    this.register = this.frmBuilder.group({
+      firstName: ["", [Validators.required]],
+      lastName: ["", [Validators.required]],
+      mobileNumber: [
+        "",
+        [Validators.required, Validators.minLength(8), Validators.maxLength(8)]
+      ],
+      email: ["", [Validators.required]],
+      password: ["", [Validators.required]],
+      verify: ["", [Validators.required]]
+    });
+
+    this.registerErrorMessage = "";
+  }
+
+  signup() {
     this.submitted = true;
-    console.log(this.newUser.email);
-    if (signupForm.valid) {
-      this.userProvider.createCustomer(this.newUser).subscribe (
+    delete this.register["verify"];
+    console.log(this.register.value);
+    if (this.register.valid) {
+      console.log("form is valid");
+      this.userProvider.createCustomer(this.register.value).subscribe (
         response => {
           sessionStorage.setItem("user", JSON.stringify({"customer": this.newUser}));
           let toast = this.toastCtrl.create({
@@ -50,9 +84,10 @@ export class SignupPage {
           });
           toast.present();
           this.navCtrl.push(HomePage);
+          console.log(this.newUser + " successful");
         },
         error => {
-          console.log(this.newUser.email);
+          console.log(this.newUser.email + " this doesn't work");
           let alert = this.alertCtrl.create(
     			{
     				title: 'Register',
