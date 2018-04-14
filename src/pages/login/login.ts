@@ -57,7 +57,8 @@ export class LoginPage {
   					cssClass: 'toast',
   					duration: 3000
   				});
-  				toast.present();
+					toast.present();
+					this.navCtrl.setRoot(HomePage);
         },
         error => {
           console.log(this.email + " not working again");
