@@ -45,7 +45,7 @@
 
             <div class="product-category">
                 <strong>Category: </strong>
-                <a href="#"><font color="FF00CC">{{productToView.category}}</font></a>
+                <a><font color="FF00CC">{{productToView.category}}</font></a>
             </div> <br/>
 
             <span class="product-rating text-warning">
@@ -71,13 +71,14 @@
                 {{addToCartErrorMessage}}
               </div>  
             </div>
-              
-            <ion-item>                                 
+                        
+            <ion-item>
               <ion-label><b>{{ 'Quantity:' }}</b></ion-label>                                            
-              <ion-input type="number" placeholder="Select Quantity" [(ngModel)]="productToView.quantity" name="quantity" min="1" max="{{productToView.quantityOnHand}}" required="true" #inquantity="ngModel"></ion-input>
+              <ion-input type="number" placeholder="Select Quantity" [(ngModel)]=productToAddToCart.quantityInCart name="quantity" min="1" max="{{productToView.quantityOnHand}}" required="true" #inquantity="ngModel"></ion-input>
             </ion-item>  
             
             <button (click) = "addToCart()" ion-button color="dark" outline>{{ 'Add to Cart' }}</button>        
+            
         </ion-col>
       </ion-row>
     </ion-grid>

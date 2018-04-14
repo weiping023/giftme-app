@@ -9,8 +9,9 @@ import { ProductProvider } from '../../providers/product/product';
 
 import { Product } from '../../entities/product';
 import { CartProduct } from '../../entities/cartProduct';
+import { Shop } from '../../entities/shop';
+import { LoginPage } from '../login/login';
 
-@IonicPage()
 @Component({
   selector: 'page-product-indiv',
   templateUrl: 'product-indiv.html',
@@ -21,7 +22,9 @@ export class ProductIndivPage {
 
   productId: number;
   productToView: Product;
-  productToAddToCart: CartProduct;  
+  productToAddToCart: CartProduct;   
+  quantityToAdd: number;
+  isLogin: sessionStorage;  
 
   private addToCartErrorMessage: string;
 
@@ -32,19 +35,19 @@ export class ProductIndivPage {
               public alertCtrl: AlertController)
   {        
     this.productToView = new Product();
-    this.productToAddToCart = new CartProduct;
-    this.productId = this.navParams.get('productId');
+    this.productToAddToCart = new CartProduct();
+    this.productId = this.navParams.get('productId'); 
+    
+    this.productToAddToCart.quantityInCart = 1;   
   }
 
   ionViewDidLoad() {    
-
+    
     console.log('ionViewDidLoad ProductIndivPage');
     this.productProvider.retrieveProduct(this.productId).subscribe(
       response => {
         this.productToView = response.product
-
-        this.productToAddToCart.product = this.productToView;
-        this.productToAddToCart.quantityInCart = 1;
+        this.productToAddToCart.product = this.productToView;        
       },
       error => {
         this.errorMessage = "HTTP" + error.status + ": " + error.error.message;
@@ -52,44 +55,47 @@ export class ProductIndivPage {
     );   
   }
 
-  addToCart(){
+  addToCart(){    
+    
+    if (sessionStorage.getItem("isLogin") != null) {
+      //array of products in cart stores in session storage
+      let tempSessionStorage = []; 
+      let cartTooFull = false;  
 
-    //array of products in cart stores in session storage
-    let tempSessionStorage = []; 
-    let cartTooFull = false;
+      // Cart doesn't exist => Create Cart
+      if (sessionStorage.getItem("Cart") === null) {
+        tempSessionStorage[0] = this.productToAddToCart;
+        sessionStorage.setItem("Cart", JSON.stringify(tempSessionStorage));                      
 
-    // Cart doesn't exist => Create Cart
-    if (sessionStorage.getItem("Cart") === null) {
-      tempSessionStorage[0] = this.productToAddToCart;
-      sessionStorage.setItem("Cart", JSON.stringify(tempSessionStorage));                      
+      } 
+      
+      else {
+        // Cart already exists, retrieve the cart
+        tempSessionStorage = (JSON.parse(sessionStorage.getItem("Cart")));
 
-    } else {
-      // Cart already exists, retrieve the cart
-      tempSessionStorage = (JSON.parse(sessionStorage.getItem("Cart")));
+        let imaginaryCartQuantity = (JSON.parse(sessionStorage.getItem("Cart")));
+        console.log("Product to add to cart's quantity", this.productToAddToCart.quantityInCart);
+        console.log("Imaginary cart quantity", imaginaryCartQuantity);
 
-      let imaginaryCartQuantity = (JSON.parse(sessionStorage.getItem("Cart")));
-      console.log("Product to add to cart's quantity", this.productToAddToCart.quantityInCart);
-      console.log("Imaginary cart quantity", imaginaryCartQuantity);
-
-      for (var j = 0; j < imaginaryCartQuantity.length; j++) {
-        if (imaginaryCartQuantity[j].product.skuCode === this.productToAddToCart.product.skuCode) {
-          imaginaryCartQuantity = imaginaryCartQuantity[j];
-          break;
+        for (var j = 0; j < imaginaryCartQuantity.length; j++) {
+          if (imaginaryCartQuantity[j].product.skuCode === this.productToAddToCart.product.skuCode) {
+            imaginaryCartQuantity = imaginaryCartQuantity[j];
+            break;
+          }
         }
-      }
 
-      if ((imaginaryCartQuantity.quantityInCart + this.productToAddToCart.quantityInCart) > this.productToView.quantityOnHand) {
-        console.log("Cannot add anymore, not enough product in stock");        
-        let alert = this.alertCtrl.create(
-        {
-          title: 'Add Product to Cart',
-          subTitle: 'Product was not successfully added to cart - Not enough stock',
-          buttons: ['OK']
-        });
-        
-        alert.present();        
-        cartTooFull = true;
-      } else if (cartTooFull === false){
+        if ((imaginaryCartQuantity.quantityInCart + this.productToAddToCart.quantityInCart) > this.productToView.quantityOnHand) {       
+          console.log("Cannot add anymore, not enough product in stock");        
+          let alert = this.alertCtrl.create(
+          {
+            title: 'Add Product to Cart',
+            subTitle: 'Product was not successfully added to cart - Not enough stock',
+            buttons: ['OK']
+          });
+          
+          alert.present();        
+          cartTooFull = true;
+        } else if (cartTooFull === false){
           
           let sameProductAdded = false;
           // check if this.productToView exists inside the array already
@@ -131,19 +137,11 @@ export class ProductIndivPage {
           alert.present();
         }
       }
+    } else {
+    this.navCtrl.push(LoginPage);
     }
-
-    // Modify the quantity of the object in product page (Can use same method to modify object options like color etc)
-    increaseQuantity() {
-      this.productToAddToCart.quantityInCart++;
-    }
-
-    decreaseQuantity() {
-      if (this.productToAddToCart.quantityInCart !== 1) {
-        this.productToAddToCart.quantityInCart--;
-      }
-    }          
-
+  }
+  
   cartTapped(event, page) {
   	this.navCtrl.push(ShoppingCartPage, page);
   }

@@ -4,8 +4,7 @@ export class Shop
 	products: number; //tochange
 	reviews: number; //to change
 	shopId: number;
-	shopName: string;	
-	shopType: string;	
+	shopName: string;		
 		
 	constructor()
 	{
