@@ -67,10 +67,10 @@ export class ReviewPage {
       this.isLogin = true;
 			this.user = JSON.parse(sessionStorage.getItem("user")).customer;
       this.custEmail = this.user.email;
-      this.custName = this.user.firstName;
+      this.inputCustName = this.user.firstName;
 
       // Retrieve all transactions from customer to be added
-      this.createReview.value.customerName = this.custName;
+      this.createReview.value.customerName = this.inputCustName;
       console.log("Review formm values", this.createReview.value);
 
       this.createReview = this.frmBuilder.group({
