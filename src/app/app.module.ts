@@ -96,7 +96,7 @@ import { ShopProvider } from '../providers/shop/shop';
     Api,
     PromotionProvider,
     ReviewProvider,
-    TransactionProvider
+    TransactionProvider,
     ShopProvider
   ],
   schemas: [
