@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
-import { NgForm } from '@angular/forms';
+import { ToastController, AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { UserProvider } from '../../providers/user/user';
+import { Customer } from '../../entities/user';
+import {
+  NgForm,
+  FormGroup,
+  FormBuilder,
+  Validators
+} from "@angular/forms";
 
 @Component({
   selector: 'page-change-password',
@@ -13,69 +19,120 @@ export class ChangePasswordPage {
   submitted: boolean;
   pwUpdated: boolean;
   currentPassword: string;
-  newPassword: string;
-  verifyPassword: string;
+  updatePassword: FormGroup;
+  user: Customer;
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    public toastCtrl: ToastController,
-    public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public userProvider: UserProvider,
+    public navParams: NavParams, public toastCtrl: ToastController,
+    public alertCtrl: AlertController,  public frmBuilder: FormBuilder) {
       this.submitted = false;
       this.pwUpdated = false;
+      this.currentPassword = "";
+
+      this.updatePassword = this.frmBuilder.group({
+  			inputCurrPassword: ["", Validators.compose([Validators.maxLength(32), Validators.minLength(4)])],
+  			password: ["", Validators.compose([Validators.maxLength(32), Validators.minLength(4)])],
+  			verify: ["", Validators.compose([Validators.maxLength(32), Validators.minLength(4)])]
+  		});
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChangePasswordPage');
-    if(sessionStorage.getItem("pwUpdated") == "true") {
-      this.pwUpdated = true;
-    }
-    this.currentPassword = sessionStorage.getItem("currentPassword");
-		this.newPassword = sessionStorage.getItem("newPassword");
-		this.verifyPassword = sessionStorage.getItem("verifyPassword");
   }
 
-  changePassword(changePasswordForm: NgForm) {
+  get inputCurrPassword() {
+		return this.updatePassword.get("inputCurrPassword");
+	}
+	get password() {
+		return this.updatePassword.get("password");
+	}
+	get verify() {
+		return this.updatePassword.get("verify");
+	}
+
+  ngOnInit() {
+    this.user = JSON.parse(sessionStorage.getItem("user")).customer;
+
+    this.currentPassword = this.user.password;
+    console.log(this.user);
+    console.log(this.user.password);
+
+    this.updatePassword = this.frmBuilder.group({
+      inputCurrPassword: ["", Validators.compose([Validators.maxLength(32), Validators.minLength(4)])],
+      password: ["", Validators.compose([Validators.maxLength(32), Validators.minLength(4)])],
+      verify: ["", Validators.compose([Validators.maxLength(32), Validators.minLength(4)])]
+    });
+	}
+
+  changePassword() {
     this.submitted = true;
-    if (changePasswordForm.valid) {
-      if (this.currentPassword != this.newPassword) {
-        if (this.newPassword == this.verifyPassword) {
-          this.pwUpdated = true;
-          sessionStorage.setItem("currentPassword", this.currentPassword);
-          sessionStorage.setItem("newPassword", this.newPassword);
-          sessionStorage.setItem("verifyPassword", this.verifyPassword);
+    delete this.updatePassword["inputCurrPassword"];
 
+    if (this.updatePassword.valid) {
+      this.pwUpdated = true;
+      this.user.password = this.updatePassword.value.password;
+      this.userProvider.updateCustomerPassword(this.user).subscribe(
+        response => {
           let toast = this.toastCtrl.create(
-    			{
-    				message: 'Password Updated',
-    				cssClass: 'toast',
-    				duration: 3000
-    			});
-    			toast.present();
-        } else {
+					{
+						message: 'Password Updated',
+						cssClass: 'toast',
+						duration: 3000
+					});
+					toast.present();
+          sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+        },
+        error => {
           let alert = this.alertCtrl.create(
-    			{
-    				title: 'Passwords do not match',
-    				subTitle: '',
-            cssClass:'buttonCss',
-    				buttons: ['OK']
-    			});
-    			alert.present();
+					{
+						title: 'Password',
+						subTitle: 'Invalid password change',
+						buttons: ['OK']
+					});
+					alert.present();
         }
-      } else {
-        let alert = this.alertCtrl.create(
-        {
-          title: 'Incorrect current password',
-          subTitle: '',
-          cssClass:'buttonCss',
-          buttons: ['OK']
-        });
-        alert.present();
-      }
-    } else {
+      )
     }
+    // if (this.updatePassword.valid) {
+    //   if (this.currentPassword != this.newPassword) {
+    //     if (this.newPassword == this.verifyPassword) {
+    //       this.pwUpdated = true;
+    //       sessionStorage.setItem("currentPassword", this.currentPassword);
+    //       sessionStorage.setItem("newPassword", this.newPassword);
+    //       sessionStorage.setItem("verifyPassword", this.verifyPassword);
+    //
+    //       let toast = this.toastCtrl.create(
+    // 			{
+    // 				message: 'Password Updated',
+    // 				cssClass: 'toast',
+    // 				duration: 3000
+    // 			});
+    // 			toast.present();
+    //     } else {
+    //       let alert = this.alertCtrl.create(
+    // 			{
+    // 				title: 'Passwords do not match',
+    // 				subTitle: '',
+    //         cssClass:'buttonCss',
+    // 				buttons: ['OK']
+    // 			});
+    // 			alert.present();
+    //     }
+    //   } else {
+    //     let alert = this.alertCtrl.create(
+    //     {
+    //       title: 'Incorrect current password',
+    //       subTitle: '',
+    //       cssClass:'buttonCss',
+    //       buttons: ['OK']
+    //     });
+    //     alert.present();
+    //   }
+    // } else {
+    // }
   }
 
-  buttonTapped(event, page) {
+  homeTapped(event, page) {
     this.navCtrl.push(HomePage, page);
   }
 }
