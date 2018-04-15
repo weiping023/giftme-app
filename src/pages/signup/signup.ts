@@ -10,7 +10,6 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
-  EmailValidator
 } from "@angular/forms";
 
 @Component({
@@ -24,7 +23,7 @@ export class SignupPage {
   registerErrorMessage: string;
 
   constructor(public navCtrl: NavController,
-              public toastCtrl: ToastController, public userProvider: UserProvider, public alertCtrl: AlertController, private frmBuilder: FormBuilder,) {
+              public toastCtrl: ToastController, public userProvider: UserProvider, public alertCtrl: AlertController, private frmBuilder: FormBuilder) {
     this.submitted = false;
     this.newUser = new Customer();
   }
