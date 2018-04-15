@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="secondary">
-    <button ion-button menuToggle colour="dark">
+    <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
       </button>
     <ion-title>Write a Review</ion-title>
@@ -13,9 +13,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding class="bg-style">
+<!-- <ion-content padding class="bg-style">
   <div *ngIf="!isSent" style="padding: 13px">
-    <form [formGroup]="updateProfile" (ngSubmit)="update(updateProfileForm)">
+    <form [formGroup]="createReview" (ngSubmit)="review(createReviewForm)">
       <ion-item>
         <ion-label fixed>Title</ion-label>
         <ion-input type="text" formControlName="title" placeholder="eg. Good Service" id="title" required="true"></ion-input>
@@ -26,6 +26,28 @@
           Title is required.
         </div>
       </div>
+
+      <ion-item>
+        <ion-label fixed>Your Review</ion-label>
+        <ion-input type="text" formControlName="comment" placeholder="eg. The shop's service was good!" id="comment" required="true"></ion-input>
+      </ion-item>
+
+      <div *ngIf="comment.invalid && (comment.dirty || comment.touched || submitted)" class="errorText">
+        <div *ngIf="comment.errors.required">
+          Your review is required.
+        </div>
+      </div>
+
+      <ion-item>
+        <button type="submit" ion-button outline>
+          Review
+        </button>
+      </ion-item>
     </form>
   </div>
-</ion-content>
+
+  <div *ngIf="isSent" style="padding: 13px">
+    <h4>Your response has been recorded!</h4>
+    <button ion-button color="primary" outline (click)="homeTapped($event, page)">Back To Home</button>
+  </div>
+</ion-content> -->

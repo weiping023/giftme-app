@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
-import { Review } from '../review/review';
+import { ReviewPage } from '../review/review';
 
 @Component({
   selector: 'page-shop-indiv',

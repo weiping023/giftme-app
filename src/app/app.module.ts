@@ -31,6 +31,7 @@ import { ProductProvider } from '../providers/product/product';
 import { UserProvider } from '../providers/user/user';
 import { Api } from '../providers/api/api';
 import { PromotionProvider } from '../providers/promotion/promotion';
+import { ReviewProvider } from '../providers/review/review';
 
 // Custom components
 import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
