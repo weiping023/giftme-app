@@ -1,63 +1,116 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
-import { NgForm } from '@angular/forms';
+import { ToastController, AlertController } from 'ionic-angular';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { ChangePasswordPage } from '../change-password/change-password';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 import { UserProvider } from '../../providers/user/user';
 import { Customer } from '../../entities/user';
+import {
+  NgForm,
+  FormGroup,
+  FormBuilder,
+  Validators
+} from "@angular/forms";
 
 @Component({
 	selector: 'page-profile',
 	templateUrl: 'profile.html',
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit{
 	submitted: boolean;
 	user: Customer;
 	isLogin: boolean;
 	isUpdated: boolean;
-	firstName: string;
-	lastName: string;
-	mobileNum: string;
 	email: string;
 	password: string;
-	errorMessage: string;
+	currFirstName: string;
+	currLastName: string;
+	currMobileNumber: string;
+	updateProfile: FormGroup;
+	updateProfileErrorMessage: string;
 
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams,
 				public toastCtrl: ToastController,
-				public alertCtrl: AlertController, public userProvider: UserProvider) {
+				public alertCtrl: AlertController, public userProvider: UserProvider, private frmBuilder: FormBuilder) {
 		this.submitted = false;
 		this.isUpdated = false;
-		this.firstName = "";
-		this.lastName = "";
-		this.mobileNum = "";
-		this.email = "";
-		this.password = "";
+		this.currFirstName = "";
+		this.currLastName = "";
+		this.currMobileNumber = "";
+
+		this.updateProfile = this.frmBuilder.group({
+			firstName: ["", Validators.compose([Validators.maxLength(50), Validators.minLength(3)])],
+			lastName: ["", Validators.compose([Validators.maxLength(50), Validators.minLength(3)])],
+			mobileNumber: [
+				"",
+				[Validators.minLength(8), Validators.maxLength(8)]
+			]
+		});
 	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad ProfilePage');
-		//if login liao can just update else direct to login page
-		if (sessionStorage.getItem("isLogin") === "true") {
+	}
+
+	get firstName() {
+		return this.updateProfile.get("firstName");
+	}
+	get lastName() {
+		return this.updateProfile.get("lastName");
+	}
+	get mobileNumber() {
+		return this.updateProfile.get("mobileNumber");
+	}
+
+	ngOnInit() {
+		if (sessionStorage.getItem("isLogin") !== null) {
 			this.isLogin = true;
 			this.user = JSON.parse(sessionStorage.getItem("user")).customer;
-			this.email = this.user.email;
-			this.password = this.user.password;
+
+			this.currFirstName = this.user.firstName;
+			this.currLastName = this.user.lastName;
+			this.currMobileNumber = this.user.mobileNumber;
+			console.log(this.user);
+
+			this.updateProfile = this.frmBuilder.group({
+        firstName: ["", Validators.compose([Validators.maxLength(50), Validators.minLength(3)])],
+        lastName: ["", Validators.compose([Validators.maxLength(50), Validators.minLength(3)])],
+        mobileNumber: [
+          "",
+          [Validators.minLength(8), Validators.maxLength(8)]
+        ]
+      });
+			this.updateProfileErrorMessage = "";
+
+			console.log(this.updateProfile.value.firstName);
+			console.log(this.user.firstName);
 		} else {
 			this.navCtrl.push(LoginPage);
 		}
 	}
 
-	updateProfile(updateProfileForm: NgForm) {
+	update() {
 		this.submitted = true;
 		console.log(this.email);
-		if (updateProfileForm.valid) {
+		if (this.updateProfile.valid) {
 			this.isUpdated = true;
-			this.userProvider.updateCustomer(this.email, this.firstName, this.lastName, this.mobileNum, this.password).subscribe(
+
+			if (this.updateProfile.value.firstName !== null) {
+				this.user.firstName = this.updateProfile.value.firstName;
+			}
+			if (this.updateProfile.value.lastName !== null) {
+				this.user.lastName = this.updateProfile.value.lastName;
+			}
+			if (this.updateProfile.value.mobileNumber !== null) {
+				this.user.mobileNumber = this.updateProfile.value.mobileNumber;
+			}
+
+			console.log("updated " + this.updateProfile.value.firstName);
+			console.log("updated " + this.user.firstName);
+			this.userProvider.updateCustomer(this.user).subscribe(
 				response => {
 					let toast = this.toastCtrl.create(
 					{
@@ -68,7 +121,6 @@ export class ProfilePage {
 					toast.present();
 
 					sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
-					sessionStorage.setItem("isUpdated", "true");
 				},
 				error => {
 					//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;

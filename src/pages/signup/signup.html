@@ -29,7 +29,7 @@
 
       <ion-item>
         <ion-label fixed>Password</ion-label>
-        <ion-input type="password" formControlName="password" advs-compare="verify" placeholder="eg. password" id="password" minlength="4" maxlength="50" required="true"></ion-input>
+        <ion-input type="password" formControlName="password" advs-compare="verify" placeholder="eg. password" id="password" minlength="4" maxlength="32" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" class="errorText">
@@ -64,7 +64,7 @@
 
       <ion-item>
         <ion-label fixed>First Name</ion-label>
-        <ion-input type="text" formControlName="firstName" placeholder="eg. AhBeng" id="firstName" minlength="4" maxlength="50" required="true"></ion-input>
+        <ion-input type="text" formControlName="firstName" placeholder="eg. AhBeng" id="firstName" minlength="3" maxlength="50" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || submitted)" class="errorText">
@@ -75,13 +75,13 @@
           First Name must be at least 3 characters long.
         </div>
         <div *ngIf="firstName.errors.maxlength">
-          First Name cannot exceed 32 characters.
+          First Name cannot exceed 50 characters.
         </div>
       </div>
 
       <ion-item>
         <ion-label fixed>Last Name</ion-label>
-        <ion-input type="text" formControlName="lastName" placeholder="eg. Tan" id="lastName" minlength="4" maxlength="50" required="true"></ion-input>
+        <ion-input type="text" formControlName="lastName" placeholder="eg. Tan" id="lastName" minlength="3" maxlength="50" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || submitted)" class="errorText">
@@ -92,13 +92,13 @@
           Last Name must be at least 3 characters long.
         </div>
         <div *ngIf="lastName.errors.maxlength">
-          Last Name cannot exceed 32 characters.
+          Last Name cannot exceed 50 characters.
         </div>
       </div>
 
       <ion-item>
         <ion-label fixed>Contact</ion-label>
-        <ion-input type="text" formControlName="mobileNumber" placeholder="eg. 12345678" id="mobileNumber" minlength="4" maxlength="50" required="true"></ion-input>
+        <ion-input type="text" formControlName="mobileNumber" placeholder="eg. 12345678" id="mobileNumber" minlength="8" maxlength="8" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched || submitted)" class="errorText">
@@ -112,7 +112,7 @@
           Mobile number must be 8 characters long.
         </div>
       </div>
-      
+
       <ion-item>
 					<div align="center">
 						<button type="submit" ion-button outline [disabled]="!register.valid">

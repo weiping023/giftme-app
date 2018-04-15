@@ -17,7 +17,7 @@ const httpOptions = {
 @Injectable()
 export class UserProvider {
   _user: any = Customer;
-  ipAddress = '172.25.107.169';
+  ipAddress = '192.168.224.1';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Customer';
   baseUrl = "/api/Customer";
@@ -69,7 +69,7 @@ export class UserProvider {
     );
   }
 
-  updateCustomer(email: string, firstName: string, lastName: string, mobileNumber: string, password: string): Observable<any> {
+  updateCustomer(updateCustomer: Customer): Observable<any> {
     let path: string = "";
     if (this.platform.is('core') || this.platform.is('mobileweb')) {
       path = this.baseUrl;
@@ -78,14 +78,10 @@ export class UserProvider {
     }
 
     let updateCustomerReq = {
-      "email": this.email,
-      "firstName": this.firstName,
-      "lastName": this.lastName,
-      "mobileNumber": this.mobileNumber,
-      "password": this.password,
+      "customer": updateCustomer
     }
 
-    return this.httpClient.post<any>(path, updateCustomerReq, httpOptions).pipe (
+    return this.httpClient.post<any>(path + "/updateCustomer", updateCustomerReq, httpOptions).pipe (
       catchError(this.handleError)
     );
   }
