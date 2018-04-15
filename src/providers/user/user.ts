@@ -69,7 +69,7 @@ export class UserProvider {
     );
   }
 
-  updateCustomer(email: string, firstName: string, lastName: string, mobileNumber: string, password: string): Observable<any> {
+  updateCustomer(updateCustomer: Customer): Observable<any> {
     let path: string = "";
     if (this.platform.is('core') || this.platform.is('mobileweb')) {
       path = this.baseUrl;
@@ -78,14 +78,10 @@ export class UserProvider {
     }
 
     let updateCustomerReq = {
-      "email": this.email,
-      "firstName": this.firstName,
-      "lastName": this.lastName,
-      "mobileNumber": this.mobileNumber,
-      "password": this.password,
+      "customer": updateCustomer
     }
 
-    return this.httpClient.post<any>(path, updateCustomerReq, httpOptions).pipe (
+    return this.httpClient.post<any>(path + "/updateCustomer", updateCustomerReq, httpOptions).pipe (
       catchError(this.handleError)
     );
   }
