@@ -23,6 +23,7 @@ export class ShoppingCartPage {
   deliveryFee: number;
   total: number;
   appliedPromo: boolean = false;
+  quantitySelected: string;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -34,7 +35,7 @@ export class ShoppingCartPage {
     this.promoCode = "";
     this.discount = 0;
     this.deliveryFee = 10;
-    this.total = 0;
+    this.total = 0;    
   }
 
   ionViewDidLoad() {
@@ -67,10 +68,12 @@ export class ShoppingCartPage {
       }
     }
   }
+
   removeProduct(productId: number){
     console.log("productId in remove method", productId);
     for (var i =0; i< this.products.length; i++){
-      if (this.products[i].productId == productId){        
+      console.log("products[i].product.productId", this.products[i].productId);
+      if (this.products[i].product.productId == productId){        
         this.products.splice(i,1); //remove 1 item at index i
         console.log(this.products[i]);
       }
@@ -99,10 +102,9 @@ export class ShoppingCartPage {
     alert.present();
     this.calculateSubtotal();
     this.calculateTotal();    
-    
-    var component = this.navCtrl.getActive().instance;
-    if (component.ionViewDidLoad) {
-      component.ionViewDidLoad();
+
+    if (sessionStorage.getItem("Cart") == null && JSON.parse(sessionStorage.getItem("Cart"))[0] == null) {      
+      this.cartExists = false;
     }
   }
 
@@ -167,7 +169,33 @@ export class ShoppingCartPage {
     this.total = this.subtotal + this.deliveryFee;
   }
 
+  updateQuantity(productId: number){
+    console.log("productId ", productId);
+    //updateQuantity
+    for (var i =0; i< this.products.length; i++){
+      console.log("product[i].productId ", this.products[i].product.productId);
+      if (this.products[i].product.productId === productId){        
+
+        console.log("CurrentQuantityInCart", this.products[i].quantityInCart);
+
+      }
+    }
+    let sessionStorageItems = JSON.parse(sessionStorage.getItem("Cart"));
+
+    for (var j=0; j< sessionStorageItems.length; j++){      
+      if (sessionStorageItems[j].product.productId === productId){
+        
+        sessionStorage.setItem("Cart", JSON.stringify(sessionStorageItems));
+      }
+    }    
+    console.log("edited quantity", sessionStorageItems);
+    this.calculateSubtotal();
+    this.calculateTotal();
+  }
+
   buttonTapped(event, page) {
+    
   	this.navCtrl.push(DeliveryPage, page);
   }
+
 }
