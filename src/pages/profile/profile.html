@@ -27,35 +27,29 @@
     <form [formGroup]="updateProfile" (ngSubmit)="update(updateProfileForm)">
       <ion-item>
         <ion-label fixed>First Name</ion-label>
-        <ion-input type="text" formControlName="firstName" placeholder="eg. AhBeng" id="firstName" minlength="3" maxlength="50" required="true"></ion-input>
+        <ion-input type="text" formControlName="firstName" placeholder="eg. AhBeng" id="firstName" maxlength="32" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || submitted)" class="errorText">
         <div *ngIf="firstName.errors.required">
           First Name is required.
         </div>
-        <div *ngIf="firstName.errors.minlength">
-          First Name must be at least 3 characters long.
-        </div>
         <div *ngIf="firstName.errors.maxlength">
-          First Name cannot exceed 50 characters.
+          First Name cannot exceed 32 characters.
         </div>
       </div>
 
       <ion-item>
         <ion-label fixed>Last Name</ion-label>
-        <ion-input type="text" formControlName="lastName" placeholder="eg. Tan" id="lastName" minlength="3" maxlength="50" required="true"></ion-input>
+        <ion-input type="text" formControlName="lastName" placeholder="eg. Tan" id="lastName" maxlength="32" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || submitted)" class="errorText">
         <div *ngIf="lastName.errors.required">
           Last Name is required.
         </div>
-        <div *ngIf="lastName.errors.minlength">
-          Last Name must be at least 3 characters long.
-        </div>
         <div *ngIf="lastName.errors.maxlength">
-          Last Name cannot exceed 50 characters.
+          Last Name cannot exceed 32 characters.
         </div>
       </div>
 

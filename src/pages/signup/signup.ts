@@ -10,7 +10,6 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
-  EmailValidator
 } from "@angular/forms";
 
 @Component({
