@@ -17,7 +17,7 @@ const httpOptions = {
 @Injectable()
 export class UserProvider {
   _user: any = Customer;
-  ipAddress = '192.168.1.64';
+  ipAddress = '192.168.170.1';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Customer';
   baseUrl = "/api/Customer";
@@ -110,16 +110,5 @@ export class UserProvider {
 			console.error(" A HTTP error has occurred: " + `HTTP ${error.status}: ${error.error.message}`);
 		}
 		return new ErrorObservable(error);
-  }
-
-  logout() {
-    this._user = null;
-  }
-
-  /**
-   * Process a login/signup response to store user data
-   */
-  _loggedIn(resp) {
-    this._user = resp.user;
   }
 }
