@@ -36,6 +36,7 @@ import { TransactionProvider } from '../providers/transaction/transaction';
 
 // Custom components
 import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
+import { ShopProvider } from '../providers/shop/shop';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     PromotionProvider,
     ReviewProvider,
     TransactionProvider
+    ShopProvider
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
