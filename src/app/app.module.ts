@@ -35,6 +35,7 @@ import { ReviewProvider } from '../providers/review/review';
 
 // Custom components
 import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
+import { ShopProvider } from '../providers/shop/shop';
 
 
 @NgModule({
@@ -92,7 +93,8 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     ProductProvider,
     UserProvider,
     Api,
-    PromotionProvider
+    PromotionProvider,
+    ShopProvider
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -19,8 +19,15 @@
     {{errorMessage}}
   </div>
 
+  <ion-list>    
+    <ion-item>
+      <ion-label>Filter by Price</ion-label>
+      <ion-range color="danger" pin="true" dualKnobs="true" [(ngModel)]="priceFilter" min="1" max="100" (ionChange)="filterProductByPrice()"></ion-range>
+    </ion-item>  
+  </ion-list>
+
   <ion-grid>    
-    <ion-list *ngFor="let product of products">
+    <ion-list *ngFor="let product of priceFilteredProducts">
       <ion-row>      
         <ion-col>
           <ion-card (click)="viewProduct(product.productId)">

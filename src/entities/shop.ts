@@ -1,8 +1,11 @@
+import { Review } from './review';
+import { Product } from './product';
+
 export class Shop
 {
 	location: string;
-	products: number; //tochange
-	reviews: number; //to change
+	products: Product; 
+	reviews: Review; 
 	shopId: number;
 	shopName: string;		
 		
