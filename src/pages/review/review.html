@@ -13,9 +13,9 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content padding class="bg-style">
+<ion-content padding class="bg-style">
   <div *ngIf="!isSent" style="padding: 13px">
-    <form [formGroup]="createReview" (ngSubmit)="review(createReviewForm)">
+    <form [formGroup]="createReview" (ngSubmit)="sendReview(createReviewForm)">
       <ion-item>
         <ion-label fixed>Title</ion-label>
         <ion-input type="text" formControlName="title" placeholder="eg. Good Service" id="title" required="true"></ion-input>
@@ -39,7 +39,24 @@
       </div>
 
       <ion-item>
-        <button type="submit" ion-button outline>
+        <ion-label>Rating</ion-label>
+        <ion-range formControlName="rating"  id="rating" min="1" max="5" step="1" snaps="true" color="dark" require="false"></ion-range>
+      </ion-item>
+
+
+      <!-- <ion-item>
+        <ion-label fixed>Rating</ion-label>
+        <ion-input type="number" formControlName="rating"  id="rating" min="1" max="5" required="true"></ion-input>
+      </ion-item> -->
+
+      <!-- <div *ngIf="rating.invalid && (rating.dirty || rating.touched || submitted)" class="errorText">
+        <div *ngIf="rating.errors.required">
+          Your review is required.
+        </div>
+      </div> -->
+
+      <ion-item>
+        <button type="submit" ion-button outline [disabled]="!createReview.valid">
           Review
         </button>
       </ion-item>
@@ -50,4 +67,4 @@
     <h4>Your response has been recorded!</h4>
     <button ion-button color="primary" outline (click)="homeTapped($event, page)">Back To Home</button>
   </div>
-</ion-content> -->
+</ion-content>

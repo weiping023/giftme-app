@@ -32,6 +32,7 @@ import { UserProvider } from '../providers/user/user';
 import { Api } from '../providers/api/api';
 import { PromotionProvider } from '../providers/promotion/promotion';
 import { ReviewProvider } from '../providers/review/review';
+import { TransactionProvider } from '../providers/transaction/transaction';
 
 // Custom components
 import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
@@ -92,7 +93,9 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     ProductProvider,
     UserProvider,
     Api,
-    PromotionProvider
+    PromotionProvider,
+    ReviewProvider,
+    TransactionProvider
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
