@@ -18,3 +18,28 @@
 .bg-style {
         background: #F6E6E7; //light-pink
 }
+
+@font-face {
+  font-family: roboto;
+  src: url(../assets/fonts/roboto.woff2)
+}
+
+@font-face {
+  font-family: ubuntu;
+  src: url(../assets/fonts/ubuntu.woff2);
+  font-weight: light;
+  font-style: normal;
+}
+
+ion-title, h1, h2, h3, h4, h5, h6, ion-label, ion-input {
+  font-family: roboto;
+  color: #333333;
+}
+
+button {
+  font-family: ubuntu;
+  color: #FFFFFF;
+  background: #999999;
+  font-size: 18px;
+  font-weight: regular;
+}

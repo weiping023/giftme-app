@@ -1,18 +1,31 @@
 <ion-header>
-  <ion-navbar color="secondary">
-    <ion-list *ngIf="productToView != null">
-      <ion-title>{{productToView.productName}}</ion-title>
-    </ion-list>
+  <ion-toolbar color="secondary">
+    <button ion-button menuToggle colour="dark">
+          <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title>Write a Review</ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
-        <ion-icon name="cart"></ion-icon>
-          Cart
-        </button>
+            <ion-icon name="cart"></ion-icon>
+            Cart
+          </button>
     </ion-buttons>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
-
 <ion-content padding class="bg-style">
+  <div *ngIf="!isSent" style="padding: 13px">
+    <form [formGroup]="updateProfile" (ngSubmit)="update(updateProfileForm)">
+      <ion-item>
+        <ion-label fixed>Title</ion-label>
+        <ion-input type="text" formControlName="title" placeholder="eg. Good Service" id="title" required="true"></ion-input>
+      </ion-item>
 
+      <div *ngIf="title.invalid && (title.dirty || title.touched || submitted)" class="errorText">
+        <div *ngIf="title.errors.required">
+          Title is required.
+        </div>
+      </div>
+    </form>
+  </div>
 </ion-content>

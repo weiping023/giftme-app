@@ -34,7 +34,7 @@ export class ProfilePage implements OnInit{
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams,
 				public toastCtrl: ToastController,
-				public alertCtrl: AlertController, public userProvider: UserProvider, private frmBuilder: FormBuilder) {
+				public alertCtrl: AlertController, public userProvider: UserProvider, public frmBuilder: FormBuilder) {
 		this.submitted = false;
 		this.isUpdated = false;
 		this.currFirstName = "";
@@ -98,18 +98,18 @@ export class ProfilePage implements OnInit{
 		if (this.updateProfile.valid) {
 			this.isUpdated = true;
 
-			if (this.updateProfile.value.firstName !== null) {
-				this.user.firstName = this.updateProfile.value.firstName;
-			}
-			if (this.updateProfile.value.lastName !== null) {
-				this.user.lastName = this.updateProfile.value.lastName;
-			}
-			if (this.updateProfile.value.mobileNumber !== null) {
-				this.user.mobileNumber = this.updateProfile.value.mobileNumber;
-			}
-
-			console.log("updated " + this.updateProfile.value.firstName);
-			console.log("updated " + this.user.firstName);
+			// if (this.updateProfile.value.firstName !== null) {
+			// 	this.user.firstName = this.updateProfile.value.firstName;
+			// }
+			// if (this.updateProfile.value.lastName !== null) {
+			// 	this.user.lastName = this.updateProfile.value.lastName;
+			// }
+			// if (this.updateProfile.value.mobileNumber !== null) {
+			// 	this.user.mobileNumber = this.updateProfile.value.mobileNumber;
+			// }
+      //
+			// console.log("updated " + this.updateProfile.value.firstName);
+			// console.log("updated " + this.user.firstName);
 			this.userProvider.updateCustomer(this.user).subscribe(
 				response => {
 					let toast = this.toastCtrl.create(
