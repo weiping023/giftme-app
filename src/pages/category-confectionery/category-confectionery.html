@@ -4,7 +4,7 @@
     <button ion-button menuToggle colour="dark">
           <ion-icon name="menu"></ion-icon>
       </button>  
-    <ion-title>View All Products</ion-title>
+    <ion-title>Confectionery</ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
         <ion-icon name="cart"></ion-icon>
@@ -21,9 +21,9 @@
   </div>
 
   <ion-grid>    
-    <ion-row>
-      <ion-list *ngFor="let product of products">
-        <ion-col col-md-6>
+    <ion-list *ngFor="let product of products">
+      <ion-row>      
+        <ion-col>
           <ion-card (click)="viewProduct(product.productId)">
           
             <ion-item>
@@ -38,8 +38,8 @@
             </ion-item>
           </ion-card>
 
-        </ion-col>
-      </ion-list>      
-    </ion-row>
+        </ion-col>      
+      </ion-row>
+    </ion-list>      
   </ion-grid>
 </ion-content>

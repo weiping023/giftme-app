@@ -30,9 +30,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { ProductProvider } from '../providers/product/product';
 import { UserProvider } from '../providers/user/user';
 import { Api } from '../providers/api/api';
+import { PromotionProvider } from '../providers/promotion/promotion';
 
 // Custom components
 import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
+
 
 @NgModule({
   declarations: [
@@ -88,7 +90,8 @@ import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-c
     //{provide: ErrorHandler, useClass: IonicErrorHandler},
     ProductProvider,
     UserProvider,
-    Api
+    Api,
+    PromotionProvider
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

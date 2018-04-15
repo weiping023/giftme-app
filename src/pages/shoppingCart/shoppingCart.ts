@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { DeliveryPage } from '../delivery/delivery';
 import { LoginPage } from '../login/login';
+
+//Provider
+import { PromotionProvider } from '../../providers/promotion/promotion';
 
 @Component({
   selector: 'page-shopingCart',
   templateUrl: 'shoppingCart.html',
 })
 export class ShoppingCartPage {
+
+  errorMessage: string;
 
   isLogin: boolean;
   cartExists: boolean;
@@ -17,9 +22,12 @@ export class ShoppingCartPage {
   discount: number;
   deliveryFee: number;
   total: number;
+  appliedPromo: boolean = false;
 
   constructor(public navCtrl: NavController, 
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              public alertCtrl: AlertController,
+              public promotionProvider: PromotionProvider) {
     this.isLogin=false;
     this.products = [];
     this.subtotal = 0;
@@ -35,12 +43,16 @@ export class ShoppingCartPage {
     if (sessionStorage.getItem("isLogin") === null){
       this.navCtrl.push(LoginPage);
     } else {
-      if (sessionStorage.getItem("Cart") != null) {
+      this.isLogin = true;
+      
+      //if there are items in products in cart
+      if (sessionStorage.getItem("Cart") != null && JSON.parse(sessionStorage.getItem("Cart"))[0] != null) {      
           this.cartExists = true;
           
           let sessionStorageItems = JSON.parse(sessionStorage.getItem("Cart"));
           console.log(sessionStorageItems);
 
+          //place sessionStorage cart products into product array
           for (var i = 0; i < sessionStorageItems.length; i++){
             let currentItem = sessionStorageItems[i];
             this.products.push(currentItem);
@@ -48,28 +60,107 @@ export class ShoppingCartPage {
           console.log("Product", this.products[0]); 
           
           this.calculateSubtotal();
+          if (this.subtotal >= 40){
+            this.deliveryFee = 0;     
+          }
           this.calculateTotal();
       }
+    }
+  }
+  removeProduct(productId: number){
+    console.log("productId in remove method", productId);
+    for (var i =0; i< this.products.length; i++){
+      if (this.products[i].productId == productId){        
+        this.products.splice(i,1); //remove 1 item at index i
+        console.log(this.products[i]);
+      }
+    }
+    
+    let sessionStorageItems = JSON.parse(sessionStorage.getItem("Cart"));
+    console.log(sessionStorageItems);
+
+    let productName = 0;
+    for (var j=0; j< sessionStorageItems.length; j++){
+      console.log(sessionStorageItems[j].product.productId);
+      if (sessionStorageItems[j].product.productId === productId){
+                
+        productName = sessionStorageItems[j].product.productName;
+        sessionStorageItems.splice(j,1);
+        console.log("after remove: SessionStorageItems", sessionStorageItems);
+        sessionStorage.setItem("Cart", JSON.stringify(sessionStorageItems));
+      }
+    }
+
+    let alert = this.alertCtrl.create(
+      {title: "Remove Product",
+      subTitle: productName + " has been removed from Cart successfully",
+      buttons: ['OK']
+    });
+    alert.present();
+    this.calculateSubtotal();
+    this.calculateTotal();    
+    
+    var component = this.navCtrl.getActive().instance;
+    if (component.ionViewDidLoad) {
+      component.ionViewDidLoad();
+    }
+  }
+
+
+  applyPromo(promoCode: string){
+    if (!this.appliedPromo){
+      this.promotionProvider.retrievePromotionByPromoCode(promoCode).subscribe(
+        response => {
+          this.discount = response.promotion.discount;
+          this.calculateSubtotal();
+          this.calculateTotal();
+          let alert = this.alertCtrl.create(
+            {title: "Apply Promo Code",
+            subTitle: promoCode + "has been applied for a discount of $" + this.discount,
+            buttons: ['OK']
+          });
+          alert.present();
+          this.appliedPromo = true;
+        },
+        error => {
+          
+          this.errorMessage = "HTTP" + error.status + ": " + error.error.message;
+
+          this.discount = 0;
+          this.calculateSubtotal();          
+
+          let alert = this.alertCtrl.create(
+            {title: "Opps, this code is not valid. Please try again",          
+            buttons: ['OK']
+            });
+            alert.present();          
+        }
+      )
+    } else {
+      let alert = this.alertCtrl.create(
+        {title: "Apply Promo Code",
+        subTitle: "Promo Code has already been Applied!",
+        buttons: ['OK']
+      });
+      alert.present();      
     }
   }
 
   calculateSubtotal(){
 
-    let subtotal = 0;
+  let subtotal = 0;
 
-    for (var i=0; i< this.products.length; i++){
-      let currentProduct = this.products[i];
+  for (var i=0; i< this.products.length; i++){
+    let currentProduct = this.products[i];
 
-      console.log(currentProduct);      
-      subtotal += currentProduct.product.price * currentProduct.quantityInCart;
+    console.log(currentProduct);      
+    subtotal += currentProduct.product.price * currentProduct.quantityInCart;
 
-      this.subtotal = subtotal;
+    console.log("SUBTOTAL", subtotal);
+    this.subtotal = subtotal;
 
-      if (subtotal >= 40){
-        this.deliveryFee = 0;
-      }
     }
-    
+    this.subtotal -= this.discount;      
   }
   
   calculateTotal(){

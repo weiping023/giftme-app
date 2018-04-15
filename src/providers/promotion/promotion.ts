@@ -5,7 +5,6 @@ import { catchError } from 'rxjs/operators';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Platform } from 'ionic-angular';
 
-import { Product } from '../../entities/product';
 
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,19 +12,19 @@ const httpOptions = {
 
 
 @Injectable()
-export class ProductProvider
+export class PromotionProvider
 {
 
 	ipAddress = '192.168.1.64';
 	portNo = '8080';
-	fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Product';
+	fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Promotion';
 
-	baseUrl = "/api/Product"; //this is for mobile app (to define path)
+	baseUrl = "/api/Promotion"; //this is for mobile app (to define path)
 
 	constructor(public platform: Platform,
 		private httpClient: HttpClient)
 	{
-		console.log('Hello ProductProvider Provider');
+		console.log('Hello PromotionProvider Provider');
 	}
 
 
@@ -43,7 +42,7 @@ export class ProductProvider
 
 
 
-	retrieveAllProducts(): Observable<any>
+	retrieveAllPromotions(): Observable<any>
 	{
 		let path: string = '';
 
@@ -56,7 +55,7 @@ export class ProductProvider
 			path = this.fullBaseUrl; //native mobile app
 		}
 
-		return this.httpClient.get<any>(path +  "/retrieveAllProducts").pipe
+		return this.httpClient.get<any>(path +  "/retrieveAllPromotions").pipe
 		(
 			catchError(this.handleError)
 		);
@@ -64,7 +63,7 @@ export class ProductProvider
 
 
 
-	retrieveProduct(productId: number): Observable<any>
+	retrievePromotionByPromoCode(promoCode: string): Observable<any>
 	{
 		let path: string = '';
 
@@ -77,7 +76,7 @@ export class ProductProvider
 			path = this.fullBaseUrl;
 		}
 
-		return this.httpClient.get<any>(path + "/retrieveProduct/" + productId).pipe
+		return this.httpClient.get<any>(path + "/retrievePromotion/" + promoCode).pipe
 		(
 			catchError(this.handleError)
 		);

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { NgForm } from '@angular/forms';
-import { AlertController } from 'ionic-angular';
 
 //Provider
 import { ProductProvider } from '../../providers/product/product';
