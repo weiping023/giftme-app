@@ -23,6 +23,7 @@ export class ProductIndivPage {
   productToView: Product;
   productToAddToCart: CartProduct;     
   quantitySelected: string = "0";
+  canAddToCart: boolean;
 
   private addToCartErrorMessage: string;
 
@@ -34,7 +35,8 @@ export class ProductIndivPage {
   {        
     this.productToView = new Product();
     this.productToAddToCart = new CartProduct();
-    this.productId = this.navParams.get('productId');         
+    this.productId = this.navParams.get('productId');   
+    this.canAddToCart = false;      
   }
 
   ionViewDidLoad() {    
@@ -53,9 +55,21 @@ export class ProductIndivPage {
   }
 
   addToCart(){    
+    
     this.productToAddToCart.quantityInCart = parseInt(this.quantitySelected);
     console.log("quantity to add to cart", this.productToAddToCart.quantityInCart)
-    if (this.productToAddToCart.quantityInCart == 0){
+
+    if ((this.productToAddToCart.quantityInCart) > this.productToView.quantityOnHand){
+      let alert = this.alertCtrl.create(
+        {
+          title: 'Add Product to Cart',          
+          subTitle: 'Product was not successfully added to cart - Not enough stock',
+          buttons: ['OK']     
+        });
+        alert.present();
+    } 
+
+    else if (this.productToAddToCart.quantityInCart == 0){
       let alert = this.alertCtrl.create(
         {
           title: 'Add Product to Cart',
@@ -63,9 +77,13 @@ export class ProductIndivPage {
           cssClass:'buttonCss',
           buttons: ['OK']
         });
-        alert.present();
+        alert.present();        
     } else {
-      console.log(sessionStorage.getItem("isLogin"))
+      this.canAddToCart = true;
+    }
+
+    console.log(sessionStorage.getItem("isLogin"))
+    if (this.canAddToCart){
     if (sessionStorage.getItem("isLogin") != null) {
       //array of products in cart stores in session storage
       let tempSessionStorage = []; 

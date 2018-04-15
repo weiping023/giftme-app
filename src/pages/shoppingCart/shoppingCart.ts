@@ -100,12 +100,13 @@ export class ShoppingCartPage {
       buttons: ['OK']
     });
     alert.present();
-    this.calculateSubtotal();
-    this.calculateTotal();    
-
-    if (sessionStorage.getItem("Cart") == null && JSON.parse(sessionStorage.getItem("Cart"))[0] == null) {      
+    if (sessionStorage.getItem("Cart") == null || JSON.parse(sessionStorage.getItem("Cart"))[0] == null) {      
+      console.log(JSON.parse(sessionStorage.getItem("Cart"))[0], this.cartExists);
       this.cartExists = false;
     }
+    this.calculateSubtotal();
+    this.calculateTotal();    
+    
   }
 
 
