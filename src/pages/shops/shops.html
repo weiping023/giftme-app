@@ -6,15 +6,54 @@
     <ion-title>Shops</ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
-            <ion-icon name="cart"></ion-icon>
-            Cart
-          </button>
+        <ion-icon name="cart"></ion-icon>
+        Cart
+      </button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding class="bg-style">
-	<p>
-		Allow users to input Postal Code, then display shops based on similar location area.
-	</p>
+ 
+  <div *ngIf="errorMessage" class="errorText">
+    {{errorMessage}}
+  </div>
+
+  <ion-item>
+    <ion-label item-start>
+      <b>Filter by Area</b>
+    </ion-label> 
+  </ion-item>
+  
+  <ion-item *ngFor="let area of areas">
+    <ion-label>{{area}}</ion-label>
+    <ion-checkbox (ionChange)="filterByArea($event, area)"></ion-checkbox>
+  </ion-item>
+
+  <ion-grid>    
+    <ion-list *ngFor="let shop of areaFilteredShops">
+      <ion-row>      
+        <ion-col>
+          <ion-card (click)="viewShop(shop.productId)">
+          
+            <ion-item>
+              <ion-img>Shop Image</ion-img><br>
+              <b>Shop Name:</b>
+              {{shop.shopName}}
+            </ion-item>
+
+            <ion-item>        
+              <b>Shop Area:</b>
+              {{shop.area}}
+            </ion-item>
+          </ion-card>
+
+        </ion-col>      
+      </ion-row>
+    </ion-list>      
+  </ion-grid>
+    
+  <p>
+    Allow users to input Postal Code, then display shops based on similar location area.
+  </p>
 </ion-content>

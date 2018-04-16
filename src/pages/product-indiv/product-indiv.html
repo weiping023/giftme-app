@@ -7,7 +7,7 @@
       <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
         <ion-icon name="cart"></ion-icon>
           Cart
-        </button>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -26,7 +26,9 @@
     <ion-grid>
       <ion-row center>
         <ion-col text-center>        
-          <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg"></ion-img><br>          
+          <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg">
+          </ion-img><br>          
+          
           <ion-item>
             <b>Product Name: </b>{{productToView.productName}} <br/>
             <p class="text-sm text-gray">{{productToView.description}}</p> 
@@ -48,7 +50,7 @@
                 <a><font color="FF00CC">{{productToView.category}}</font></a>
             </div> <br/>
 
-            <span class="product-rating text-warning">
+            <span class="product-rating text-warning" onclick="directToShop(productToView.shop.shopId)">
                 <strong>Seller: </strong>                
                 <a><font color="FF00CC">{{productToView.shop?.shopName}}</font></a>
             </span>

@@ -3,6 +3,7 @@ import { Product } from './product';
 
 export class Shop
 {
+	area: string;
 	location: string;
 	products: Product; 
 	reviews: Review; 

@@ -2,6 +2,7 @@ import { Shop } from './shop';
 
 export class Product
 {
+	colour: string;
 	category: string;
 	description: string;
 	imgPath: string;

@@ -16,7 +16,7 @@ const httpOptions = {
 export class ProductProvider
 {
 
-	ipAddress = '172.25.98.142';
+	ipAddress = '172.25.96.215';
 	portNo = '8080';
 	fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Product';
 

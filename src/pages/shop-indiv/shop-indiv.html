@@ -1,19 +1,63 @@
 <ion-header>
   <ion-navbar color="secondary">
-    <ion-title>Shop: Individual Page</ion-title>
+    <ion-list *ngIf="shopToView != null">
+      <ion-title>{{shopToView.shopName}}</ion-title>
+    </ion-list>
+    
     <ion-buttons end>
       <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
-            <ion-icon name="cart"></ion-icon>
-            Cart
-          </button>
+        <ion-icon name="cart"></ion-icon>
+        Cart
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="bg-style">
-	<p>
-		Displays products from that particular shop
-	</p>
+  <div *ngIf="errorMessage" class="errorText">
+    {{errorMessage}}
+  </div>
+  
+  <div *ngIf="infoMessage" class="infoText">
+    {{infoMessage}}
+  </div>
+
+  <ion-list *ngIf="shopToView != null">
+    <ion-grid>
+      <ion-row center>
+        <ion-col text-center>
+          <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg">
+          </ion-img><br>                      	
+
+          <ion-item>
+            <b>Shop Name: </b>{{shopToView.shopName}} <br/>
+            <i>{{shopToView.location}}</i><br/>            
+            <p>Area: </p>{{shopToView.area}} <br/>     
+          </ion-item>
+
+          <ion-list *ngFor"let product of products">
+            <strong>Products</strong>
+          
+            <ion-card (click)="viewProduct(product.productId)">      
+              <ion-item>
+                <ion-img>Product Image</ion-img><br>
+                <b>Product Name:</b>
+                {{product.productName}}
+              </ion-item>
+
+              <ion-item>        
+                <b>Product Price:</b>
+                ${{product.price}}
+              </ion-item>
+            </ion-card>
+          
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+
   <div style="padding: 13px">
     <button ion-button outline (click)="buttonTapped($event, page)">Review</button>
   </div>

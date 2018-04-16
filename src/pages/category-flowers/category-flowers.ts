@@ -23,11 +23,18 @@ export class CatFlowersPage {
   priceFilterMin: any;
   priceFilterMax: any;
   priceFilteredProducts: Product[];
+  
+  colours: any = {
+    colour: ""    
+  }
+
   colorFilteredProducts: Product[];
+  finalFilteredProducts: Product[];
 
   constructor(public navCtrl: NavController,
   						public navParams: NavParams,
   						public productProvider: ProductProvider) {
+                this.colours = [];
               }
 
   ionViewDidLoad() {
@@ -35,6 +42,13 @@ export class CatFlowersPage {
 
     this.priceFilteredProducts = [];
     this.colorFilteredProducts = [];
+    this.colours = [
+      {colour:"Red"}, 
+      {colour:"Blue"},
+      {colour:"Yellow"},
+      {colour:"White"}
+    ];
+    console.log(this.colours);
 
     this.productProvider.retrieveAllProducts().subscribe(
 			response => {
@@ -45,18 +59,18 @@ export class CatFlowersPage {
           }
         }
         this.priceFilteredProducts = this.products;    
+        this.colorFilteredProducts = this.products;
+        this.finalFilteredProducts = this.products;
 			},
 			error => {
 				this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
 			}
 		);
   }
-  
+
   filterProductByPrice(){
     //always reset filteredProducts  
-    this.priceFilteredProducts = [];
-    
-    console.log("filteredproduct",this.products);
+    this.priceFilteredProducts = [];        
     
     this.priceFilterMin = this.priceFilter.lower;
     this.priceFilterMax = this.priceFilter.upper;
@@ -65,7 +79,20 @@ export class CatFlowersPage {
       if (this.products[i].price >= this.priceFilterMin && this.products[i].price <= this.priceFilterMax){
         this.priceFilteredProducts.push(this.products[i]);
       }
+    }        
+  }
+  
+  colourSelected(event, colour: string){
+    //reset colour array
+    this.colorFilteredProducts = [];    
+    console.log(event.checked);
+    
+    for (var i =0; i <this.products.length; i++){
+      if (this.products[i].colour == colour && event.checked == true){
+        this.colorFilteredProducts.push(this.products[i]);
+      }
     }    
+    console.log("colorFilteredProduct",this.colorFilteredProducts);    
   }
 
   viewProduct(productId){
