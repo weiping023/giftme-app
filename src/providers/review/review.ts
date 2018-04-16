@@ -17,7 +17,7 @@ const httpOptions = {
 
 @Injectable()
 export class ReviewProvider {
-  ipAddress = '192.168.170.1';
+  ipAddress = '172.25.99.176';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Review';
   baseUrl = "/api/Review";

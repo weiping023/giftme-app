@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class ShopProvider {
 
-  ipAddress = '172.25.96.215';
+  ipAddress = '172.25.99.176';
 	portNo = '8080';
 	fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Shop';
 
@@ -26,7 +26,7 @@ export class ShopProvider {
 	{
 		console.log('Hello ShopProvider Provider');
   }
-  
+
   retrieveAllShops(): Observable<any>
 	{
 		let path: string = '';
@@ -45,9 +45,9 @@ export class ShopProvider {
 		(
 			catchError(this.handleError)
 		);
-		
+
   }
-  
+
   retrieveShop(shopId: number): Observable<any>
 	{
 		let path: string = '';
@@ -66,7 +66,7 @@ export class ShopProvider {
 			catchError(this.handleError)
 		);
   }
-  
+
   private handleError(error: HttpErrorResponse)
 	{
 		if (error.error instanceof ErrorEvent)
