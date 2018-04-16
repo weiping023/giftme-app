@@ -119,7 +119,7 @@ export class ShoppingCartPage {
           this.calculateTotal();
           let alert = this.alertCtrl.create(
             {title: "Apply Promo Code",
-            subTitle: promoCode + "has been applied for a discount of $" + this.discount,
+            subTitle: promoCode + " has been applied for a discount of $" + this.discount,
             buttons: ['OK']
           });
           alert.present();
@@ -195,7 +195,8 @@ export class ShoppingCartPage {
   }
 
   buttonTapped(event, page) {
-    
+    sessionStorage.setItem("PromoCode", this.promoCode);
+    console.log(sessionStorage);
   	this.navCtrl.push(DeliveryPage, page);
   }
 
