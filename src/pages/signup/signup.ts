@@ -3,6 +3,7 @@ import { NavController, ToastController, AlertController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { HomePage } from '../home/home';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
+import { LoginPage } from '../login/login';
 import { Customer } from '../../entities/user';
 import {
   NgForm,
@@ -82,7 +83,7 @@ export class SignupPage {
             duration: 3000,
           });
           toast.present();
-          this.navCtrl.push(SignupPage);
+          this.navCtrl.push(LoginPage);
           console.log(this.newUser + " successful");
         },
         error => {

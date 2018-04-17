@@ -19,7 +19,7 @@ export class CatFlowersPage {
   filteredProducts: Product[];
 
   priceFilter: any= {
-    upper:100,
+    upper:500,
     lower:1
   }
   priceFilterMin: any;

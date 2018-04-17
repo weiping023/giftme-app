@@ -35,15 +35,15 @@
   <ion-grid>    
     <ion-list *ngFor="let product of priceFilteredProducts">
       <ion-row>      
-        <ion-col>
-          <ion-item>
-            <ion-img>Product Image</ion-img><br>
-          </ion-item>  
-        </ion-col>
+        <ion-col col-3>
+          <div style= "width: auto; height:auto">
+              <img src={{product.imgPath}} height="120" width="120"><br>
+            </div>  
+        </ion-col> 
         
         <ion-col>
           <ion-card (click)="viewProduct(product.productId)">
-            <ion-item>
+            <ion-item text-wrap>
               <b>Product Name:</b>
               {{product.productName}}
             </ion-item>

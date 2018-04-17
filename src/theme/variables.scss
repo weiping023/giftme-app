@@ -38,7 +38,8 @@ $colors: (
   secondary:  #FAFAFA, //off-white
   danger:     #EFE1D4, //beige
   light:      #f4f4f4, 
-  dark:       #333333 //dark grey
+  dark:       #333333, //dark grey
+  light-pink: #F5E4E5 
 );
 
 .buttonCss {
@@ -47,6 +48,7 @@ $colors: (
       color: grey;
     }    
 }
+
 
 // App iOS Variables
 // --------------------------------------------------
@@ -65,7 +67,6 @@ $colors: (
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
-
 
 
 

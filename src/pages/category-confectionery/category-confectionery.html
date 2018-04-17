@@ -38,15 +38,14 @@
       <ion-row>      
         <ion-col col-3>
           <div style= "width: auto; height:auto">
-              <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg">
-              </ion-img><br>
+              <img src={{product.imgPath}} height="130" width="100"><br>
             </div>  
         </ion-col>
       
         <ion-col>
-          <ion-card (click)="viewProduct(product.productId)">
-            <ion-item>
-              <b>Product Name:</b>
+          <ion-card class="card" (click)="viewProduct(product.productId)">
+            <ion-item text-wrap>
+              <b>Product Name:</b> <br/>
               {{product.productName}}
             </ion-item>
         

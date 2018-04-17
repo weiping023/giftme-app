@@ -16,7 +16,7 @@
 // automatically applied to the <body> element in the app.
 
 .bg-style {
-        background: #F6E6E7; //light-pink
+  background: #FFFFFF; //white
 }
 
 @font-face {
@@ -34,6 +34,10 @@
 ion-title, h1, h2, h3, h4, h5, h6, ion-label, ion-input {
   font-family: roboto;
   color: #333333;
+}
+
+.card {
+  background-color: lightpink; //light pink
 }
 
 // .button {
