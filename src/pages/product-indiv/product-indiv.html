@@ -29,10 +29,14 @@
           <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg">
           </ion-img><br>          
           
-          <ion-item class="item-text-wrap">
+          <ion-item style="margin:0">
             <b>Product Name: </b>{{productToView.productName}} <br/>
-            <p class="text-sm text-gray">{{productToView.description}}</p> 
-          </ion-item>
+            <ion-item text-wrap style="padding:0">
+              <p class="text-sm text-gray">{{productToView.description}}                
+              </p> 
+            </ion-item>        
+          </ion-item>    
+
 
           <ion-item>            
             <div class="product-price">

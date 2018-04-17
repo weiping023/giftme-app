@@ -36,22 +36,26 @@
   <ion-grid>    
     <ion-list *ngFor="let product of priceFilteredProducts">
       <ion-row>      
+        <ion-col col-3>
+          <div style= "width: auto; height:auto">
+              <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg">
+              </ion-img><br>
+            </div>  
+        </ion-col>
+      
         <ion-col>
           <ion-card (click)="viewProduct(product.productId)">
-          
             <ion-item>
-              <ion-img>Product Image</ion-img><br>
               <b>Product Name:</b>
               {{product.productName}}
             </ion-item>
-
+        
             <ion-item>        
               <b>Product Price:</b>
               ${{product.price}}
             </ion-item>
           </ion-card>
-
-        </ion-col>      
+        </ion-col>
       </ion-row>
     </ion-list>      
   </ion-grid>

@@ -31,11 +31,16 @@ export class ReviewPage {
   shopId: number;
   createReviewErrorMessage: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public reviewProvider: ReviewProvider, public frmBuilder: FormBuilder, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+              public alertCtrl: AlertController, 
+              public reviewProvider: ReviewProvider, 
+              public frmBuilder: FormBuilder, 
+              public toastCtrl: ToastController) {
     this.submitted = false;
 		this.isSent = false;
 		this.inputCustName = "";
-    this.shopId = 1;
+    this.shopId = navParams.get("shopId");  
 
     this.createReview = this.frmBuilder.group({
       comment: ["", [Validators.required]],
@@ -68,6 +73,7 @@ export class ReviewPage {
 			this.user = JSON.parse(sessionStorage.getItem("user")).customer;
       this.custEmail = this.user.email;
       this.inputCustName = this.user.firstName;
+      console.log(this.inputCustName, this.user.firstName);
 
       // Retrieve all transactions from customer to be added
       this.createReview.value.customerName = this.inputCustName;
@@ -77,18 +83,18 @@ export class ReviewPage {
         comment: ["", [Validators.required]],
         rating: ["", Validators.required],
         title: ["", Validators.required],
-        customerName: [""]
+        customerName: [this.inputCustName]
       });
 
       this.createReviewErrorMessage = "";
     } else {
+      this.navCtrl.push(LoginPage);
       let toast = this.toastCtrl.create({
         message: 'Error: Please Login to view Shop Reviews',
         cssClass: 'toast',
         duration: 3000
       });
-      toast.present();
-      this.navCtrl.push(LoginPage);
+      toast.present();      
     }
   }
 

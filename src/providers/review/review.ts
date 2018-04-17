@@ -17,7 +17,7 @@ const httpOptions = {
 
 @Injectable()
 export class ReviewProvider {
-  ipAddress = '172.25.105.206';
+  ipAddress = '172.25.96.17';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Review';
   baseUrl = "/api/Review";
@@ -44,6 +44,23 @@ export class ReviewProvider {
     );
   }
 
+  retrieveAllReviewsByShop(shopId: number): Observable<any> {
+    let path: string = '';
+
+		if(this.platform.is('core') || this.platform.is('mobileweb'))
+		{
+			path = this.baseUrl;
+		}
+		else
+		{
+			path = this.fullBaseUrl;
+		}
+
+		return this.httpClient.get<any>(path + "/retrieveAllReviewsByShop/" + shopId).pipe
+		(
+			catchError(this.handleError)
+		);
+  }
   private handleError(error: HttpErrorResponse) {
 		if (error.error instanceof ErrorEvent) {
 			console.error('An unknown error has occurred:', error.error.message);
