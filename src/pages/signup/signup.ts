@@ -2,15 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController, AlertController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login'
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { Customer } from '../../entities/user';
-import {
-  NgForm,
-  PatternValidator,
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from "@angular/forms";
+import { NgForm, PatternValidator, FormGroup, FormBuilder, Validators, EmailValidator} from "@angular/forms";
 
 @Component({
   selector: 'page-signup',
@@ -82,7 +77,7 @@ export class SignupPage {
             duration: 3000,
           });
           toast.present();
-          this.navCtrl.push(SignupPage);
+          this.navCtrl.push(LoginPage);
           console.log(this.newUser + " successful");
         },
         error => {

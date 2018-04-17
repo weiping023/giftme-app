@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { DeliveryPage } from '../delivery/delivery';
 import { LoginPage } from '../login/login';
-
+import { RemoteCheckoutLineItem } from '../../entities/remoteCheckoutLineItem';
+import { CartProduct } from '../../entities/cartProduct';
 //Provider
 import { PromotionProvider } from '../../providers/promotion/promotion';
 
@@ -16,6 +17,7 @@ export class ShoppingCartPage {
 
   isLogin: boolean;
   cartExists: boolean;
+  cart: CartProduct[];
   products: any[] = [];
   subtotal: number;
   promoCode: string;
@@ -24,8 +26,9 @@ export class ShoppingCartPage {
   total: number;
   appliedPromo: boolean = false;
   quantitySelected: string;
+  remoteCheckoutLineItems: any[] = [];
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public promotionProvider: PromotionProvider) {
@@ -35,21 +38,22 @@ export class ShoppingCartPage {
     this.promoCode = "";
     this.discount = 0;
     this.deliveryFee = 10;
-    this.total = 0;    
+    this.total = 0;
+    this.remoteCheckoutLineItems = new Array<any>();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShoppingCartPage');
-    
+
     if (sessionStorage.getItem("isLogin") === null){
       this.navCtrl.push(LoginPage);
     } else {
       this.isLogin = true;
-      
+
       //if there are items in products in cart
-      if (sessionStorage.getItem("Cart") != null && JSON.parse(sessionStorage.getItem("Cart"))[0] != null) {      
+      if (sessionStorage.getItem("Cart") != null && JSON.parse(sessionStorage.getItem("Cart"))[0] != null) {
           this.cartExists = true;
-          
+
           let sessionStorageItems = JSON.parse(sessionStorage.getItem("Cart"));
           console.log(sessionStorageItems);
 
@@ -58,11 +62,11 @@ export class ShoppingCartPage {
             let currentItem = sessionStorageItems[i];
             this.products.push(currentItem);
           }
-          console.log("Product", this.products[0]); 
-          
+          console.log("Product", this.products[0]);
+
           this.calculateSubtotal();
           if (this.subtotal >= 40){
-            this.deliveryFee = 0;     
+            this.deliveryFee = 0;
           }
           this.calculateTotal();
       }
@@ -73,12 +77,12 @@ export class ShoppingCartPage {
     console.log("productId in remove method", productId);
     for (var i =0; i< this.products.length; i++){
       console.log("products[i].product.productId", this.products[i].productId);
-      if (this.products[i].product.productId == productId){        
+      if (this.products[i].product.productId == productId){
         this.products.splice(i,1); //remove 1 item at index i
         console.log(this.products[i]);
       }
     }
-    
+
     let sessionStorageItems = JSON.parse(sessionStorage.getItem("Cart"));
     console.log(sessionStorageItems);
 
@@ -86,7 +90,7 @@ export class ShoppingCartPage {
     for (var j=0; j< sessionStorageItems.length; j++){
       console.log(sessionStorageItems[j].product.productId);
       if (sessionStorageItems[j].product.productId === productId){
-                
+
         productName = sessionStorageItems[j].product.productName;
         sessionStorageItems.splice(j,1);
         console.log("after remove: SessionStorageItems", sessionStorageItems);
@@ -100,15 +104,15 @@ export class ShoppingCartPage {
       buttons: ['OK']
     });
     alert.present();
-    if (sessionStorage.getItem("Cart") == null || JSON.parse(sessionStorage.getItem("Cart"))[0] == null) {      
+    if (sessionStorage.getItem("Cart") == null || JSON.parse(sessionStorage.getItem("Cart"))[0] == null) {
       console.log(JSON.parse(sessionStorage.getItem("Cart"))[0]);
       this.cartExists = false;
       console.log("cartExists?",this.cartExists);
       sessionStorage.removeItem("Cart");
     }
     this.calculateSubtotal();
-    this.calculateTotal();    
-    
+    this.calculateTotal();
+
   }
 
 
@@ -128,17 +132,17 @@ export class ShoppingCartPage {
           this.appliedPromo = true;
         },
         error => {
-          
+
           this.errorMessage = "HTTP" + error.status + ": " + error.error.message;
 
           this.discount = 0;
-          this.calculateSubtotal();          
+          this.calculateSubtotal();
 
           let alert = this.alertCtrl.create(
-            {title: "Opps, this code is not valid. Please try again",          
+            {title: "Opps, this code is not valid. Please try again",
             buttons: ['OK']
             });
-            alert.present();          
+            alert.present();
         }
       )
     } else {
@@ -147,7 +151,7 @@ export class ShoppingCartPage {
         subTitle: "Promo Code has already been Applied!",
         buttons: ['OK']
       });
-      alert.present();      
+      alert.present();
     }
   }
 
@@ -158,16 +162,16 @@ export class ShoppingCartPage {
   for (var i=0; i< this.products.length; i++){
     let currentProduct = this.products[i];
 
-    console.log(currentProduct);      
+    console.log(currentProduct);
     subtotal += currentProduct.product.price * currentProduct.quantityInCart;
 
     console.log("SUBTOTAL", subtotal);
     this.subtotal = subtotal;
 
     }
-    this.subtotal -= this.discount;      
+    this.subtotal -= this.discount;
   }
-  
+
   calculateTotal(){
     this.total = this.subtotal + this.deliveryFee;
   }
@@ -177,7 +181,7 @@ export class ShoppingCartPage {
     //updateQuantity
     for (var i =0; i< this.products.length; i++){
       console.log("product[i].productId ", this.products[i].product.productId);
-      if (this.products[i].product.productId === productId){        
+      if (this.products[i].product.productId === productId){
 
         console.log("CurrentQuantityInCart", this.products[i].quantityInCart);
 
@@ -185,12 +189,12 @@ export class ShoppingCartPage {
     }
     let sessionStorageItems = JSON.parse(sessionStorage.getItem("Cart"));
 
-    for (var j=0; j< sessionStorageItems.length; j++){      
+    for (var j=0; j< sessionStorageItems.length; j++){
       if (sessionStorageItems[j].product.productId === productId){
-        
+
         sessionStorage.setItem("Cart", JSON.stringify(sessionStorageItems));
       }
-    }    
+    }
     console.log("edited quantity", sessionStorageItems);
     this.calculateSubtotal();
     this.calculateTotal();
@@ -198,7 +202,22 @@ export class ShoppingCartPage {
 
   buttonTapped(event, page) {
     sessionStorage.setItem("PromoCode", this.promoCode);
-    console.log(sessionStorage);
+    this.cart = JSON.parse(sessionStorage.getItem("Cart"));
+
+    for (var i = 0; i < this.cart.length; i++){
+      let checkoutItem = new RemoteCheckoutLineItem();
+      // let checkoutItem = { skuCode: "FLR001", quantity: 1 };
+      checkoutItem.skuCode = this.cart[i].product.skuCode;
+      checkoutItem.quantity = this.cart[i].quantityInCart;
+      let remoteCheckoutLineItem = new Object();
+      remoteCheckoutLineItem = {skuCode: checkoutItem.skuCode, quantity: checkoutItem.quantity};
+
+      let bigObj = {remoteCheckoutLineItem: remoteCheckoutLineItem};
+
+      this.remoteCheckoutLineItems.push(bigObj);
+    }
+    sessionStorage.setItem("Checkout", JSON.stringify(this.remoteCheckoutLineItems));
+    console.log("remote cart ***** " + this.remoteCheckoutLineItems);
   	this.navCtrl.push(DeliveryPage, page);
   }
 

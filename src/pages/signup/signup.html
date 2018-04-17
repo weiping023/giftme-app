@@ -23,7 +23,7 @@
         <div *ngIf="email.errors.maxlength">
           Email cannot exceed 50 characters.
         </div>
-        <div *ngIf="email.errors.email">
+        <div *ngIf="email.errors?.email">
           Email must be valid.
         </div>
       </div>
