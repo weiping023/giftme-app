@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { NgForm } from '@angular/forms';
-import { AlertController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
-import { ConfirmTransactionPage } from '../confirm-transaction/confirm-transaction';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AlertController, ToastController } from 'ionic-angular';
+import { RemoteCheckoutLineItem } from '../../entities/remoteCheckoutLineItem';
+import { CartProduct } from '../../entities/cartProduct';
+//import { ConfirmTransactionPage } from '../confirm-transaction/confirm-transaction';
+import { TransactionProvider } from '../../providers/transaction/transaction';
+import { HomePage } from '../home/home';
+import { Customer } from '../../entities/user';
 
 @Component({
   selector: 'page-delivery',
@@ -11,119 +15,126 @@ import { ConfirmTransactionPage } from '../confirm-transaction/confirm-transacti
 })
 export class DeliveryPage {
   submitted: boolean;
-  deliveryUpdated: boolean;
-  unitnum: string;
-  streetname: string;
-  postalcode: string;
-  datetime: string;
-
-  submittedPay: boolean;
-  paid: boolean;
-  name: string;
-  cardnum: string;
-  expirydate: string;
-  cvcnum: string;
-  unitnumPay: string;
-  streetnamePay: string;
-  postalcodePay: string;
+  updateCheckout: boolean;
+  shopAddress: string;
+  promoCode: string;
+  email: string;
+  user: Customer;
+  updateDelivery: FormGroup;
+  cart: CartProduct[];
+  remoteCheckoutLineItems: RemoteCheckoutLineItem[];
 
   constructor(public navCtrl: NavController,
         public navParams: NavParams,
         public alertCtrl: AlertController,
-        public toastCtrl: ToastController) {
+        public toastCtrl: ToastController, public frmBuilder: FormBuilder, public transactionProvider: TransactionProvider) {
     this.submitted = false;
-    this.submittedPay = false;
-    this.deliveryUpdated = false;
-    this.paid = false;
+    this.updateCheckout = false;
+    this.remoteCheckoutLineItems = new Array<RemoteCheckoutLineItem>();
+    this.cart = new Array<CartProduct>();
+
+    this.updateDelivery = this.frmBuilder.group({
+      address: ["", [Validators.required]],
+      nameOnCard: ["", [Validators.required]],
+      cardNumber: ["", [Validators.required]],
+      expiryDate: ["", [Validators.required]],
+      cvv: ["", [Validators.required]]
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DeliveryPage');
-    if (sessionStorage.getItem("deliveryUpdated") == "true") {
-      this.deliveryUpdated = true;
-    }
-    this.unitnum = sessionStorage.getItem("unitnum");
-    this.streetname = sessionStorage.getItem("streetname");
-    this.postalcode = sessionStorage.getItem("postalcode");
-    this.datetime = sessionStorage.getItem("datetime");
   }
 
-  updateDelivery(deliveryForm: NgForm) {
+  get address() {
+    return this.updateDelivery.get('address');
+  }
+
+  get nameOnCard() {
+    return this.updateDelivery.get('nameOnCard');
+  }
+
+  get cardNumber() {
+    return this.updateDelivery.get('cardNumber');
+  }
+
+  get expiryDate() {
+    return this.updateDelivery.get('expiryDate');
+  }
+
+  get cvv() {
+    return this.updateDelivery.get('cvv');
+  }
+
+  ngOnInit() {
+    this.cart = JSON.parse(sessionStorage.getItem("Cart"));
+    this.shopAddress = this.cart[0].product.shop.location;
+    console.log(this.cart);
+    this.promoCode = sessionStorage.getItem("PromoCode");
+    this.user = JSON.parse(sessionStorage.getItem("user")).customer;
+    this.email = this.user.email;
+
+    for (var i = 0; i < this.cart.length; i++){
+      let currItem = {skuCode: "", quantity: 0};
+
+      // console.log("*****" + i + " times in loop");
+      // console.log("1. this.cart[i]", this.cart[i]);
+      currItem.skuCode = this.cart[i].product.skuCode;
+      // console.log("2. this.cart[i].product.skuCode ", this.cart[i].product.skuCode);
+      // console.log("3. this.currentItem.skuCode ",   currItem.skuCode);
+      currItem.quantity = this.cart[i].quantityInCart;
+      // console.log("4. this.currentItem", currItem);
+      // console.log("4a. this.currentItem.skuCode ",   currItem.skuCode);
+      // console.log("4b. this.currentItem.quantity ",   currItem.quantity);
+      this.remoteCheckoutLineItems.push(currItem);
+      // console.log("5. remoteCheckoutLineItems", this.remoteCheckoutLineItems);
+    }
+
+    this.updateDelivery = this.frmBuilder.group({
+      address: ["", [Validators.required]],
+      nameOnCard: ["", [Validators.required]],
+      cardNumber: ["", [Validators.required]],
+      expiryDate: ["", [Validators.required]],
+      cvv: ["", [Validators.required]]
+      });
+  }
+
+  updateDev() {
     this.submitted = true;
-    if (deliveryForm.valid) {
-      if (this.unitnum != null || this.streetname != null || this.postalcode != null || this.datetime != null) {
-        this.deliveryUpdated = true;
-        sessionStorage.setItem("unitnum", this.unitnum);
-        sessionStorage.setItem("streetname", this.streetname);
-        sessionStorage.setItem("postalcode", this.postalcode);
-        sessionStorage.setItem("datetime", this.datetime);
-        sessionStorage.setItem("deliveryUpdated", "true");
+    console.log(this.remoteCheckoutLineItems);
+    if (this.updateDelivery.valid) {
+      this.updateCheckout = true;
 
-        this.unitnum = sessionStorage.getItem("unitnum");
-        this.streetname = sessionStorage.getItem("streetname");
-        this.postalcode = sessionStorage.getItem("postalcode");
-        this.datetime = sessionStorage.getItem("datetime");
-
-        let toast = this.toastCtrl.create(
-				{
-					message: 'Delivery Details Confirmed',
-					cssClass: 'toast',
-					duration: 3000
-				});
-				toast.present();
-      } else {
-        let alert = this.alertCtrl.create ({
-          title: 'Invalid Delivery Details',
-          subTitle: '',
-          buttons:['OK']
-        });
-        alert.present();
-      }
-    } else {
+      this.transactionProvider.remoteCheckout(this.remoteCheckoutLineItems, this.promoCode, this.email, this.updateDelivery.value.address, this.shopAddress).subscribe(
+				response => {
+					let toast = this.toastCtrl.create(
+					{
+						message: 'Payment Successful',
+						cssClass: 'toast',
+						duration: 3000
+					});
+					toast.present();
+				},
+				error => {
+					//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
+					let alert = this.alertCtrl.create(
+					{
+						title: 'Delivery/Payment',
+						subTitle: 'Invalid details',
+						buttons: ['OK']
+					});
+					alert.present();
+					this.navCtrl.push(HomePage);
+				}
+			);
     }
   }
 
-  updatePayment(paymentForm: NgForm) {
-    this.submitted = true;
-    if (paymentForm.valid) {
-      if (this.name != null || this.cardnum != null || this.expirydate != null || this.cvcnum != null || this.unitnum != null || this.streetname != null || this.postalcode != null) {
-        this.paid = true;
-        sessionStorage.setItem("name", this.name);
-        sessionStorage.setItem("cardnum", this.cardnum);
-        sessionStorage.setItem("expirydate", this.expirydate);
-        sessionStorage.setItem("cvcnum", this.cvcnum);
-        sessionStorage.setItem("unitnumPay", this.unitnumPay);
-        sessionStorage.setItem("streetnamePay", this.streetnamePay);
-        sessionStorage.setItem("postalcodePay", this.postalcodePay);
-
-        this.name = sessionStorage.getItem("name");
-        this.cardnum = sessionStorage.getItem("cardnum");
-        this.expirydate = sessionStorage.getItem("expirydate");
-        this.cvcnum = sessionStorage.getItem("cvcnum");
-        this.unitnumPay = sessionStorage.getItem("unitnumPay");
-        this.streetnamePay = sessionStorage.getItem("streetnamePay");
-        this.postalcodePay = sessionStorage.getItem("postalcodePay");
-
-        let toast = this.toastCtrl.create(
-				{
-					message: 'Payment Details Confirmed',
-					cssClass: 'toast',
-					duration: 3000
-				});
-				toast.present();
-      } else {
-        let alert = this.alertCtrl.create ({
-          title: 'Invalid Payment Details',
-          subTitle: '',
-          buttons:['OK']
-        });
-        alert.present();
-      }
-    } else {
-    }
+  homeTapped(event, page) {
+    this.navCtrl.push(HomePage, page);
   }
 
-  buttonTapped(event, page) {
-  	this.navCtrl.push(ConfirmTransactionPage, page);
-  }
+  // buttonTapped(event, page) {
+  // 	this.navCtrl.push(ConfirmTransactionPage, page);
+  // }
 }

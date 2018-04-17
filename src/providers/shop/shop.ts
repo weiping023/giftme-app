@@ -26,7 +26,7 @@ export class ShopProvider {
 	{
 		console.log('Hello ShopProvider Provider');
   }
-  
+
   retrieveAllShops(): Observable<any>
 	{
 		let path: string = '';
@@ -44,9 +44,9 @@ export class ShopProvider {
 		(
 			catchError(this.handleError)
 		);
-		
+
   }
-  
+
   retrieveShop(shopId: number): Observable<any>
 	{
 		let path: string = '';
@@ -65,7 +65,7 @@ export class ShopProvider {
 			catchError(this.handleError)
 		);
   }
-  
+
   private handleError(error: HttpErrorResponse)
 	{
 		if (error.error instanceof ErrorEvent)

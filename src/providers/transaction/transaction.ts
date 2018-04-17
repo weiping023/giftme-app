@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Platform } from 'ionic-angular';
 import { Transaction } from '../../entities/transaction';
+import { RemoteCheckoutLineItem } from '../../entities/remoteCheckoutLineItem';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,13 +17,35 @@ const httpOptions = {
 
 @Injectable()
 export class TransactionProvider {
-  ipAddress = '192.168.170.1';
+  ipAddress = '172.25.99.176';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Transaction';
   baseUrl = "/api/Transaction";
 
   constructor(public api: Api, public platform: Platform, private httpClient: HttpClient) {
     console.log('Hello TransactionProvider Provider');
+  }
+
+  remoteCheckout(remoteCheckoutLineItems: RemoteCheckoutLineItem[],
+    promoCode: string, email: string, customerAddress: string, shopAddress: string): Observable<any> {
+    let path: string = "";
+    if (this.platform.is('core') || this.platform.is('mobileweb')) {
+      path = this.baseUrl;
+    } else {
+      path = this.fullBaseUrl;
+    }
+    let remoteCheckoutReq = {
+      "remoteCheckoutLineItems": remoteCheckoutLineItems,
+      "promoCode": promoCode,
+      "email": email,
+      "customerAddress": customerAddress,
+      "shopAddress": shopAddress,
+    }
+    console.log(path);
+    console.log(remoteCheckoutReq);
+    return this.httpClient.put<any>(path, remoteCheckoutReq, httpOptions).pipe (
+      catchError(this.handleError)
+    );
   }
 
   retrieveAllTransactionsByEmail(email: string): Observable<any> {
