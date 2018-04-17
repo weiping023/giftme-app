@@ -177,7 +177,13 @@ export class ProductIndivPage {
           }
         }
       } else {
-      this.navCtrl.push(LoginPage);
+        let toast = this.toastCtrl.create({
+          message: 'Error: Please Login to add Product to Cart',
+          cssClass: 'toast',
+          duration: 3000
+        });
+        toast.present();
+        this.navCtrl.push(LoginPage);
       }
     }
   } //end of addToCart()
