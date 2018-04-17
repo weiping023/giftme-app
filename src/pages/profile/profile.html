@@ -26,7 +26,7 @@
     <form [formGroup]="updateProfile" (ngSubmit)="update(updateProfileForm)">
       <ion-item>
         <ion-label fixed>First Name</ion-label>
-        <ion-input type="text" formControlName="firstName" placeholder="eg. AhBeng" id="firstName" maxlength="32" required="true"></ion-input>
+        <ion-input type="text" formControlName="firstName" placeholder={{currFirstName}} id="firstName" maxlength="32" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || submitted)" class="errorText">
@@ -40,7 +40,7 @@
 
       <ion-item>
         <ion-label fixed>Last Name</ion-label>
-        <ion-input type="text" formControlName="lastName" placeholder="eg. Tan" id="lastName" maxlength="32" required="true"></ion-input>
+        <ion-input type="text" formControlName="lastName" placeholder={{currLastName}} id="lastName" maxlength="32" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || submitted)" class="errorText">
@@ -54,7 +54,7 @@
 
       <ion-item>
         <ion-label fixed>Contact</ion-label>
-        <ion-input type="text" formControlName="mobileNumber" placeholder="eg. 12345678" id="mobileNumber" minlength="8" maxlength="8" required="true"></ion-input>
+        <ion-input type="text" formControlName="mobileNumber" placeholder={{currMobileNumber}} id="mobileNumber" minlength="8" maxlength="8" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched || submitted)" class="errorText">

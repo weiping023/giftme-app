@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController, AlertController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { HomePage } from '../home/home';
-import { LoginPage } from '../login/login'
-import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { LoginPage } from '../login/login';
+import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { Customer } from '../../entities/user';
 import { NgForm, PatternValidator, FormGroup, FormBuilder, Validators, EmailValidator} from "@angular/forms";
 
