@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { ProductIndivPage } from '../product-indiv/product-indiv';
-import { ReviewPage } from '../review/review';
-
+import { ViewReviewsPage } from '../view-reviews/view-reviews';
 
 //Provider
 import { ShopProvider } from '../../providers/shop/shop';
@@ -60,7 +59,9 @@ export class ShopIndivPage {
   	this.navCtrl.push(ShoppingCartPage, page);
   }
 
-  buttonTapped(event, page) {
-  	this.navCtrl.push(ReviewPage, page);
+  viewReview(event, shopId) {
+  	this.navCtrl.push(ViewReviewsPage, {
+      shopId
+    });
   }
 }

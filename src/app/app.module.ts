@@ -23,6 +23,7 @@ import { ReviewPage } from '../pages/review/review';
 import { CatConfectioneryPage } from '../pages/category-confectionery/category-confectionery';
 import { CatFlowersPage } from '../pages/category-flowers/category-flowers';
 import { CatPlushiesPage } from '../pages/category-plushies/category-plushies';
+import{ ViewReviewsPage } from '../pages/view-reviews/view-reviews';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -59,7 +60,9 @@ import { ShopProvider } from '../providers/shop/shop';
     CatConfectioneryPage,
     CatFlowersPage,
     CatPlushiesPage,
+    ViewReviewsPage,
     SideMenuContentComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,8 @@ import { ShopProvider } from '../providers/shop/shop';
     ReviewPage,
     CatConfectioneryPage,
     CatFlowersPage,
-    CatPlushiesPage
+    CatPlushiesPage,
+    ViewReviewsPage
   ],
   providers: [
     StatusBar,

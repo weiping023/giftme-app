@@ -82,7 +82,7 @@ export class SignupPage {
             duration: 3000,
           });
           toast.present();
-          this.navCtrl.push(HomePage);
+          this.navCtrl.push(SignupPage);
           console.log(this.newUser + " successful");
         },
         error => {
