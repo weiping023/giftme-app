@@ -31,12 +31,14 @@
 
           <ion-item>
             <b>Shop Name: </b>{{shopToView.shopName}} <br/>
-            <i>{{shopToView.location}}</i><br/>            
-            <p>Area: </p>{{shopToView.area}} <br/>     
-          </ion-item>
+            <b>Location: </b><i>{{shopToView.location}}</i> <br/>  
+            <p>Area: {{shopToView.area}}</p>
+          </ion-item> <br/>
 
-          <ion-list *ngFor"let product of products">
-            <strong>Products</strong>
+          <ion-list *ngFor="let product of products">
+            <span>
+              <h2 align="left" padding>Products</h2>
+            </span>
           
             <ion-card (click)="viewProduct(product.productId)">      
               <ion-item>
@@ -50,7 +52,7 @@
                 ${{product.price}}
               </ion-item>
             </ion-card>
-          
+          </ion-list>
 
         </ion-col>
       </ion-row>

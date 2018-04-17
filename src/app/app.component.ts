@@ -146,12 +146,6 @@ export class MyApp {
       component: ShoppingCartPage
     });
 
-    this.options.push({
-      iconName: 'create',
-      displayName: 'Review',
-      component: ReviewPage
-    });
-
     // Load special options
     // -----------------------------------------------
     if (sessionStorage.getItem("isLogin") == null) {

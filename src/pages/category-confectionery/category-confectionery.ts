@@ -16,6 +16,8 @@ export class CatConfectioneryPage {
 
 	errorMessage: string;
   products: Product[];
+  filteredProducts: Product[];
+
   priceFilter: any= {
     upper:100,
     lower:1
@@ -35,14 +37,18 @@ export class CatConfectioneryPage {
 
     this.priceFilteredProducts = [];
     this.colorFilteredProducts = [];
+    this.filteredProducts =[];
 
     this.productProvider.retrieveAllProducts().subscribe(
 			response => {
         this.products = response.products
-        
-        //to do filter to show confectionery only NEXT TIME
-
-        this.priceFilteredProducts = this.products;    
+                
+        for (var i=0; i <this.products.length;i++){           
+          if (this.products[i].category === "Confectionary"){ 
+            this.filteredProducts.push(this.products[i]);
+          }
+        }
+        this.priceFilteredProducts = this.filteredProducts;    
 			},
 			error => {
 				this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
@@ -54,13 +60,13 @@ export class CatConfectioneryPage {
     //always reset filteredProducts  
     this.priceFilteredProducts = [];
     
-    console.log("filteredproduct",this.products);
+    console.log("filteredproduct",this.filteredProducts);
     
     this.priceFilterMin = this.priceFilter.lower;
     this.priceFilterMax = this.priceFilter.upper;
     
-    for (var i =0; i < this.products.length; i++){
-      if (this.products[i].price >= this.priceFilterMin && this.products[i].price <= this.priceFilterMax){
+    for (var i =0; i < this.filteredProducts.length; i++){
+      if (this.filteredProducts[i].price >= this.priceFilterMin && this.filteredProducts[i].price <= this.priceFilterMax){
         this.priceFilteredProducts.push(this.products[i]);
       }
     }    

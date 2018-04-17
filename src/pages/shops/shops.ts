@@ -6,6 +6,8 @@ import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { ShopProvider } from '../../providers/shop/shop';
 
 import { Shop } from '../../entities/shop';
+import { ShopIndivPage } from '../shop-indiv/shop-indiv';
+import { getTypeNameForDebugging } from '@angular/core/src/change_detection/differs/iterable_differs';
 
 @Component({
   selector: 'page-shops',
@@ -17,7 +19,7 @@ export class ShopsPage {
   shops: Shop[];
 
   areaFilteredShops: Shop[];
-  areas: string[];
+  areas: any;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -26,8 +28,14 @@ export class ShopsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopsPage');
-        
-    this.areas = ["Central", "East", "North", "South", "West"];
+
+    this.areas = [
+      {area: "Central", checked: false}, 
+      {area: "East", checked: false}, 
+      {area: "North", checked: false},
+      {area: "South", checked: false},
+      {area: "West", checked: false}
+    ];
 
     this.shopProvider.retrieveAllShops().subscribe(
       response => {        
@@ -42,15 +50,46 @@ export class ShopsPage {
   }
 
   filterByArea(event, area: string){
-    //always reset areaFilteredShops
+    //always reset areaFilteredShops    
     this.areaFilteredShops = [];
-    console.log(this.shops[i]);
 
-    for (var i=0; this.shops.length; i++){
-      if (this.shops[i].area == area && event.checked == true){
-        this.areaFilteredShops.push(this.shops[i]);
+    console.log("this.shops", this.shops);
+    let contains = false;
+
+    for (var i = 0; i < this.areas.length; i++) {      
+      if (area === this.areas[i].area){
+        console.log("areas matched", this.areas[i].area);
+        if (event.checked == true){
+          console.log("eventChecked",event.checked);
+          this.areas[i].checked = true;
+          console.log(this.areas[i].area, this.areas[i].checked);
+        } else if (event.checked == false) {
+            console.log("eventChecked",event.checked);
+            this.areas[i].checked = false;
+            console.log(this.areas[i].area, this.areas[i].checked);        
+        }
       }
     }
+
+    for (var i =0; i < this.areas.length; i++){
+      if (this.areas[i].checked == true){
+        console.log("print those true",this.areas[i].area);
+        for (var j =0; j < this.shops.length; j++){
+          if (this.shops[j].area == this.areas[i].area){
+            this.areaFilteredShops.push(this.shops[j]);
+            console.log(this.areaFilteredShops);
+          }
+        }        
+      }
+    }
+    
+  }
+
+  viewShop(shopId){
+    console.log("passedinSHopId",shopId);
+    this.navCtrl.push(ShopIndivPage, {
+      shopId
+    });
   }
 
   cartTapped(event, page) {

@@ -19,6 +19,7 @@
     {{errorMessage}}
   </div>
   
+  <!-- price filter-->
   <ion-list>    
     <ion-item>
       <ion-label item-start>
@@ -32,18 +33,17 @@
     </ion-item>  
   </ion-list>
   
-  <!-- <ion-list>    
-    <ion-item>
-      <ion-label item-start>
-        <b>Filter by Colour</b>
-      </ion-label> 
-    </ion-item>
-    
-    <ion-item *ngFor="let colour of colours">
-        <ion-label>{{colour.colour}}</ion-label>
-        <ion-checkbox (ionChange)="colourSelected($event, colour.colour)"></ion-checkbox>
-    </ion-item>    
-  </ion-list> -->
+  <!-- colour filter-->
+  <ion-item>
+    <ion-label item-start>
+      <b>Filter by Colour</b>
+    </ion-label> 
+  </ion-item>
+  
+  <ion-item *ngFor="let colour of colours">
+      <ion-label>{{colour.colour}}</ion-label>
+      <ion-checkbox (ionChange)="colourSelected($event, colour.colour)"></ion-checkbox>
+  </ion-item>      
 
   <ion-grid>    
     <ion-list *ngFor="let product of priceFilteredProducts">

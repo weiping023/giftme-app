@@ -101,8 +101,10 @@ export class ShoppingCartPage {
     });
     alert.present();
     if (sessionStorage.getItem("Cart") == null || JSON.parse(sessionStorage.getItem("Cart"))[0] == null) {      
-      console.log(JSON.parse(sessionStorage.getItem("Cart"))[0], this.cartExists);
+      console.log(JSON.parse(sessionStorage.getItem("Cart"))[0]);
       this.cartExists = false;
+      console.log("cartExists?",this.cartExists);
+      sessionStorage.removeItem("Cart");
     }
     this.calculateSubtotal();
     this.calculateTotal();    
