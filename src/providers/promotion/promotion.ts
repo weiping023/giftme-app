@@ -15,7 +15,7 @@ const httpOptions = {
 export class PromotionProvider
 {
 
-	ipAddress = '172.25.99.176';
+	ipAddress = '172.25.105.206';
 	portNo = '8080';
 	fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Promotion';
 

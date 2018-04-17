@@ -104,8 +104,7 @@ export class DeliveryPage {
     console.log(this.remoteCheckoutLineItems);
     if (this.updateDelivery.valid) {
       this.updateCheckout = true;
-
-      this.transactionProvider.remoteCheckout(this.remoteCheckoutLineItems, this.promoCode, this.email, this.updateDelivery.value.address, this.shopAddress).subscribe(
+      this.transactionProvider.remoteCheckout(this.promoCode, this.email, this.updateDelivery.value.address, this.shopAddress, this.remoteCheckoutLineItems).subscribe(
 				response => {
 					let toast = this.toastCtrl.create(
 					{
