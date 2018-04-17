@@ -16,6 +16,8 @@ export class CatPlushiesPage {
 
   errorMessage: string;
   products: Product[];
+  filteredProducts: Product[];
+
   priceFilter: any= {
     upper:100,
     lower:1
@@ -35,16 +37,19 @@ export class CatPlushiesPage {
 
     this.priceFilteredProducts = [];
     this.colorFilteredProducts = [];
+    this.filteredProducts = [];
 
     this.productProvider.retrieveAllProducts().subscribe(
 			response => {
         this.products = response.products
-        for (var i=0; i <this.products.length;i++){
-          if (this.products[i].category!= "plushies"){
-            this.products.splice(i,1);
+        
+        for (var i=0; i <this.products.length;i++){          
+          if (this.products[i].category === "Plushies"){
+            let productToPush = this.products[i];
+            this.filteredProducts.push(productToPush);
           }
         }
-        this.priceFilteredProducts = this.products;    
+        this.priceFilteredProducts = this.filteredProducts;   
 			},
 			error => {
 				this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
@@ -56,14 +61,16 @@ export class CatPlushiesPage {
     //always reset filteredProducts  
     this.priceFilteredProducts = [];
     
-    console.log("filteredproduct",this.products);
+    console.log("filteredproduct",this.filteredProducts);
     
     this.priceFilterMin = this.priceFilter.lower;
     this.priceFilterMax = this.priceFilter.upper;
     
-    for (var i =0; i < this.products.length; i++){
-      if (this.products[i].price >= this.priceFilterMin && this.products[i].price <= this.priceFilterMax){
-        this.priceFilteredProducts.push(this.products[i]);
+    for (var i =0; i < this.filteredProducts.length; i++){
+      console.log("filteredproduct",this.filteredProducts);
+      if (this.filteredProducts[i].price >= this.priceFilterMin && this.filteredProducts[i].price <= this.priceFilterMax){
+        console.log("filteredproduct",this.filteredProducts[i]);        
+        this.priceFilteredProducts.push(this.filteredProducts[i]);
       }
     }    
   }

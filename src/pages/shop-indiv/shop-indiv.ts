@@ -28,6 +28,7 @@ export class ShopIndivPage {
               public shopProvider: ShopProvider) 
   {
     this.shopId = this.navParams.get('shopId');    
+    console.log("receivedShopid", this.shopId);
   }
 
   ionViewDidLoad() {
@@ -35,15 +36,17 @@ export class ShopIndivPage {
 
     this.shopProvider.retrieveShop(this.shopId).subscribe(
       response => {
-        this.shopToView = response.product;
+        
+        this.shopToView = response.shop;        
+        this.products = this.shopToView.products;
+        console.log(this.shopToView);
+        console.log(this.products);
       },
       
       error => {
         this.errorMessage = "HTTP" + error.status + ": " + error.error.message;
       }
-    );
-    
-    this.products = this.shopToView.products;
+    );        
   }
   
   viewProduct(productId){

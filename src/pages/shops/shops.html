@@ -26,15 +26,15 @@
   </ion-item>
   
   <ion-item *ngFor="let area of areas">
-    <ion-label>{{area}}</ion-label>
-    <ion-checkbox (ionChange)="filterByArea($event, area)"></ion-checkbox>
+    <ion-label>{{area.area}}</ion-label>
+    <ion-checkbox (ionChange)="filterByArea($event, area.area)"></ion-checkbox>
   </ion-item>
 
   <ion-grid>    
     <ion-list *ngFor="let shop of areaFilteredShops">
       <ion-row>      
         <ion-col>
-          <ion-card (click)="viewShop(shop.productId)">
+          <ion-card (click)="viewShop(shop.shopId)">
           
             <ion-item>
               <ion-img>Shop Image</ion-img><br>
@@ -53,7 +53,4 @@
     </ion-list>      
   </ion-grid>
     
-  <p>
-    Allow users to input Postal Code, then display shops based on similar location area.
-  </p>
 </ion-content>

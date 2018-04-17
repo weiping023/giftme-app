@@ -31,7 +31,7 @@ export class ReviewPage {
   shopId: number;
   createReviewErrorMessage: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public reviewProvider: ReviewProvider, public frmBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public reviewProvider: ReviewProvider, public frmBuilder: FormBuilder, public toastCtrl: ToastController) {
     this.submitted = false;
 		this.isSent = false;
 		this.inputCustName = "";
@@ -82,6 +82,12 @@ export class ReviewPage {
 
       this.createReviewErrorMessage = "";
     } else {
+      let toast = this.toastCtrl.create({
+        message: 'Error: Please Login to view Shop Reviews',
+        cssClass: 'toast',
+        duration: 3000
+      });
+      toast.present();
       this.navCtrl.push(LoginPage);
     }
   }

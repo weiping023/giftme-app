@@ -16,6 +16,8 @@ export class CatFlowersPage {
 
   errorMessage: string;
   products: Product[];  
+  filteredProducts: Product[];
+
   priceFilter: any= {
     upper:100,
     lower:1
@@ -24,17 +26,14 @@ export class CatFlowersPage {
   priceFilterMax: any;
   priceFilteredProducts: Product[];
   
-  colours: any = {
-    colour: ""    
-  }
+  colours: any;  
 
   colorFilteredProducts: Product[];
   finalFilteredProducts: Product[];
 
   constructor(public navCtrl: NavController,
   						public navParams: NavParams,
-  						public productProvider: ProductProvider) {
-                this.colours = [];
+  						public productProvider: ProductProvider) {      
               }
 
   ionViewDidLoad() {
@@ -42,25 +41,30 @@ export class CatFlowersPage {
 
     this.priceFilteredProducts = [];
     this.colorFilteredProducts = [];
+    this.filteredProducts = [];
+
     this.colours = [
-      {colour:"Red"}, 
-      {colour:"Blue"},
-      {colour:"Yellow"},
-      {colour:"White"}
-    ];
-    console.log(this.colours);
+      {colour:"Red", checked: false}, 
+      {colour:"Blue", checked: false},
+      {colour:"Yellow", checked: false},
+      {colour:"White", checked: false}
+    ];    
 
     this.productProvider.retrieveAllProducts().subscribe(
-			response => {
+			response => {        
         this.products = response.products;
-        for (var i=0; i <this.products.length;i++){
-          if (this.products[i].category != "Flowers"){
-            this.products.splice(i,1);
-          }
+
+        for (var i=0; i < this.products.length; i++){         
+          if (this.products[i].category === "Flowers"){
+            let productToPush = this.products[i];
+            this.filteredProducts.push(productToPush);
+          }          
         }
-        this.priceFilteredProducts = this.products;    
-        this.colorFilteredProducts = this.products;
-        this.finalFilteredProducts = this.products;
+        
+        this.priceFilteredProducts = this.filteredProducts;   
+        console.log("pricefiltered",this.priceFilteredProducts);
+        this.colorFilteredProducts = this.filteredProducts;
+        this.finalFilteredProducts = this.filteredProducts;
 			},
 			error => {
 				this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
@@ -75,9 +79,9 @@ export class CatFlowersPage {
     this.priceFilterMin = this.priceFilter.lower;
     this.priceFilterMax = this.priceFilter.upper;
     
-    for (var i =0; i < this.products.length; i++){
-      if (this.products[i].price >= this.priceFilterMin && this.products[i].price <= this.priceFilterMax){
-        this.priceFilteredProducts.push(this.products[i]);
+    for (var i =0; i < this.filteredProducts.length; i++){
+      if (this.filteredProducts[i].price >= this.priceFilterMin && this.filteredProducts[i].price <= this.priceFilterMax){
+        this.priceFilteredProducts.push(this.filteredProducts[i]);
       }
     }        
   }
@@ -85,13 +89,24 @@ export class CatFlowersPage {
   colourSelected(event, colour: string){
     //reset colour array
     this.colorFilteredProducts = [];    
-    console.log(event.checked);
     
-    for (var i =0; i <this.products.length; i++){
-      if (this.products[i].colour == colour && event.checked == true){
-        this.colorFilteredProducts.push(this.products[i]);
+    for (var i =0; i <this.colours.length; i++){
+      if (this.colours[i].colour == colour && event.checked == true){
+        this.colours[i].checked = true;
+      } else if (this.colours[i].colour == colour && event.checked == false) {
+        this.colours[i].checked = false;
       }
     }    
+
+    for (var i =0; i < this.colours.length; i++){
+      if (this.colours[i].checked == true){
+        for (var j =0; j<this.products.length; j++){
+          if (this.products[i].colour == this.colours[i].colours){
+            this.colorFilteredProducts.push(this.products[i]);
+          }
+        }
+      }
+    }
     console.log("colorFilteredProduct",this.colorFilteredProducts);    
   }
 
