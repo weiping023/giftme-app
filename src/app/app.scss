@@ -20,7 +20,7 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 
 .bg-style {
-  background: #f4f4f4; //white
+  background: white; //white
 }
 
 @font-face{
@@ -43,11 +43,23 @@
 
 ion-title, h1, h2, h3, h4, h5, h6, ion-label, ion-input, ion-content {
   font-family: Ubuntu;
-  color: #f08a8a;
+  color: #E7B0D0;
+}
+
+ion-toolbar{
+  border-bottom: 2px solid #E7B0D0;
 }
 
 .card {
   background-color: lightpink; //light pink
+}
+
+.titleicon {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  text-align:center;
 }
 
 // .button {

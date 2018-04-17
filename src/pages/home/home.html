@@ -3,14 +3,14 @@
     <button ion-button menuToggle colour="dark">
       <ion-icon name="menu"></ion-icon>
     </button>  
-    
-    <ion-title>
-      giftme      
-    </ion-title>
+
+    <div class="titleicon">
+        <img src="../assets/img/giftme-logo.png" width="100px" />
+   </div>
     <ion-buttons end>
       <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
         <ion-icon name="cart" color="light"></ion-icon>
-        <ion-content color="light">Cart</ion-content>
+        Cart
       </button>
     </ion-buttons>
   </ion-toolbar>
@@ -32,12 +32,13 @@
     </ion-slide> 
 
     <ion-slide>    
-    	<ion-img width="120" height="120" src="./assets/imgs/shop3-angel-florist-logo.png"></ion-img> <br> 	      	
+    	<ion-img width="120" height="70" src="./assets/imgs/shop3-angel-florist-logo.png"></ion-img> <br> 	      	
     	Angel Florist
     </ion-slide> 
 
     <ion-slide>      
-    	Shop 4  
+      <ion-img width="120" height="60" src="../assets/img/shops/teddylodge.jpg"></ion-img>  <br>
+      Teddy Lodge
     </ion-slide> 
   </ion-slides>
 
