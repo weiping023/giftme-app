@@ -3,7 +3,7 @@
     <button ion-button menuToggle colour="primary">
           <ion-icon name="menu"></ion-icon>
       </button>
-    <ion-title>View Past Transactions</ion-title>
+    <ion-title>View Transactions</ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="dark">
             <ion-icon name="cart"></ion-icon>
@@ -14,7 +14,22 @@
 </ion-header>
 
 <ion-content padding class="bg-style">
-	<p>
-		Display all past transactions of all enum type
-	</p>
+  <ion-list *ngFor="let transaction of transactions">
+    <ion-card>
+      <ion-header>
+        <b>Delivery Code</b>
+        {{transaction.transactionDeliveryCode}}
+      </ion-header>
+      <ion-content>
+        <b>Transaction Date & Time</b>
+        :{{transaction.transactionDateTime}}
+        <b>Delivery Date & Time</b>
+        :{{transaction.transactionDatePurchased}}
+        <b></b>
+        <b>Amount Paid</b>
+        ${{transaction.transactionTotal}}
+        view all products button
+      </ion-content>
+    </ion-card>
+  </ion-list>
 </ion-content>

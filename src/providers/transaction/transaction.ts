@@ -17,7 +17,7 @@ const httpOptions = {
 
 @Injectable()
 export class TransactionProvider {
-  ipAddress = '172.25.105.206';
+  ipAddress = '172.25.99.176';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Transaction';
   baseUrl = "/api/Transaction";
@@ -26,35 +26,48 @@ export class TransactionProvider {
     console.log('Hello TransactionProvider Provider');
   }
 
-  remoteCheckout(promoCode: string, email: string, customerAddress: string, shopAddress: string, remoteCheckoutLineItems: RemoteCheckoutLineItem[]): Observable<any> {
+  remoteCheckout(remoteCheckoutLineItems: RemoteCheckoutLineItem[],
+    promoCode: string, email: string, customerAddress: string, shopAddress: string): Observable<any> {
     let path: string = "";
     if (this.platform.is('core') || this.platform.is('mobileweb')) {
       path = this.baseUrl;
     } else {
       path = this.fullBaseUrl;
     }
-    let remoteCheckoutReq = {
+    let createTransactionReq = {
+      "remoteCheckoutLineItems": remoteCheckoutLineItems,
       "promoCode": promoCode,
       "email": email,
       "customerAddress": customerAddress,
       "shopAddress": shopAddress,
-      "remoteCheckoutLineItems": remoteCheckoutLineItems
     }
     console.log(path);
-    console.log(remoteCheckoutReq);
-    return this.httpClient.put<any>(path, remoteCheckoutReq, httpOptions).pipe (
+    console.log(createTransactionReq);
+    return this.httpClient.put<any>(path, createTransactionReq, httpOptions).pipe (
       catchError(this.handleError)
     );
   }
 
-  retrieveAllTransactionsByEmail(email: string): Observable<any> {
+  // retrieveAllTransactionsByEmail(email: string): Observable<any> {
+  //   let path: string = "";
+  //   if (this.platform.is('core') || this.platform.is('mobileweb')) {
+  //     path = this.baseUrl;
+  //   } else {
+  //     path = this.fullBaseUrl;
+  //   }
+  //   return this.httpClient.post<any>(path + "/retrieveAllTransactionsByEmail/?email=" + email).pipe (
+  //     catchError(this.handleError)
+  //   );
+  // }
+
+  retrieveTransactionByDeliveryCode(deliveryCode: string): Observable<any> {
     let path: string = "";
     if (this.platform.is('core') || this.platform.is('mobileweb')) {
       path = this.baseUrl;
     } else {
       path = this.fullBaseUrl;
     }
-    return this.httpClient.post<any>(path + "//retrieveAllTransactionsByEmail/?email=", httpOptions).pipe (
+    return this.httpClient.get<any>(this.baseUrl + "/retrieveTransactionByDeliveryCode?deliveryCode=" + deliveryCode).pipe(
       catchError(this.handleError)
     );
   }

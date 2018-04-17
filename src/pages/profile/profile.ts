@@ -7,12 +7,7 @@ import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 import { UserProvider } from '../../providers/user/user';
 import { Customer } from '../../entities/user';
-import {
-  NgForm,
-  FormGroup,
-  FormBuilder,
-  Validators
-} from "@angular/forms";
+import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
 	selector: 'page-profile',
@@ -43,12 +38,9 @@ export class ProfilePage implements OnInit{
 		this.currMobileNumber = "";
 
 		this.updateProfile = this.frmBuilder.group({
-			firstName: ["", Validators.compose([Validators.maxLength(50), Validators.minLength(3)])],
-			lastName: ["", Validators.compose([Validators.maxLength(50), Validators.minLength(3)])],
-			mobileNumber: [
-				"",
-				[Validators.minLength(8), Validators.maxLength(8)]
-			]
+			firstName: ["", Validators.required],
+			lastName: ["", Validators.required],
+			mobileNumber: ["", [Validators.minLength(8), Validators.maxLength(8)]]
 		});
 	}
 
@@ -99,18 +91,14 @@ export class ProfilePage implements OnInit{
 		if (this.updateProfile.valid) {
 			this.isUpdated = true;
 
-			// if (this.updateProfile.value.firstName !== null) {
-			// 	this.user.firstName = this.updateProfile.value.firstName;
-			// }
-			// if (this.updateProfile.value.lastName !== null) {
-			// 	this.user.lastName = this.updateProfile.value.lastName;
-			// }
-			// if (this.updateProfile.value.mobileNumber !== null) {
-			// 	this.user.mobileNumber = this.updateProfile.value.mobileNumber;
-			// }
-      //
-			// console.log("updated " + this.updateProfile.value.firstName);
-			// console.log("updated " + this.user.firstName);
+			this.user.firstName = this.updateProfile.value.firstName;
+			this.user.lastName = this.updateProfile.value.lastName;
+			this.user.mobileNumber = this.updateProfile.value.mobileNumber;
+
+      sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+
+			console.log("updated " + this.updateProfile.value.firstName);
+			console.log("updated " + this.user.firstName);
 			this.userProvider.updateCustomer(this.user).subscribe(
 				response => {
 					let toast = this.toastCtrl.create(
