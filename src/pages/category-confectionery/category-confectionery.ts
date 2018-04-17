@@ -43,9 +43,8 @@ export class CatConfectioneryPage {
 			response => {
         this.products = response.products
                 
-        for (var i=0; i <this.products.length;i++){ 
-          //to change to confectionEry*         
-          if (this.products[i].category === "Confectionary"){   
+        for (var i=0; i <this.products.length;i++){           
+          if (this.products[i].category === "Confectionary"){ 
             this.filteredProducts.push(this.products[i]);
           }
         }
