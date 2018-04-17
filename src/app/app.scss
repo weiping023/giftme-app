@@ -15,8 +15,18 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+
+@import url('https://fonts.googleapis.com/css?family=Work+Sans');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
 .bg-style {
-  background: #FFFFFF; //white
+  background: #f4f4f4; //white
+}
+
+@font-face{
+  font-family: 'Work Sans';
+  font-weight: Extra-Light;
+  src: url(https://fonts.googleapis.com/css?family=Work+Sans)
 }
 
 @font-face {
@@ -31,9 +41,9 @@
   font-style: normal;
 }
 
-ion-title, h1, h2, h3, h4, h5, h6, ion-label, ion-input {
-  font-family: roboto;
-  color: #333333;
+ion-title, h1, h2, h3, h4, h5, h6, ion-label, ion-input, ion-content {
+  font-family: Ubuntu;
+  color: #f08a8a;
 }
 
 .card {

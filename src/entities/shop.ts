@@ -8,7 +8,8 @@ export class Shop
 	products: Product; 
 	reviews: Review; 
 	shopId: number;
-	shopName: string;		
+	shopName: string;	
+	imgPath: string;	
 		
 	constructor()
 	{

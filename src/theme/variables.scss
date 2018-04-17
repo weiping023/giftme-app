@@ -35,11 +35,14 @@ $app-direction: ltr;
 
 $colors: (
   primary:    #999999, //light grey
-  secondary:  #FAFAFA, //off-white
+  secondary:  #e7b0d0, 
   danger:     #EFE1D4, //beige
-  light:      #f4f4f4, 
+  light:      #f4f4f4, //off-white
   dark:       #333333, //dark grey
-  light-pink: #F5E4E5 
+  light-pink: #F5E4E5,
+  dark-purple: #E7B0D0,
+  medium-pink: #F8C9D2,
+  darker-purple: #e299c4
 );
 
 .buttonCss {
@@ -49,6 +52,13 @@ $colors: (
     }    
 }
 
+// $card-ios-background-color: slategray;
+// $card-md-background-color: slategray;
+// $card-wp-background-color: slategray;
+
+// ion-card {
+//   background-color: pink;
+// }
 
 // App iOS Variables
 // --------------------------------------------------

@@ -13,7 +13,6 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ViewTransactionsPage } from '../pages/viewTransactions/viewTransactions';
 import { ShopsPage } from '../pages/shops/shops';
 import { ShopIndivPage } from '../pages/shop-indiv/shop-indiv';
-import { ProductCatPage } from '../pages/product-cat/product-cat';
 import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 import { DeliveryPage } from '../pages/delivery/delivery';
@@ -50,7 +49,6 @@ import { ShopProvider } from '../providers/shop/shop';
     ViewTransactionsPage,
     ShopsPage,
     ShopIndivPage,
-    ProductCatPage,
     ProductIndivPage,
     ShoppingCartPage,
     DeliveryPage,
@@ -79,7 +77,6 @@ import { ShopProvider } from '../providers/shop/shop';
     ViewTransactionsPage,
     ShopsPage,
     ShopIndivPage,
-    ProductCatPage,
     ProductIndivPage,
     ShoppingCartPage,
     DeliveryPage,

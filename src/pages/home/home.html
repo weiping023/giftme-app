@@ -1,14 +1,17 @@
 <ion-header>
   <ion-toolbar color="secondary">
     <button ion-button menuToggle colour="dark">
-          <ion-icon name="menu"></ion-icon>
-      </button>  
-    <ion-title>GiftMe</ion-title>
+      <ion-icon name="menu"></ion-icon>
+    </button>  
+    
+    <ion-title>
+      giftme      
+    </ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
-            <ion-icon name="cart"></ion-icon>
-            Cart
-          </button>
+        <ion-icon name="cart" color="light"></ion-icon>
+        <ion-content color="light">Cart</ion-content>
+      </button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

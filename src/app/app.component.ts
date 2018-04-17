@@ -14,7 +14,6 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ViewTransactionsPage } from '../pages/viewTransactions/viewTransactions';
 import { ShopsPage } from '../pages/shops/shops';
 //import { ShopIndivPage } from '../pages/shop-indiv/shop-indiv';
-import { ProductCatPage } from '../pages/product-cat/product-cat';
 import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 import { ReviewPage } from '../pages/review/review';
