@@ -21,6 +21,7 @@ import {
 export class ProfilePage implements OnInit{
 	submitted: boolean;
 	user: Customer;
+  updateUser: Customer;
 	isLogin: boolean;
 	isUpdated: boolean;
 	email: string;
@@ -119,6 +120,7 @@ export class ProfilePage implements OnInit{
 						duration: 3000
 					});
 					toast.present();
+          console.log("updated name: " + this.user.firstName);
 
 					sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
 				},

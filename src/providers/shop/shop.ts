@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class ShopProvider {
 
-  ipAddress = '192.168.1.64';
+  ipAddress = '172.25.105.206';
 	portNo = '8080';
 	fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Shop';
 
@@ -38,7 +38,7 @@ export class ShopProvider {
 		else
 		{
 			path = this.fullBaseUrl; //native mobile app
-		}		
+		}
 
 		return this.httpClient.get<any>(path +  "/retrieveAllShops").pipe
 		(
@@ -59,7 +59,7 @@ export class ShopProvider {
 		{
 			path = this.fullBaseUrl;
 		}
-		
+
 		return this.httpClient.get<any>(path + "/retrieveShop/" + shopId).pipe
 		(
 			catchError(this.handleError)

@@ -17,7 +17,7 @@ const httpOptions = {
 
 @Injectable()
 export class TransactionProvider {
-  ipAddress = '172.25.99.176';
+  ipAddress = '172.25.105.206';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Transaction';
   baseUrl = "/api/Transaction";
@@ -26,8 +26,7 @@ export class TransactionProvider {
     console.log('Hello TransactionProvider Provider');
   }
 
-  remoteCheckout(remoteCheckoutLineItems: RemoteCheckoutLineItem[],
-    promoCode: string, email: string, customerAddress: string, shopAddress: string): Observable<any> {
+  remoteCheckout(promoCode: string, email: string, customerAddress: string, shopAddress: string, remoteCheckoutLineItems: RemoteCheckoutLineItem[]): Observable<any> {
     let path: string = "";
     if (this.platform.is('core') || this.platform.is('mobileweb')) {
       path = this.baseUrl;
@@ -35,11 +34,11 @@ export class TransactionProvider {
       path = this.fullBaseUrl;
     }
     let remoteCheckoutReq = {
-      "remoteCheckoutLineItems": remoteCheckoutLineItems,
       "promoCode": promoCode,
       "email": email,
       "customerAddress": customerAddress,
       "shopAddress": shopAddress,
+      "remoteCheckoutLineItems": remoteCheckoutLineItems
     }
     console.log(path);
     console.log(remoteCheckoutReq);
