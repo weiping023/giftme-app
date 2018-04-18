@@ -22,7 +22,8 @@ import { ReviewPage } from '../pages/review/review';
 import { CatConfectioneryPage } from '../pages/category-confectionery/category-confectionery';
 import { CatFlowersPage } from '../pages/category-flowers/category-flowers';
 import { CatPlushiesPage } from '../pages/category-plushies/category-plushies';
-import{ ViewReviewsPage } from '../pages/view-reviews/view-reviews';
+import { ViewReviewsPage } from '../pages/view-reviews/view-reviews';
+import { TransactionIndivPage } from '../pages/transaction-indiv/transaction-indiv';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -37,7 +38,6 @@ import { TransactionProvider } from '../providers/transaction/transaction';
 // Custom components
 import { SideMenuContentComponent } from '../pages/side-menu-content/side-menu-content.component';
 import { ShopProvider } from '../providers/shop/shop';
-
 
 @NgModule({
   declarations: [
@@ -59,8 +59,9 @@ import { ShopProvider } from '../providers/shop/shop';
     CatFlowersPage,
     CatPlushiesPage,
     ViewReviewsPage,
+    TransactionIndivPage,
     SideMenuContentComponent
-    
+
   ],
   imports: [
     BrowserModule,
@@ -86,6 +87,7 @@ import { ShopProvider } from '../providers/shop/shop';
     CatConfectioneryPage,
     CatFlowersPage,
     CatPlushiesPage,
+    TransactionIndivPage,
     ViewReviewsPage
   ],
   providers: [

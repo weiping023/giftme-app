@@ -17,7 +17,7 @@ const httpOptions = {
 
 @Injectable()
 export class TransactionProvider {
-  ipAddress = '172.25.99.176';
+  ipAddress = '172.25.105.206';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Transaction';
   baseUrl = "/api/Transaction";
@@ -48,17 +48,17 @@ export class TransactionProvider {
     );
   }
 
-  // retrieveAllTransactionsByEmail(email: string): Observable<any> {
-  //   let path: string = "";
-  //   if (this.platform.is('core') || this.platform.is('mobileweb')) {
-  //     path = this.baseUrl;
-  //   } else {
-  //     path = this.fullBaseUrl;
-  //   }
-  //   return this.httpClient.post<any>(path + "/retrieveAllTransactionsByEmail/?email=" + email).pipe (
-  //     catchError(this.handleError)
-  //   );
-  // }
+  retrieveAllTransactionsByEmail(email: string): Observable<any> {
+    let path: string = "";
+    if (this.platform.is('core') || this.platform.is('mobileweb')) {
+      path = this.baseUrl;
+    } else {
+      path = this.fullBaseUrl;
+    }
+    return this.httpClient.get<any>(path + "/retrieveAllTransactionsByEmail/?email=" + email).pipe (
+      catchError(this.handleError)
+    );
+  }
 
   retrieveTransactionByDeliveryCode(deliveryCode: string): Observable<any> {
     let path: string = "";
