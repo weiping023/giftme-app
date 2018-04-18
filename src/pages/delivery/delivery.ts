@@ -116,6 +116,7 @@ export class DeliveryPage {
 					});
 					toast.present();
 
+          sessionStorage.removeItem("Cart");
           this.navCtrl.push(HomePage);
 				},
 				error => {

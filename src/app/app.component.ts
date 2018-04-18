@@ -147,27 +147,21 @@ export class MyApp {
 
     // Load special options
     // -----------------------------------------------
-    if (sessionStorage.getItem("isLogin") == null) {
-      this.options.push({
-        iconName: 'log-in',
-        displayName: 'Login',
-        component: LoginPage
-      });
-    }
-
-    if (sessionStorage.getItem("isLogin") !== null) {
-      this.options.push({
-        iconName: 'log-out',
-        displayName: 'Logout',
-        component: LoginPage
-      });
-    }
+    this.options.push({
+      iconName: 'log-in',
+      displayName: 'Login',
+      component: LoginPage,
+      custom: {
+        clickedLogin: true
+      }
+    });
 
     this.options.push({
-      iconName: 'exit',
-      displayName: 'Exit',
+      iconName: 'log-out',
+      displayName: 'Logout',
+      component: LoginPage,
       custom: {
-        isExit: true
+        clickedLogout: true
       }
     });
 
@@ -175,10 +169,24 @@ export class MyApp {
 
   public selectOption(option: MenuOptionModel): void {
     this.menuCtrl.close().then(() => {
-      if (option.custom && option.custom.isExit) {
-        this.platform.exitApp();
-      }
-      else {
+      console.log(sessionStorage.getItem("user"));
+      if (option.custom && option.custom.clickedLogin && sessionStorage.getItem("user") !== null) {        
+        let alert = this.alertCtrl.create(
+        {
+          title: 'Login',
+          subTitle: 'You are already logged In!',
+          buttons: ['OK']
+        });
+        alert.present();      
+      } else if (option.custom && option.custom.clickedLogout && sessionStorage.getItem("user") === null) {        
+        let alert = this.alertCtrl.create(
+        {
+          title: 'Logout',
+          subTitle: 'You are not login, please login instead!',
+          buttons: ['OK']
+        });
+        alert.present();
+      } else {
         // Redirect to the selected page
         this.navCtrl.setRoot(option.component);
       }

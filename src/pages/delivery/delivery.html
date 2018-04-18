@@ -12,7 +12,7 @@
     <form [formGroup]="updateDelivery" (ngSubmit)="updateDev(updateDeliveryForm)">
       <h4>Delivery Details</h4>
       <ion-item>
-        <ion-label fixed>Address</ion-label>
+        <ion-label fixed>Street Name</ion-label>
         <ion-input type="text" formControlName="address" placeholder="Eg. 25 Kings Road" id="streetname" minlength="4" required="true"></ion-input>
       </ion-item>
       <br/>
@@ -28,7 +28,7 @@
 
       <h4>Credit Card Details</h4>
       <ion-item>
-        <ion-label fixed>Card Holder Name</ion-label>
+        <ion-label fixed>Name</ion-label>
         <ion-input type="text" formControlName="nameOnCard" placeholder="eg. Amy Ang Ai Ai" id="nameOnCard" required="true"></ion-input>
       </ion-item>
       <br/>

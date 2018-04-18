@@ -9,7 +9,7 @@
     <form [formGroup]="register" (ngSubmit)="signup(signupForm)">
       <ion-item>
         <ion-label fixed>Email</ion-label>
-        <ion-input type="text" formControlName="email" advs-email placeholder="eg. ahbeng@gmail.com" id="email" minlength="4" maxlength="50" required="true"></ion-input>
+        <ion-input type="text" formControlName="email" advs-email placeholder="eg. ahbeng@gmail.com" id="email" minlength="10" maxlength="50" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" class="errorText">
@@ -18,12 +18,12 @@
         </div>
         <div *ngIf="email.errors.pattern && !email.errors.required">Invalid email address.</div>
         <div *ngIf="email.errors.minlength">
-          Email must be at least 4 characters long.
+          Email must be at least 10 characters long.
         </div>
         <div *ngIf="email.errors.maxlength">
           Email cannot exceed 50 characters.
         </div>
-        <div *ngIf="email.errors?.email">
+        <div *ngIf="email.errors.email">
           Email must be valid.
         </div>
       </div>
@@ -52,7 +52,7 @@
 
       <div *ngIf="verify.invalid && (verify.dirty || verify.touched || submitted)" class="errorText">
         <div *ngIf="verify.errors.required">
-          Vereify password is required.
+          Verify password is required.
         </div>
         <div *ngIf="verify.errors.compare && !verify.errors.required">
           Password mismatch.

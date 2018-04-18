@@ -36,6 +36,7 @@ export class ProfilePage implements OnInit{
 		this.currFirstName = "";
 		this.currLastName = "";
 		this.currMobileNumber = "";
+		this.email = "";
 
 		this.updateProfile = this.frmBuilder.group({
 			firstName: ["", Validators.required],
@@ -66,6 +67,7 @@ export class ProfilePage implements OnInit{
 			this.currFirstName = this.user.firstName;
 			this.currLastName = this.user.lastName;
 			this.currMobileNumber = this.user.mobileNumber;
+			this.email = this.user.email;
 			console.log(this.user);
 
 			this.updateProfile = this.frmBuilder.group({

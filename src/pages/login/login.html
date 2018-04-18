@@ -2,8 +2,13 @@
   <ion-toolbar color="secondary">
     <button ion-button menuToggle colour="dark">
     	<ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Login</ion-title>
+		</button>
+		<div *ngIf="!isLogin">
+			<ion-title>Login</ion-title>
+		</div>
+		<div *ngIf="isLogin">
+			<ion-title>Log Out</ion-title>
+		</div>
   </ion-toolbar>
 </ion-header>
 
@@ -48,7 +53,7 @@
 			<ion-list>
 				<ion-item>
 					<ion-label fixed>Email</ion-label>
-					<ion-input type="email" placeholder="Eg. test@gmail.com" id="email" name="email" [(ngModel)]="email" minlength="4" maxlength="32" required="true" email #inemail="ngModel"></ion-input>
+					<ion-input type="email" placeholder="Eg. user@gmail.com" id="email" name="email" [(ngModel)]="email" minlength="4" maxlength="32" required="true" email #inemail="ngModel"></ion-input>
 				</ion-item>
 
 				<ion-item>
@@ -56,18 +61,18 @@
 					<ion-input type="password" placeholder="Eg. password" id="password" name="password" [(ngModel)]="password" minlength="4" maxlength="32" required="true" #inpassword="ngModel"></ion-input>
 				</ion-item>
 
-				<ion-item>
-					<div align="center">
-						<button type="submit" ion-button outline>
-							Login
-						</button>
-						<button ion-button outline (click)="register()">
-							Sign Up
-						</button>
-					</div>
-				</ion-item>
+        <div align="center">
+          <button type="submit" ion-button outline>
+            Login
+          </button> <br/><br/>
+        </div>
 			</ion-list>
 
+			Don't have an account?
+			<a (click)="register()"><font color="#e299c4">Click here to sign up with us instead!</font> </a>
+			<!-- <button small ion-button outline (click)="register()">
+				Sign Up
+			</button> -->
 		</form>
 	</div>
 

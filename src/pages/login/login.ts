@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { AlertController, ToastController } from 'ionic-angular';
-
+import { LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { SignupPage } from '../signup/signup';
 import { UserProvider } from '../../providers/user/user';
@@ -25,7 +25,7 @@ export class LoginPage {
 	constructor(public navCtrl: NavController,
   				public alertCtrl: AlertController,
   				public navParams: NavParams,
-  				public toastCtrl: ToastController, public userProvider: UserProvider)
+  				public toastCtrl: ToastController, public userProvider: UserProvider, public loadingCtrl: LoadingController)
 	{
 	  this.submitted = false;
     this.loginCredential = "";
@@ -42,8 +42,15 @@ export class LoginPage {
 		this.submitted = true;
     //try to get customer if valid and catch any error
     if (loginForm.valid) {
+    let loading = this.loadingCtrl.create({
+        content: 'Login now, Please wait...',
+        spinner: 'bubbles'
+      });
+      loading.present();
+
       this.userProvider.getCustomer(this.email, this.password).subscribe (
         response => {
+          loading.dismiss();
           console.log(this.email);
           this.user = response.customer;
           sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));

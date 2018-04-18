@@ -5,12 +5,13 @@
     </button>  
 
     <div class="titleicon">
-        <img src="../assets/img/giftme-logo.png" width="100px" />
+      <img src="../assets/img/giftme-logo.png" width="100px" style="margin-bottom: -0.9%" />
    </div>
+
     <ion-buttons end>
       <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
         <ion-icon name="cart" color="light"></ion-icon>
-        Cart
+        <h6> Cart </h6>
       </button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,52 +20,50 @@
 <ion-content padding class="bg-style"> 
   
   <h1>Featured Shops</h1>
-  <ion-slides pager slidesPerView="2" autoplay="10000" loop>  	
-    <ion-slide>      
-    	<ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg"></ion-img><br>
-    	Fiona Treadwell
-    	<!-- each image can link to specific shop/ product page-->
-    </ion-slide> 
-
-    <ion-slide>  
-    	<ion-img width="120" height="120" src="./assets/imgs/shop2-floral-garage-logo.jpg"></ion-img> <br> 	
-    	Floral Garage
-    </ion-slide> 
-
-    <ion-slide>    
-    	<ion-img width="120" height="70" src="./assets/imgs/shop3-angel-florist-logo.png"></ion-img> <br> 	      	
+  <ion-slides slidesPerView="2" autoplay="5000" loop= "true" speed="3000">  	
+    <ion-slide >      
+    	<img class="resize" src="{{shopPath1}}"/><br>
     	Angel Florist
     </ion-slide> 
 
-    <ion-slide>      
-      <ion-img width="120" height="60" src="../assets/img/shops/teddylodge.jpg"></ion-img>  <br>
-      Teddy Lodge
+    <ion-slide>  
+    	<img class="resize" src="{{shopPath2}}"/> <br>	
+    	Teddy Lodge
     </ion-slide> 
-  </ion-slides>
 
-  <h1>Featured Products</h1>
+    <ion-slide>    
+    	<img class="resize" src="{{shopPath3}}"/> <br> 	      	
+    	Fiona Treadwell
+    </ion-slide> 
+
+    <ion-slide>      
+      <img class="resize" src="{{shopPath4}}"/> <br>
+      Flower Garage
+    </ion-slide> 
+  </ion-slides> <br/>
+
+  <h1>Latest Products</h1> 
   <ion-slides pager autoplay="10000" slidesPerView="2" loop>
     <ion-slide>    
-    	<ion-img width="120" height="120" src="./assets/imgs/prdt1-Premium-Freestyle-Bouquet.jpg"></ion-img> <br> 	  
-    	Premium Freestyle Bouquet
+    	<img class="resize" src="{{productPath1}}"/> <br> 	  
+    	Starbucks Gift Set
     </ion-slide> 
 
     <ion-slide>      
-    	<ion-img width="85" height="130" src="./assets/imgs/prdt2-Valentines-Day-bouquet.jpg"></ion-img> <br> 	  
-    	Valentine's Day Bouquet
+    	<img class="resize" src="{{productPath2}}"/> <br> 	
+    	Organic Gift Box
     </ion-slide> 
 
     <ion-slide>      
-    	<ion-img width="120" height="120" src="./assets/imgs/prdt3-choco-hamper.png"></ion-img> <br> 	 
-    	Chocolate Hamper
+    	<img class="resize" src="{{productPath3}}"/> <br> 	 
+    	Red Roses Round Flower Box
     </ion-slide> 
 
     <ion-slide>      
-        <ion-img width="100" height="130" src="../assets/img/products/CON001.jpg"></ion-img> <br> 	 
-    	Cookie Paradise Basket
+      <img class="resize" src="{{productPath4}}"/> <br> 	 
+    	Knitted Sheep
 
     </ion-slide>
-  </ion-slides>
-
-
+  </ion-slides>  
+  
 </ion-content>
