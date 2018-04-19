@@ -33,12 +33,13 @@
   <ion-grid>    
     <ion-list *ngFor="let shop of areaFilteredShops">
       <ion-row>  
-        <ion-col col-6>
-          <div style= "width: auto; height:auto">
-              <img src={{shop.imgPath}} height="80" width="250"><br>
-            </div>  
+        <ion-col>
+          <div style= "width: auto; height:auto" align="middle">
+            <img src={{shop.imgPath}} height="80"><br>
+          </div>  
         </ion-col>
-            
+            </ion-row>
+        <ion-row>
         <ion-col>
           <ion-card (click)="viewShop(shop.shopId)">        
             <ion-item>              
