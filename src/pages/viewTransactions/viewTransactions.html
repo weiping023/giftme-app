@@ -30,4 +30,8 @@
       </ion-card>
     </ion-list>
   <!-- </div> -->
+
+  <div *ngIf="!hasTransactions">
+    <h3 padding>You have not made any transactions yet</h3>				
+  </div>
 </ion-content>

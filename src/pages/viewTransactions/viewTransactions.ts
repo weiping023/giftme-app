@@ -16,6 +16,7 @@ export class ViewTransactionsPage {
   transactions: Transaction[];
   errorMessage: string;
   isLogin: boolean;
+  hasTransactions: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public transactionProvider: TransactionProvider, public toastCtrl: ToastController) {
     this.transactions = new Array<Transaction>();
@@ -34,26 +35,30 @@ export class ViewTransactionsPage {
         response => {
           //this.transactions = response.transactionsToView;
           console.log("All transactions " + this.transactions);
+          if (this.transactions == null){
+            this.hasTransactions = false;
+          }
+          
+          if (this.hasTransactions){
+            for (var i = 0; i < response.transactions.length; i++) {
+              let transaction = new Transaction();
+              transaction.transactionDateTime = new Date(response.transactions[i].transactionDateTime);
+              let transactionDateString = transaction.transactionDateTime.toString();
+              console.log("date time " + transactionDateString);
+              transaction.transactionDatePurchased = transactionDateString.substring(0, 24);
 
-          for (var i = 0; i < response.transactions.length; i++) {
-            let transaction = new Transaction();
-            transaction.transactionDateTime = new Date(response.transactions[i].transactionDateTime);
-            let transactionDateString = transaction.transactionDateTime.toString();
-            console.log("date time " + transactionDateString);
-            transaction.transactionDatePurchased = transactionDateString.substring(0, 24);
+              transaction.transactionDeliveryCode = response.transactions[i].delivery.deliveryCode;
+              transaction.transactionStatus = response.transactions[i].delivery.deliveryStatus;
+              transaction.transactionTotal = response.transactions[i].totalAmount;
+              this.transactions[i] = transaction;
 
-            transaction.transactionDeliveryCode = response.transactions[i].delivery.deliveryCode;
-            transaction.transactionStatus = response.transactions[i].delivery.deliveryStatus;
-            transaction.transactionTotal = response.transactions[i].totalAmount;
-            this.transactions[i] = transaction;
-
-            console.log('this transactions', this.transactions);
+              console.log('this transactions', this.transactions);
+            }
           }
         },
         error => {
           this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
-        }
-      );
+        });    
     } else {
       this.navCtrl.push(LoginPage);
     }

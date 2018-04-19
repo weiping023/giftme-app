@@ -98,12 +98,18 @@ export class MyApp {
         {
           iconName: 'person',
           displayName: 'Manage Profile',
-          component: ProfilePage
+          component: ProfilePage,
+          custom: {
+            clickedProfile: true
+          }
         },
         {
           iconName: 'basket',
           displayName: 'View Transactions',
-          component: ViewTransactionsPage
+          component: ViewTransactionsPage,
+          custom: {
+            clickedTransaction: true
+          }
         }
       ]
     });
@@ -200,6 +206,22 @@ export class MyApp {
           });
           toast.present();
         }
+      } else if (option.custom && option.custom.clickedTransaction && sessionStorage.getItem("user") === null) {
+        this.navCtrl.setRoot(LoginPage);
+        let toast = this.toastCtrl.create({
+          message: 'Error: Please Login to view Transactions',
+          cssClass: 'toast',
+          duration: 3000
+        });
+        toast.present();      
+      } else if (option.custom && option.custom.clickedProfile && sessionStorage.getItem("user") === null) {        
+        let toast = this.toastCtrl.create({
+          message: 'Error: Please Login to Manage Profile',
+          cssClass: 'toast',
+          duration: 3000
+        });
+        toast.present();      
+        this.navCtrl.setRoot(LoginPage);
       } else {
         // Redirect to the selected page
         this.navCtrl.setRoot(option.component);
