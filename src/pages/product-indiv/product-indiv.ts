@@ -60,8 +60,7 @@ export class ProductIndivPage {
 
   addToCart(){    
     
-    this.productToAddToCart.quantityInCart = parseInt(this.quantitySelected);
-    console.log("quantity to add to cart", this.productToAddToCart.quantityInCart)
+    this.productToAddToCart.quantityInCart = parseFloat(this.quantitySelected);
 
     if ((this.productToAddToCart.quantityInCart) > this.productToView.quantityOnHand){
       let alert = this.alertCtrl.create(
@@ -76,13 +75,34 @@ export class ProductIndivPage {
     else if (this.productToAddToCart.quantityInCart == 0){
       let alert = this.alertCtrl.create(
         {
-          title: 'Add Product to Cart',
+          title: 'Invalid Quantity',
           subTitle: 'Please Select a Quantity!',
           cssClass:'buttonCss',
           buttons: ['OK']
         });
         alert.present();        
-    } else {
+    } 
+    else if (this.productToAddToCart.quantityInCart < 0) {
+      let alert = this.alertCtrl.create(
+      {
+        title: 'Invalid Quantity',
+        subTitle: 'Minimum Quantity is 1!',
+        cssClass:'buttonCss',
+        buttons: ['OK']
+      });
+      alert.present();        
+    } 
+    else if ((Number.isInteger(this.productToAddToCart.quantityInCart)) === false) {
+      let alert = this.alertCtrl.create(
+      {
+        title: 'Invalid Quantity',
+        subTitle: 'Please Select a Valid Quantity!',
+        cssClass:'buttonCss',
+        buttons: ['OK']
+      });
+      alert.present();        
+    }
+    else {
       this.canAddToCart = true;
     }
 
