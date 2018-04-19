@@ -27,6 +27,8 @@ export class ShoppingCartPage {
   appliedPromo: boolean = false;
   quantitySelected: string;
   remoteCheckoutLineItems: any[] = [];
+  canUpdateQuantity: boolean = false;
+  newQuantity: number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -65,7 +67,7 @@ export class ShoppingCartPage {
           console.log("Product", this.products[0]);
 
           this.calculateSubtotal();
-          if (this.subtotal >= 40){
+          if (this.subtotal >= 100){
             this.deliveryFee = 0;
           }
           this.calculateTotal();
@@ -98,8 +100,9 @@ export class ShoppingCartPage {
       }
     }
 
-    let alert = this.alertCtrl.create(
-      {title: "Remove Product",
+    let alert = this.alertCtrl.create
+    ({
+      title: "Remove Product",
       subTitle: productName + " has been removed from Cart successfully",
       buttons: ['OK']
     });
@@ -177,27 +180,57 @@ export class ShoppingCartPage {
   }
 
   updateQuantity(productId: number){
+    
+    this.canUpdateQuantity = false;
     console.log("productId ", productId);
     //updateQuantity
     for (var i =0; i< this.products.length; i++){
-      console.log("product[i].productId ", this.products[i].product.productId);
       if (this.products[i].product.productId === productId){
+        this.newQuantity = this.products[i].quantityInCart;
 
+        if (this.products[i].quantityInCart < 0) {
+          let alert = this.alertCtrl.create({
+            title: "Error: Update Quantity",
+            subTitle: "Minimum Quantity is 1",
+            buttons: ['OK']
+          });
+          alert.present();
+        } else if (this.products[i].quantityInCart == 0){
+          let alert = this.alertCtrl.create({
+            title: "Error: Update Quantity",
+            subTitle: "Minimum Quantity is 1",
+            buttons: ['OK']
+          });
+          alert.present();
+        } else {          
+          this.canUpdateQuantity = true;
+        }
         console.log("CurrentQuantityInCart", this.products[i].quantityInCart);
 
       }
     }
-    let sessionStorageItems = JSON.parse(sessionStorage.getItem("Cart"));
+    if (this.canUpdateQuantity){
+      let sessionStorageItems = JSON.parse(sessionStorage.getItem("Cart"));
 
-    for (var j=0; j< sessionStorageItems.length; j++){
-      if (sessionStorageItems[j].product.productId === productId){
-
-        sessionStorage.setItem("Cart", JSON.stringify(sessionStorageItems));
+      for (var j=0; j< sessionStorageItems.length; j++){
+        if (sessionStorageItems[j].product.productId === productId){
+          let updatedProduct = sessionStorageItems[j];
+          updatedProduct.quantityInCart = this.newQuantity;   
+          sessionStorageItems[j] = updatedProduct;
+          sessionStorage.setItem("Cart", JSON.stringify(sessionStorageItems));
+        }
       }
+      console.log("edited quantity", sessionStorageItems);
+      this.calculateSubtotal();
+      this.calculateTotal();
+      let alert = this.alertCtrl.create(
+      {
+        title: 'Update Quantity',          
+        subTitle: 'Quantity updated Successfully',
+        buttons: ['OK']     
+      });
+      alert.present();
     }
-    console.log("edited quantity", sessionStorageItems);
-    this.calculateSubtotal();
-    this.calculateTotal();
   }
 
   buttonTapped(event, page) {
