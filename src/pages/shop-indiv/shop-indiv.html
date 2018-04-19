@@ -26,12 +26,14 @@
     <ion-grid>
       <ion-row center>
         <ion-col text-center>
-          <ion-img width="120" height="120" src="{{shopToView.imgPath}}">
-          </ion-img><br>                      	
+          <img width="180" height="70" src="{{shopToView.imgPath}}"/>
+          <br>                      	
 
           <ion-item>
-            <b>Shop Name: </b>{{shopToView.shopName}} <br/>
-            <b>Location: </b><i>{{shopToView.location}}</i> <br/>  
+            <b>Shop Name: </b>
+            {{shopToView.shopName}} <br/>
+            <b>Location: </b>
+            <i>{{shopToView.location}}</i> <br/>  
             <p>Area: {{shopToView.area}}</p>
           </ion-item> <br/>
 
@@ -42,7 +44,8 @@
           
             <ion-card (click)="viewProduct(product.productId)">      
               <ion-item>
-                <ion-img>Product Image</ion-img><br>
+                <img class="resize" src="{{product.imgPath}}"/>
+                <br>
                 <b>Product Name:</b>
                 {{product.productName}}
               </ion-item>

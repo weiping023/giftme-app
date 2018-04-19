@@ -13,7 +13,7 @@ import { Product } from '../../entities/product';
   selector: 'page-category-confectionery',
   templateUrl: 'category-confectionery.html',
 })
-export class CatConfectioneryPage {
+export class CatConfectionaryPage {
 
 	errorMessage: string;
   products: Product[];

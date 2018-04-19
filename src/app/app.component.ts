@@ -17,7 +17,7 @@ import { ShopsPage } from '../pages/shops/shops';
 import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 import { ReviewPage } from '../pages/review/review';
-import { CatConfectioneryPage } from '../pages/category-confectionery/category-confectionery';
+import { CatConfectionaryPage } from '../pages/category-confectionery/category-confectionery';
 import { CatFlowersPage } from '../pages/category-flowers/category-flowers';
 import { CatPlushiesPage } from '../pages/category-plushies/category-plushies';
 
@@ -119,7 +119,7 @@ export class MyApp {
         {
           iconName: 'beer',
           displayName: 'Confectionery',
-          component: CatConfectioneryPage
+          component: CatConfectionaryPage
         },
         {
           iconName: 'basket',

@@ -41,6 +41,7 @@ export class ShopIndivPage {
         this.shopToView = response.shop;        
         this.products = this.shopToView.products;
         console.log(this.shopToView);
+        console.log(this.shopToView.imgPath);
         console.log(this.products);
       },
       

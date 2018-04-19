@@ -26,7 +26,7 @@
     <ion-grid>
       <ion-row center>
         <ion-col text-center>        
-          <ion-img width="120" height="120" src="./assets/imgs/shop1-fiona-treadwell-logo.jpg">
+          <ion-img width="100" height="130" src="{{productToView.imgPath}}">
           </ion-img><br>          
           
           <ion-item style="margin:0">
@@ -52,12 +52,12 @@
 
             <div class="product-category">
                 <strong>Category: </strong>
-                <a><font color="FF00CC">{{productToView.category}}</font></a>
+                <span>{{productToView.category}}</span>
             </div> <br/>
 
-            <span class="product-rating text-warning" onclick="directToShop(productToView.shop.shopId)">
+            <span class="product-rating text-warning" (click)="redirectToShop(productToView.shop.shopId)">
                 <strong>Seller: </strong>                
-                <a><font color="FF00CC">{{productToView.shop?.shopName}}</font></a>
+                <a><u><font color="e299c4">{{productToView.shop?.shopName}}</font></u></a>
             </span>
           </ion-item>                    
            

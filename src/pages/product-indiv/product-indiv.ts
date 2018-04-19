@@ -27,6 +27,7 @@ export class ProductIndivPage {
   canAddToCart: boolean;
   shop: Shop;
   tempSessionStorage = [];
+  pageToPush: string;
 
   private addToCartErrorMessage: string;
 
@@ -204,12 +205,13 @@ export class ProductIndivPage {
       alert.present();
     }
   }
+  
   redirectToShop(shopId: number){
-            
+    console.log(shopId);
     this.navCtrl.push(ShopIndivPage, {
       shopId
     });
-  }
+  }  
   
   cartTapped(event, page) {
     if (sessionStorage.getItem("Cart")=== null) {
