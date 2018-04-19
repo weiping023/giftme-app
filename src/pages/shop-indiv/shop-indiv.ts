@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { ProductIndivPage } from '../product-indiv/product-indiv';
 import { ViewReviewsPage } from '../view-reviews/view-reviews';
+import { LoginPage } from '../login/login';
 
 //Provider
 import { ShopProvider } from '../../providers/shop/shop';
@@ -23,6 +24,7 @@ export class ShopIndivPage {
   products: Product;
 
   constructor(public navCtrl: NavController, 
+              public toastCtrl: ToastController,
               public navParams: NavParams,
               public shopProvider: ShopProvider) 
   {
@@ -56,8 +58,18 @@ export class ShopIndivPage {
   }
 
   cartTapped(event, page) {
-  	this.navCtrl.push(ShoppingCartPage, page);
-  }
+    if (sessionStorage.getItem("Cart")=== null) {
+      this.navCtrl.push(LoginPage);
+      let toast = this.toastCtrl.create({
+        message: 'Error: Please Login to view Cart',
+        cssClass: 'toast',
+        duration: 3000
+      });
+      toast.present();
+    } else {
+    this.navCtrl.push(ShoppingCartPage, page);
+    }
+	}
 
   viewReview(event, shopId) {
   	this.navCtrl.push(ViewReviewsPage, {

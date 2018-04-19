@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { Customer } from '../../entities/user';
 import { Transaction } from '../../entities/transaction';
@@ -17,7 +17,7 @@ export class ViewTransactionsPage {
   errorMessage: string;
   isLogin: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public transactionProvider: TransactionProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public transactionProvider: TransactionProvider, public toastCtrl: ToastController) {
     this.transactions = new Array<Transaction>();
     this.isLogin = false;
   }
@@ -65,6 +65,16 @@ export class ViewTransactionsPage {
   }
 
   cartTapped(event, page) {
-		this.navCtrl.push(ShoppingCartPage, page);
-	}
+    if (sessionStorage.getItem("Cart")=== null) {
+      this.navCtrl.push(LoginPage);
+      let toast = this.toastCtrl.create({
+        message: 'Error: Please Login to view Cart',
+        cssClass: 'toast',
+        duration: 3000
+      });
+      toast.present();
+    } else {
+    this.navCtrl.push(ShoppingCartPage, page);
+    }
+  }
 }

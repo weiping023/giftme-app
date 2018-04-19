@@ -2,7 +2,7 @@
 import { Component, ViewChild } from '@angular/core';
 
 //Ionic
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MenuController, AlertController } from 'ionic-angular';
@@ -58,6 +58,7 @@ export class MyApp {
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
               private alertCtrl: AlertController,
+              private toastCtrl: ToastController,              
               private menuCtrl: MenuController)
   {
     this.initializeApp();
@@ -116,7 +117,7 @@ export class MyApp {
           component: CatFlowersPage
         },
         {
-          iconName: 'basket',
+          iconName: 'beer',
           displayName: 'Confectionery',
           component: CatConfectioneryPage
         },
@@ -142,7 +143,10 @@ export class MyApp {
     this.options.push({
       iconName: 'cart',
       displayName: 'Shopping Cart',
-      component: ShoppingCartPage
+      component: ShoppingCartPage, 
+      custom: {
+        clickedCart: true
+      }     
     });
 
     // Load special options
@@ -182,10 +186,20 @@ export class MyApp {
         let alert = this.alertCtrl.create(
         {
           title: 'Logout',
-          subTitle: 'You are not login, please login instead!',
+          subTitle: 'You are not logged in, please click on Login instead!',
           buttons: ['OK']
         });
         alert.present();
+      } else if (option.custom && option.custom.clickedCart && sessionStorage.getItem("user") === null){
+        if (sessionStorage.getItem("Cart")=== null) {
+          this.navCtrl.setRoot(LoginPage);
+          let toast = this.toastCtrl.create({
+            message: 'Error: Please Login to view Shopping Cart',
+            cssClass: 'toast',
+            duration: 3000
+          });
+          toast.present();
+        }
       } else {
         // Redirect to the selected page
         this.navCtrl.setRoot(option.component);

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 //import { AlertController } from 'ionic-angular';
 //import { ToastController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -22,7 +23,8 @@ export class HomePage {
   productPath4= "../assets/img/products/PSH006.jpg" 
   
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+              public toastCtrl: ToastController) {
   }
 
   @ViewChild(Slides) slides: Slides;
@@ -32,6 +34,16 @@ export class HomePage {
   }
   
   cartTapped(event, page) {
-		this.navCtrl.push(ShoppingCartPage, page);
+    if (sessionStorage.getItem("Cart")=== null) {
+      this.navCtrl.push(LoginPage);
+      let toast = this.toastCtrl.create({
+        message: 'Error: Please Login to view Cart',
+        cssClass: 'toast',
+        duration: 3000
+      });
+      toast.present();
+    } else {
+    this.navCtrl.push(ShoppingCartPage, page);
+    }
 	}
 }

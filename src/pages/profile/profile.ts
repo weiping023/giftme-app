@@ -130,7 +130,17 @@ export class ProfilePage implements OnInit{
 	}
 
 	cartTapped(event, page) {
-		this.navCtrl.push(ShoppingCartPage, page);
+    if (sessionStorage.getItem("Cart")=== null) {
+      this.navCtrl.push(LoginPage);
+      let toast = this.toastCtrl.create({
+        message: 'Error: Please Login to view Cart',
+        cssClass: 'toast',
+        duration: 3000
+      });
+      toast.present();
+    } else {
+    this.navCtrl.push(ShoppingCartPage, page);
+    }
 	}
 
 	buttonTapped(event, page) {
