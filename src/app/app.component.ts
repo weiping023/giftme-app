@@ -117,7 +117,7 @@ export class MyApp {
           component: CatFlowersPage
         },
         {
-          iconName: 'beer',
+          iconName: 'ice-cream',
           displayName: 'Confectionery',
           component: CatConfectionaryPage
         },
