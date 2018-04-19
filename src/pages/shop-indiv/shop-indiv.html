@@ -31,10 +31,14 @@
 
           <ion-item>
             <b>Shop Name: </b>
-            {{shopToView.shopName}} <br/>
-            <b>Location: </b>
-            <i>{{shopToView.location}}</i> <br/>  
-            <p>Area: {{shopToView.area}}</p>
+            {{shopToView.shopName}} <br/>            
+                     
+            <ion-item text-wrap style="padding:0">
+              <b>Location: </b>   
+              <i>{{shopToView.location}}</i> <br/>  
+
+              <p>Area: {{shopToView.area}}</p>
+            </ion-item>
           </ion-item> <br/>
 
           <ion-list *ngFor="let product of products">
