@@ -23,7 +23,7 @@
     <ion-slides *ngIf="filteredShops && filteredShops.length" pager autoplay="5000" speed="1000" slidesPerView="2" loop>  	
       <ion-slide *ngFor="let shop of filteredShops">      
         <img class="shopResize" src="{{shop.imgPath}}" (click)= "redirectShop(shop.shopId)"/><br>
-        {{shop.shopName}}
+        <p style="color: #E7B0D0">{{shop.shopName}}</p>
       </ion-slide>             
     </ion-slides>
   </ion-item>
