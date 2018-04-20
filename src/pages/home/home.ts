@@ -60,7 +60,7 @@ export class HomePage {
         
         this.filteredProducts = [];
         for (var i=0; i <this.products.length;i++){       
-          if (this.products[i].productId === 5 || this.products[i].productId === 9 || this.products[i].productId === 18 || this.products[i].productId === 26){ 
+          if (this.products[i].productId === 5 || this.products[i].productId === 15 || this.products[i].productId === 26){ 
             this.filteredProducts.push(this.products[i]);
           }
         }        

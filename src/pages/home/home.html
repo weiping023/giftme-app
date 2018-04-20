@@ -19,7 +19,7 @@
 
 <ion-content padding class="bg-style"> 
   <ion-item>
-    <h1>Featured Shops</h1>
+    <h1 style="font-size: 22px;">Featured Shops</h1>
     <ion-slides *ngIf="filteredShops && filteredShops.length" pager autoplay="5000" speed="1000" slidesPerView="2" loop>  	
       <ion-slide *ngFor="let shop of filteredShops">      
         <img class="shopResize" src="{{shop.imgPath}}" (click)= "redirectShop(shop.shopId)"/><br>
@@ -28,12 +28,18 @@
     </ion-slides>
   </ion-item>
     
-  <h1>Latest Products</h1> 
-  <ion-slides *ngIf="filteredProducts && filteredProducts.length" pager autoplay="5000" speed="1000" slidesPerView="2" loop>
+  <h1 style="font-size: 22px;">Latest Products</h1>   
+  <ion-row class="row" responsive-sm wrap>
+    <ion-col width-45 *ngFor="let product of filteredProducts">        
+    <img class="prdtResize" src="{{product.imgPath}}" (click)= "redirectProduct(product.productId)"/> <br>  
+    <p style="color: #E7B0D0">{{product.productName}}</p> 
+    </ion-col>
+  </ion-row>
+  <!-- <ion-slides *ngIf="filteredProducts && filteredProducts.length" pager autoplay="5000" speed="1000" slidesPerView="2" loop>
     <ion-slide *ngFor="let product of filteredProducts">    
     	<img class="prdtResize" src="{{product.imgPath}}" (click)= "redirectProduct(product.productId)"/> <br> 	  
     	<p style="color: #E7B0D0">{{product.productName}}</p>
     </ion-slide>
-  </ion-slides>  
+  </ion-slides>   -->
 
 </ion-content>

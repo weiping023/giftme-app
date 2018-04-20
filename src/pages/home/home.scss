@@ -1,15 +1,24 @@
 page-home {
 	ion-slides {
-		height: 180px;
+		height: 200px;		
 	}
 	
 	img.shopResize {
-		max-width:80%;
-		max-height:40%;
+		max-width:100%;
+		max-height:50%;
 	}
 	
 	img.prdtResize {
-		max-width: 60%;
-		max-height: 30%;
+		max-width: 100%;
+		max-height: auto;
 	}
+
+	ion-row { 
+		width:100%; height:auto; 
+	}
+
+	ion-col { 
+		width:auto; height:33%; 
+	}
+
 }
