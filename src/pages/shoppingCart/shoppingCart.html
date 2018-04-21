@@ -14,50 +14,47 @@
 
       <ion-card>        
         <ion-item>
-
           <ion-grid>
             <ion-row>
-              <ion-col col-4>
+              <ion-col col-4 align-self-end>              
                 <div text-center>
-                  <img align style="max-width: 60%; " src="{{product.product.imgPath}}"/>               
-                </div>
-                <div class="product-name">
-                  <strong>Product Name:</strong>
-                  <span>{{product.product.productName}}</span> 
-                </div>
-
-                <div class="product-price">
-                  <b>Product Price:</b>
-                  ${{product.product.price}} 
-                </div>
-                
-                <div class="product-price">
-                  <b>Quantity:</b>
-                
-                  <form method="post" class="row">
-                    <div class="col-md-4 col-sm-3">
-                      <div class="form-element">
-                        <input type="number" class="form-control" placeholder="{{product.quantityInCart}}" required [(ngModel)]="product.quantityInCart" [ngModelOptions]="{standalone:true}" min=1 max={{product.product.quantityOnHand}}>
-                      </div> 
-                    </div>
-                    <div class="col-md-4 col-sm-5">
-                      <button type="submit" class="btn btn-default btn-ghost btn-block space-top-none space-bottom" (click)=updateQuantity(product.product.productId)>Update Quantity</button>
-                    </div>
-                  </form>
-                </div>
-                                
-                
+                  <img align style="max-width: 80%;" src="{{product.product.imgPath}}"/>               
+                </div>          
+              </ion-col>   
+              <ion-col col-8>
+                <button float-right style="width: 70%; word-wrap: break-word; white-space: normal;" ion-button outline (click)="removeProduct(product.product.productId)"> 
+                  <ion-icon name="remove-circle" >
+                    Remove
+                  </ion-icon>
+                </button>    
               </ion-col>
-
-              <ion-col align-items-end>
-                  <button ion-button outline float-right (click)="removeProduct(product.product.productId)"> 
-                    <ion-icon name="remove-circle" >
-                      Remove Product
-                    </ion-icon>
-                  </button>
-              </ion-col>
-
             </ion-row>
+                
+            <div text-wrap class="product-name">
+              <strong>Product Name:</strong>
+              <span>{{product.product.productName}}</span> 
+            </div>
+
+            <div class="product-price">
+              <b>Product Price:</b>
+              ${{product.product.price}} 
+            </div>
+            
+            <div class="product-price">
+              <b>Quantity:</b>
+            
+              <form method="post" class="row">
+                <div class="col-md-4 col-sm-3">
+                  <div class="form-element">
+                    <input type="number" class="form-control" placeholder="{{product.quantityInCart}}" required [(ngModel)]="product.quantityInCart" [ngModelOptions]="{standalone:true}" min=1 max={{product.product.quantityOnHand}}>
+                  </div> 
+                </div>
+                <div class="col-md-4 col-sm-5">
+                  <button type="submit" class="btn btn-default btn-ghost btn-block space-top-none space-bottom" (click)=updateQuantity(product.product.productId)>Update Quantity</button>
+                </div>
+              </form>
+            </div>
+            
           </ion-grid>
         </ion-item>
       </ion-card>
@@ -74,19 +71,19 @@
             <div>
               <b>Delivery Fee:</b>
               ${{deliveryFee}}
-            </div>
+            </div> <br/>
 
             <div>  
               <form method="post" class="row">
-                  <div class="col-md-8 col-sm-7">
-                    <div class="form-element">
-                      <input type="text" class="form-control" placeholder="Enter coupon" required [(ngModel)]="promoCode" [ngModelOptions]="{standalone:true}">
-                    </div>
+                <div class="col-md-6 col-sm-5">
+                  <div class="form-element">
+                    <input type="text" style="width: 90%;" class="form-control" placeholder="Enter coupon" required [(ngModel)]="promoCode" [ngModelOptions]="{standalone:true}">
                   </div>
-                  <div class="col-md-4 col-sm-5">
-                    <button type="submit" class="btn btn-default btn-ghost btn-block space-top-none space-bottom" (click)=applyPromo(promoCode)>Apply Coupon</button>
-                  </div>
-                </form>                      
+                </div>
+                <div class="col-md-4 col-sm-5">
+                  <button type="submit" class="btn btn-default btn-ghost btn-block space-top-none space-bottom" (click)=applyPromo(promoCode)>Apply Coupon</button> 
+                </div> 
+              </form> <br/>
               
               <span>
                 <b>Total: </b>
