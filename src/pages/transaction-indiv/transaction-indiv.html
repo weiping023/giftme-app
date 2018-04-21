@@ -5,7 +5,7 @@
     </button>
     <ion-title>Order ID: {{this.deliveryCode}}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-left color="dark">
+      <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
         <ion-icon name="cart"></ion-icon>
         Cart
       </button>
