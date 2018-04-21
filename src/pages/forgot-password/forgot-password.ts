@@ -48,7 +48,7 @@ export class ForgotPasswordPage {
           let alert = this.alertCtrl.create(
           {
             title: 'Password Reset Request',
-            subTitle: 'We\'ve sent a password reset message to your email address. Please check your Email.',
+            subTitle: 'We\'ve sent a password retrieval message to your email address. Please check your Email.',
             buttons: ['OK']
           });
           alert.present();
@@ -57,8 +57,8 @@ export class ForgotPasswordPage {
           loading.dismiss();
           let alert = this.alertCtrl.create(
           {
-            title: 'Login',
-            subTitle: 'Invalid login details',
+            title: 'Password Reset Request',
+            subTitle: 'Invalid Email',
             buttons: ['OK']
           });
           alert.present();
