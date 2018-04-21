@@ -6,7 +6,7 @@
     <ion-buttons end>
       <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
         <ion-icon name="cart"></ion-icon>
-          Cart
+        Cart
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -46,18 +46,18 @@
             </div> <br/>
 
             <div class="product-sku">
-                <strong>SKU: </strong>
-                <span>{{productToView.skuCode}}</span>
+              <strong>SKU: </strong>
+              <span>{{productToView.skuCode}}</span>
             </div> <br/>
 
             <div class="product-category">
-                <strong>Category: </strong>
-                <span>{{productToView.category}}</span>
+              <strong>Category: </strong>
+              <span>{{productToView.category}}</span>
             </div> <br/>
 
             <span class="product-rating text-warning" (click)="redirectToShop(productToView.shop.shopId)">
-                <strong>Seller: </strong>                
-                <a><u><font color="e299c4">{{productToView.shop?.shopName}}</font></u></a>
+              <strong>Seller: </strong>                
+              <a><u><font color="e299c4">{{productToView.shop?.shopName}}</font></u></a>
             </span>
           </ion-item>                    
            
