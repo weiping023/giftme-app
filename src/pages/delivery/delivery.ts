@@ -13,6 +13,7 @@ import { Customer } from '../../entities/user';
   selector: 'page-delivery',
   templateUrl: 'delivery.html',
 })
+
 export class DeliveryPage {
   submitted: boolean;
   updateCheckout: boolean;
@@ -26,9 +27,12 @@ export class DeliveryPage {
   cart: CartProduct[];
 
   constructor(public navCtrl: NavController,
-        public navParams: NavParams,
-        public alertCtrl: AlertController,
-        public toastCtrl: ToastController, public frmBuilder: FormBuilder, public transactionProvider: TransactionProvider) {
+              public navParams: NavParams,
+              public alertCtrl: AlertController,
+              public toastCtrl: ToastController, 
+              public frmBuilder: FormBuilder, 
+              public transactionProvider: TransactionProvider) 
+  {
     this.submitted = false;
     this.updateCheckout = false;
     this.cart = new Array<CartProduct>();
@@ -40,7 +44,7 @@ export class DeliveryPage {
       cardNumber: ["", [Validators.required]],
       expiryDate: ["", [Validators.required]],
       cvv: ["", [Validators.required]]
-      });
+    });
   }
 
   ionViewDidLoad() {
@@ -50,19 +54,15 @@ export class DeliveryPage {
   get address() {
     return this.updateDelivery.get('address');
   }
-
   get nameOnCard() {
     return this.updateDelivery.get('nameOnCard');
   }
-
   get cardNumber() {
     return this.updateDelivery.get('cardNumber');
   }
-
   get expiryDate() {
     return this.updateDelivery.get('expiryDate');
   }
-
   get cvv() {
     return this.updateDelivery.get('cvv');
   }
@@ -76,61 +76,81 @@ export class DeliveryPage {
     this.user = JSON.parse(sessionStorage.getItem("user")).customer;
     this.email = this.user.email;
 
-    //let remoteCheckoutLineItem = {remoteCheckoutLineItem: checkoutItem};
-
-    // for (var i = 0; i < this.cart.length; i++){
-    //   let checkoutItem = new RemoteCheckoutLineItem();
-    //   checkoutItem.skuCode = this.cart[i].product.skuCode;
-    //   checkoutItem.quantity = this.cart[i].quantityInCart;
-    //   let remoteCheckoutLineItem = new Object();
-    //   remoteCheckoutLineItem = {skuCode: checkoutItem.skuCode, quantity: checkoutItem.quantity};
-    //
-    //   let bigObj = {remoteCheckoutLineItem: remoteCheckoutLineItem};
-    //
-    //   this.remoteCheckoutLineItems.push(bigObj);
-    // }
-
     this.updateDelivery = this.frmBuilder.group({
       address: ["", [Validators.required]],
       nameOnCard: ["", [Validators.required]],
       cardNumber: ["", [Validators.required]],
       expiryDate: ["", [Validators.required]],
       cvv: ["", [Validators.required]]
-      });
+    });
   }
 
   updateDev() {
     this.submitted = true;
     console.log(this.remoteCheckoutLineItems);
     if (this.updateDelivery.valid) {
-      this.updateCheckout = true;
-      this.customerAddress = this.updateDelivery.value.address;
+      if (isNaN(this.updateDelivery.value.cardNumber) && isNaN(this.updateDelivery.value.cvv)) {
+        let alert = this.alertCtrl.create(
+        {
+          title: 'Invalid Card Number',
+          subTitle: 'Card number can only contain numbers',
+          buttons: ['OK']
+        });
+        alert.present();
 
-      this.transactionProvider.remoteCheckout(this.remoteCheckoutLineItems, this.promoCode, this.email, this.customerAddress, this.shopAddress).subscribe(
-				response => {
-					let toast = this.toastCtrl.create(
-					{
-						message: 'Payment Successful',
-						cssClass: 'toast',
-						duration: 3000
-					});
-					toast.present();
+        alert = this.alertCtrl.create(
+        {
+          title: 'Invalid CVV',
+          subTitle: 'CVV can only contain numbers',
+          buttons: ['OK']
+        });
+        alert.present();
+      } else if (isNaN(this.updateDelivery.value.cvv)) {
+        let alert = this.alertCtrl.create(
+        {
+          title: 'Invalid CVV',
+          subTitle: 'CVV can only contain numbers',
+          buttons: ['OK']
+        });
+        alert.present();
+      } else if (isNaN(this.updateDelivery.value.cardNumber)) {
+        let alert = this.alertCtrl.create(
+        {
+          title: 'Invalid Card Number',
+          subTitle: 'Card number can only contain numbers',
+          buttons: ['OK']
+        });
+        alert.present();
+      } else {
+        this.updateCheckout = true;
+        this.customerAddress = this.updateDelivery.value.address;
 
-          sessionStorage.removeItem("Cart");
-          this.navCtrl.push(HomePage);
-				},
-				error => {
-					//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
-					let alert = this.alertCtrl.create(
-					{
-						title: 'Delivery/Payment',
-						subTitle: 'Invalid details',
-						buttons: ['OK']
-					});
-					alert.present();
-					this.navCtrl.push(HomePage);
-				}
-			);
+        this.transactionProvider.remoteCheckout(this.remoteCheckoutLineItems, this.promoCode, this.email, this.customerAddress, this.shopAddress).subscribe(
+  				response => {
+  					let toast = this.toastCtrl.create(
+  					{
+  						message: 'Payment Successful',
+  						cssClass: 'toast',
+  						duration: 3000
+  					});
+  					toast.present();
+
+            sessionStorage.removeItem("Cart");
+            this.navCtrl.push(HomePage);
+  				},
+  				error => {
+  					//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
+  					let alert = this.alertCtrl.create(
+  					{
+  						title: 'Delivery/Payment',
+  						subTitle: 'Invalid details',
+  						buttons: ['OK']
+  					});
+  					alert.present();
+  					this.navCtrl.push(HomePage);
+  				}
+  			);
+      }
     }
   }
 

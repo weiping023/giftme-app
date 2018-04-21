@@ -68,6 +68,7 @@ export class LoginPage {
 					this.navCtrl.setRoot(HomePage);
         },
         error => {
+          loading.dismiss();
           console.log(this.email + " not working again");
           let alert = this.alertCtrl.create(
     			{

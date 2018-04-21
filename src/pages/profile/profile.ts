@@ -91,41 +91,51 @@ export class ProfilePage implements OnInit{
 		this.submitted = true;
 		console.log(this.email);
 		if (this.updateProfile.valid) {
-			this.isUpdated = true;
+			if (isNaN(this.updateProfile.value.mobileNumber)) {
+				let alert = this.alertCtrl.create(
+				{
+					title: 'Invalid Mobile Number',
+					subTitle: 'Mobile number can only contain numbers',
+					buttons: ['OK']
+				});
+				alert.present();
+			} else {
+				this.isUpdated = true;
 
-			this.user.firstName = this.updateProfile.value.firstName;
-			this.user.lastName = this.updateProfile.value.lastName;
-			this.user.mobileNumber = this.updateProfile.value.mobileNumber;
+				this.user.firstName = this.updateProfile.value.firstName;
+				this.user.lastName = this.updateProfile.value.lastName;
+				this.user.mobileNumber = this.updateProfile.value.mobileNumber;
 
-      sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+	      sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
 
-			console.log("updated " + this.updateProfile.value.firstName);
-			console.log("updated " + this.user.firstName);
-			this.userProvider.updateCustomer(this.user).subscribe(
-				response => {
-					let toast = this.toastCtrl.create(
-					{
-						message: 'Details Updated',
-						cssClass: 'toast',
-						duration: 3000
-					});
-					toast.present();
-          console.log("updated name: " + this.user.firstName);
+				console.log("updated " + this.updateProfile.value.firstName);
+				console.log("updated " + this.user.firstName);
+				this.userProvider.updateCustomer(this.user).subscribe(
+					response => {
+						let toast = this.toastCtrl.create(
+						{
+							message: 'Details Updated',
+							cssClass: 'toast',
+							duration: 3000
+						});
+						toast.present();
+	          console.log("updated name: " + this.user.firstName);
 
-					sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
-				},
-				error => {
-					//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
-					let alert = this.alertCtrl.create(
-					{
-						title: 'Profile',
-						subTitle: 'Invalid profile details',
-						buttons: ['OK']
-					});
-					alert.present();
-					this.navCtrl.push(HomePage);
-				}
-			);
+						sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+					},
+					error => {
+						//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
+						let alert = this.alertCtrl.create(
+						{
+							title: 'Profile',
+							subTitle: 'Invalid profile details',
+							buttons: ['OK']
+						});
+						alert.present();
+						this.navCtrl.push(HomePage);
+					}
+				);
+			}
 		}
 	}
 

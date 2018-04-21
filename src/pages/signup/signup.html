@@ -9,7 +9,7 @@
     <form [formGroup]="register" (ngSubmit)="signup(signupForm)">
       <ion-item>
         <ion-label fixed>Email</ion-label>
-        <ion-input type="text" formControlName="email" advs-email placeholder="eg. ahbeng@gmail.com" id="email" minlength="10" maxlength="50" required="true"></ion-input>
+        <ion-input type="email" formControlName="email" advs-email placeholder="eg. ahbeng@gmail.com" id="email" minlength="10" maxlength="50" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" class="errorText">
@@ -109,12 +109,13 @@
       </div>
 
       <ion-item>
-					<div align="center">
-						<button type="submit" ion-button outline [disabled]="!register.valid">
-							Register
-						</button>
-					</div>
-				</ion-item>
+        <div align="center">
+          <button type="submit" ion-button outline [disabled]="!register.valid">
+            Register
+          </button>
+        </div>
+      </ion-item>
     </form>
   </div>
 </ion-content>
+  
