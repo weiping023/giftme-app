@@ -28,7 +28,7 @@ export class ViewTransactionsPage {
 
     if (sessionStorage.getItem("isLogin") !== null) {
       this.isLogin = true;
-      this.user = JSON.parse(sessionStorage.getItem("user")).customer;
+      this.user = JSON.parse(sessionStorage.getItem("user"));
       console.log("this user email " + this.user.email);
 
       this.transactionProvider.retrieveAllTransactionsByEmail(this.user.email).subscribe(
@@ -70,7 +70,7 @@ export class ViewTransactionsPage {
   }
 
   cartTapped(event, page) {
-    if (sessionStorage.getItem("Cart")=== null) {
+    if (sessionStorage.getItem("isLogin")=== null) {
       this.navCtrl.push(LoginPage);
       let toast = this.toastCtrl.create({
         message: 'Error: Please Login to view Cart',

@@ -180,7 +180,7 @@ export class ShoppingCartPage {
   }
 
   updateQuantity(productId: number){
-    
+    this.deliveryFee = 10;
     this.canUpdateQuantity = false;
     console.log("productId ", productId);
     //updateQuantity
@@ -222,6 +222,9 @@ export class ShoppingCartPage {
       }
       console.log("edited quantity", sessionStorageItems);
       this.calculateSubtotal();
+      if (this.subtotal >= 100){
+        this.deliveryFee = 0;
+      }
       this.calculateTotal();
       let alert = this.alertCtrl.create(
       {

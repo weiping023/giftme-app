@@ -62,14 +62,17 @@
 				</ion-item>
 
         <div align="center">
-          <button type="submit" ion-button outline>
+          <button block type="submit" ion-button outline>
             Login
-          </button> <br/><br/>
+					</button>
+					<button block (click)="register()" ion-button outline>
+						Register
+					</button> <br/><br/>
         </div>
 			</ion-list>
 
-			Don't have an account?
-			<a (click)="register()"><font color="#e299c4">Click here to sign up with us instead!</font> </a>
+			Forgot Your Password?
+			<a (click)="getPassword()"><font color="#e299c4"> <br/> Click here to retrieve your password!</font> </a>
 			<!-- <button small ion-button outline (click)="register()">
 				Sign Up
 			</button> -->
@@ -77,7 +80,7 @@
 	</div>
 
 	<div *ngIf="isLogin">
-		<h3>Welcome Back!</h3>
+		<h3>Welcome Back, {{firstName}}!</h3>
 		<br/>
 		<button ion-button align="center" (click)="logout()">
 			Log out

@@ -62,7 +62,7 @@ export class ProfilePage implements OnInit{
 	ngOnInit() {
 		if (sessionStorage.getItem("isLogin") !== null) {
 			this.isLogin = true;
-			this.user = JSON.parse(sessionStorage.getItem("user")).customer;
+			this.user = JSON.parse(sessionStorage.getItem("user"));
 
 			this.currFirstName = this.user.firstName;
 			this.currLastName = this.user.lastName;
@@ -106,7 +106,7 @@ export class ProfilePage implements OnInit{
 				this.user.lastName = this.updateProfile.value.lastName;
 				this.user.mobileNumber = this.updateProfile.value.mobileNumber;
 
-	      sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+	      sessionStorage.setItem("user", JSON.stringify(this.user));
 
 				console.log("updated " + this.updateProfile.value.firstName);
 				console.log("updated " + this.user.firstName);
@@ -121,7 +121,7 @@ export class ProfilePage implements OnInit{
 						toast.present();
 	          console.log("updated name: " + this.user.firstName);
 
-						sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+						sessionStorage.setItem("user", JSON.stringify(this.user));
 					},
 					error => {
 						//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
@@ -140,7 +140,7 @@ export class ProfilePage implements OnInit{
 	}
 
 	cartTapped(event, page) {
-    if (sessionStorage.getItem("Cart")=== null) {
+    if (sessionStorage.getItem("isLogin")=== null) {
       this.navCtrl.push(LoginPage);
       let toast = this.toastCtrl.create({
         message: 'Error: Please Login to view Cart',

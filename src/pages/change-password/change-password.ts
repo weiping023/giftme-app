@@ -51,7 +51,7 @@ export class ChangePasswordPage {
 	}
 
   ngOnInit() {
-    this.user = JSON.parse(sessionStorage.getItem("user")).customer;
+    this.user = JSON.parse(sessionStorage.getItem("user"));
 
     this.currentPassword = this.user.password;
     console.log(this.user);
@@ -80,7 +80,7 @@ export class ChangePasswordPage {
 						duration: 3000
 					});
 					toast.present();
-          sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
+          sessionStorage.setItem("user", JSON.stringify(this.user));
         },
         error => {
           let alert = this.alertCtrl.create(

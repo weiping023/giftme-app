@@ -17,7 +17,7 @@ const httpOptions = {
 @Injectable()
 export class UserProvider {
   _user: any = Customer;
-  ipAddress = '192.168.1.64';
+  ipAddress = '172.25.105.238';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Customer';
   baseUrl = "/api/Customer";
@@ -50,7 +50,21 @@ export class UserProvider {
 		return this.httpClient.get<any>(path + "/getCustomer" + "?email=" + email + "&password=" + password).pipe
     (catchError(this.handleError)
 		);
-	}
+  }
+  
+  forgotPassword(email: string): Observable<any> {
+    let path: string = "";
+    if (this.platform.is('core') || this.platform.is('mobileweb')) {
+      path = this.baseUrl;
+    } else {
+      path = this.fullBaseUrl;
+    }
+
+    console.log(path);
+    return this.httpClient.get<any>(path + "/forgotPassword?email=" + email).pipe (
+      catchError(this.handleError)
+    );
+  }
 
   createCustomer(newCustomer: Customer): Observable<any> {
     let path: string = "";
@@ -78,7 +92,7 @@ export class UserProvider {
     }
 
     let updateCustomerReq = {
-      "customer": updateCustomer
+      "customer" : updateCustomer
     }
 
     return this.httpClient.post<any>(path + "/updateCustomer", updateCustomerReq, httpOptions).pipe (

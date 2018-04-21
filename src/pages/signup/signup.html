@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="secondary">
-    <ion-title>Sign Up</ion-title>
+    <ion-title>Register</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -9,7 +9,7 @@
     <form [formGroup]="register" (ngSubmit)="signup(signupForm)">
       <ion-item>
         <ion-label fixed>Email</ion-label>
-        <ion-input type="email" formControlName="email" advs-email placeholder="eg. ahbeng@gmail.com" id="email" minlength="10" maxlength="50" required="true"></ion-input>
+        <ion-input type="email" formControlName="email" advs-email placeholder="eg. user@gmail.com" id="email" minlength="10" maxlength="50" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" class="errorText">
@@ -30,7 +30,7 @@
 
       <ion-item>
         <ion-label fixed>Password</ion-label>
-        <ion-input type="password" formControlName="password" advs-compare="verify" placeholder="eg. password" id="password" minlength="4" maxlength="32" required="true"></ion-input>
+        <ion-input type="password" formControlName="password" advs-compare="verify" placeholder="eg. password" id="password" minlength="6" maxlength="32" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" class="errorText">
@@ -38,7 +38,7 @@
           Password is required.
         </div>
         <div *ngIf="password.errors.minlength">
-          Password must be at least 4 characters long.
+          Password must be at least 6 characters long.
         </div>
         <div *ngIf="password.errors.maxlength">
           Password cannot exceed 32 characters.
@@ -47,7 +47,7 @@
 
       <ion-item>
         <ion-label fixed>Verify</ion-label>
-        <ion-input type="password" formControlName="verify" advs-compare="password" placeholder="eg. password" id="verify" minlength="4" maxlength="50" required="true"></ion-input>
+        <ion-input type="password" formControlName="verify" advs-compare="password" placeholder="eg. password" id="verify" minlength="6" maxlength="50" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="verify.invalid && (verify.dirty || verify.touched || submitted)" class="errorText">
@@ -65,7 +65,7 @@
 
       <ion-item>
         <ion-label fixed>First Name</ion-label>
-        <ion-input type="text" formControlName="firstName" placeholder="eg. AhBeng" id="firstName" maxlength="32" required="true"></ion-input>
+        <ion-input type="text" formControlName="firstName" placeholder="eg. First Name" id="firstName" maxlength="32" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || submitted)" class="errorText">
@@ -108,13 +108,11 @@
         </div>
       </div>
 
-      <ion-item>
-        <div align="center">
+      <div align="center">
           <button type="submit" ion-button outline [disabled]="!register.valid">
             Register
           </button>
         </div>
-      </ion-item>
     </form>
   </div>
 </ion-content>

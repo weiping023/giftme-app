@@ -234,7 +234,7 @@ export class ProductIndivPage {
   }  
   
   cartTapped(event, page) {
-    if (sessionStorage.getItem("Cart")=== null) {
+    if (sessionStorage.getItem("isLogin")=== null) {
       this.navCtrl.push(LoginPage);
       let toast = this.toastCtrl.create({
         message: 'Error: Please Login to view Cart',

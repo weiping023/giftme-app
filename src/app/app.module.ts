@@ -24,6 +24,7 @@ import { CatFlowersPage } from '../pages/category-flowers/category-flowers';
 import { CatPlushiesPage } from '../pages/category-plushies/category-plushies';
 import { ViewReviewsPage } from '../pages/view-reviews/view-reviews';
 import { TransactionIndivPage } from '../pages/transaction-indiv/transaction-indiv';
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -60,6 +61,7 @@ import { ShopProvider } from '../providers/shop/shop';
     CatPlushiesPage,
     ViewReviewsPage,
     TransactionIndivPage,
+    ForgotPasswordPage,
     SideMenuContentComponent
 
   ],
@@ -88,6 +90,7 @@ import { ShopProvider } from '../providers/shop/shop';
     CatFlowersPage,
     CatPlushiesPage,
     TransactionIndivPage,
+    ForgotPasswordPage,
     ViewReviewsPage
   ],
   providers: [

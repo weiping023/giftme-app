@@ -111,26 +111,33 @@ export class SignupPage {
         loading.present();
 
         console.log("form is valid");
+
         this.userProvider.createCustomer(this.register.value).subscribe (
           response => {
-            loading.dismiss();
-            sessionStorage.setItem("user", JSON.stringify({"customer": this.newUser}));
-            let toast = this.toastCtrl.create({
-              message: 'Sign up is Successful!',
-              cssClass: 'toast',
-              duration: 3000,
-            });
-            toast.present();
-            this.navCtrl.push(LoginPage);
-            console.log(this.newUser + " successful");
+            loading.dismiss();                        
+            console.log("this.newUser",this.newUser);
+            this.newUser.firstName = this.register.value.firstName; 
+            this.newUser.lastName = this.register.value.lastName; 
+            this.newUser.email = this.register.value.email;
+            this.newUser.password = this.register.value.password;
+            this.newUser.mobileNumber = this.register.value.mobileNumber;       
+              sessionStorage.setItem("user", JSON.stringify(this.newUser));
+              sessionStorage.setItem("isLogin", this.newUser.email);            
+              let toast = this.toastCtrl.create({
+                message: 'Sign up is Successful!',
+                cssClass: 'toast',
+                duration: 3000,
+              });
+              toast.present();
+              this.navCtrl.push(HomePage);
+              console.log(this.newUser + " successful");      
           },
           error => {
-            loading.dismiss();
-            console.log(this.newUser.email + " this doesn't work");
+            loading.dismiss();            
             let alert = this.alertCtrl.create(
       			{
       				title: 'Register',
-      				subTitle: 'Invalid details',
+      				subTitle: 'Account already exists or Invalid details entered',
       				buttons: ['OK']
       			});
       			alert.present();

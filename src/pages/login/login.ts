@@ -7,6 +7,7 @@ import { HomePage } from '../home/home';
 import { SignupPage } from '../signup/signup';
 import { UserProvider } from '../../providers/user/user';
 import { Customer } from '../../entities/user';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 @Component({
   selector: 'page-login',
@@ -20,12 +21,15 @@ export class LoginPage {
 	email: string;
 	password: string;
   user: Customer;
-  loginCredential: string;
+	loginCredential: string;
+	firstName: string;
 
 	constructor(public navCtrl: NavController,
-  				public alertCtrl: AlertController,
-  				public navParams: NavParams,
-  				public toastCtrl: ToastController, public userProvider: UserProvider, public loadingCtrl: LoadingController)
+  						public alertCtrl: AlertController,
+							public navParams: NavParams,
+							public toastCtrl: ToastController, 
+							public userProvider: UserProvider, 
+							public loadingCtrl: LoadingController)
 	{
 	  this.submitted = false;
     this.loginCredential = "";
@@ -34,7 +38,9 @@ export class LoginPage {
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad LoginPage');
     if (sessionStorage.getItem("isLogin") !== null) {
-      this.isLogin = true;
+			this.isLogin = true;	
+			this.user = JSON.parse(sessionStorage.getItem("user"));
+			this.firstName = this.user.firstName;
     }
 	}
 
@@ -42,9 +48,9 @@ export class LoginPage {
 		this.submitted = true;
     //try to get customer if valid and catch any error
     if (loginForm.valid) {
-    let loading = this.loadingCtrl.create({
-        content: 'Login now, Please wait...',
-        spinner: 'bubbles'
+			let loading = this.loadingCtrl.create({
+				content: 'Login now, Please wait...',
+				spinner: 'bubbles'
       });
       loading.present();
 
@@ -53,8 +59,10 @@ export class LoginPage {
           loading.dismiss();
           console.log(this.email);
           this.user = response.customer;
-          sessionStorage.setItem("user", JSON.stringify({"customer": this.user}));
-          console.log(this.email);
+          sessionStorage.setItem("user", JSON.stringify(this.user));
+					console.log(sessionStorage.getItem("user"));
+					this.firstName = this.user.firstName;
+					console.log(this.firstName);
 
           this.isLogin = true;
           sessionStorage.setItem("isLogin", this.email);
@@ -68,8 +76,7 @@ export class LoginPage {
 					this.navCtrl.setRoot(HomePage);
         },
         error => {
-          loading.dismiss();
-          console.log(this.email + " not working again");
+          loading.dismiss();          
           let alert = this.alertCtrl.create(
     			{
     				title: 'Login',
@@ -83,7 +90,7 @@ export class LoginPage {
 	}
 
 	logout(){
-		console.log("Logout");
+		console.log("Logout");		
 		sessionStorage.clear();
 		this.navCtrl.setRoot(HomePage);
 
@@ -99,5 +106,9 @@ export class LoginPage {
 
 	register(event, page){
 		this.navCtrl.push(SignupPage, page);
+	}
+
+	getPassword(event, page){
+		this.navCtrl.push(ForgotPasswordPage, page);
 	}
 }
