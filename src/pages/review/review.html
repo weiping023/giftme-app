@@ -27,9 +27,9 @@
         </div>
       </div>
 
-      <ion-item class="text-wrap">
+      <ion-item text-wrap>
         <ion-label fixed>Your Review</ion-label>
-        <ion-input float-left type="text" formControlName="comment" placeholder="eg. The shop's service was good!" id="comment" required="true"></ion-input>
+        <ion-textarea text-wrap float-left type="text" formControlName="comment" placeholder="eg. The shop's service was good!" id="comment" required="true"></ion-textarea>
       </ion-item>
 
       <div *ngIf="comment.invalid && (comment.dirty || comment.touched || submitted)" class="errorText">
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <ion-item style="padding: 0 200px">
+      <ion-item style="padding: 0 50px">
         <ion-label color="dark">Rating</ion-label>
         <ion-range formControlName="rating" id="rating" min="1" max="5" step="1" snaps="true" color="medium-pink" require="false">
           <ion-icon small range-left name="star" color="medium-pink"></ion-icon>

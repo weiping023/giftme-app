@@ -67,6 +67,7 @@ export class TransactionProvider {
     } else {
       path = this.fullBaseUrl;
     }
+    console.log(this.baseUrl + "/retrieveTransactionByDeliveryCode?deliveryCode=" + deliveryCode);
     return this.httpClient.get<any>(this.baseUrl + "/retrieveTransactionByDeliveryCode?deliveryCode=" + deliveryCode).pipe(
       catchError(this.handleError)
     );

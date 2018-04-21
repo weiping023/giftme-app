@@ -15,7 +15,7 @@
 
 <ion-content class="bg-style">
   <!-- <div style="padding: 13px"> -->
-    <ion-list *ngFor="let transaction of transactions">
+    <ion-list *ngFor="let transaction of transactions.reverse()">
       <ion-card (click)="indivTransaction(transaction.transactionDeliveryCode)">
         <ion-card-header>
           <b>Order ID</b>: {{transaction.transactionDeliveryCode}}

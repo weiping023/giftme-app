@@ -25,7 +25,7 @@ export class ViewTransactionsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewTransactionsPage');
-
+    this.hasTransactions = true;
     if (sessionStorage.getItem("isLogin") !== null) {
       this.isLogin = true;
       this.user = JSON.parse(sessionStorage.getItem("user"));
@@ -34,11 +34,11 @@ export class ViewTransactionsPage {
       this.transactionProvider.retrieveAllTransactionsByEmail(this.user.email).subscribe(
         response => {
           this.transactions = response.transactions;
-          console.log("All transactions " + this.transactions);
-          if (this.transactions === null){
-            this.hasTransactions = false;
+          console.log("All transactions ", this.transactions);   
+          if (this.transactions.length === 0){
+            this.hasTransactions = false;                        
           }
-          this.hasTransactions = true;
+          console.log(this.hasTransactions);
           if (this.hasTransactions){
             for (var i = 0; i < response.transactions.length; i++) {
               this.hasTransactions = true;
