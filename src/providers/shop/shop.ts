@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class ShopProvider {
 
-  ipAddress = '172.25.105.238';
+  ipAddress = '172.25.99.179';
 	portNo = '8080';
 	fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Shop';
 

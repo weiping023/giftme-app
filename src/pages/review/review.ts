@@ -70,7 +70,7 @@ export class ReviewPage {
   ngOnInit() {
     if (sessionStorage.getItem("isLogin") !== null) {
       this.isLogin = true;
-			this.user = JSON.parse(sessionStorage.getItem("user")).customer;
+			this.user = JSON.parse(sessionStorage.getItem("user"));
       this.custEmail = this.user.email;
       this.inputCustName = this.user.firstName;
       console.log(this.inputCustName, this.user.firstName);

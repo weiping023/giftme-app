@@ -19,7 +19,7 @@
             <ion-row>
               <ion-col col-4>
                 <div text-center>
-                  <img align style="max-width: 30%; max-height: 30%;" src="{{product.product.imgPath}}"/>               
+                  <img align style="max-width: 60%; " src="{{product.product.imgPath}}"/>               
                 </div>
                 <div class="product-name">
                   <strong>Product Name:</strong>
@@ -104,7 +104,8 @@
     </ion-buttons>
   </div>
 
-  <div *ngIf="!cartExists">
-		<h3>Your cart is empty</h3>				
+  <div style="text-align:center" *ngIf="!cartExists">
+    <img style="width: 30%" src="../assets/img/empty-state-icons/cart-edited.svg"/>
+		<h2>Your cart is empty</h2>				
 	</div>	
 </ion-content>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-confirm-transaction',
@@ -9,20 +10,15 @@ import { ToastController } from 'ionic-angular';
 export class ConfirmTransactionPage {
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    public toastCtrl: ToastController) {
+              public navParams: NavParams,
+              public toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ConfirmTransactionPage');
-
-    let toast = this.toastCtrl.create(
-    {
-      message: 'This thing works',
-      cssClass: 'toast',
-      duration: 3000
-    });
-    toast.present();
+    console.log('ionViewDidLoad ConfirmTransactionPage');  
   }
 
+  homeTapped($event, page){
+    this.navCtrl.push(HomePage);
+  }
 }

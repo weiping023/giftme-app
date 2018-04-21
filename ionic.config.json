@@ -8,7 +8,7 @@
   "proxies": [
   	{
   		"path": "/api",
-  		"proxyUrl": "http://172.25.105.238:8080/GiftMe-war/Resources"
+  		"proxyUrl": "http://172.25.99.179:8080/GiftMe-war/Resources"
   	}
   ]
 }

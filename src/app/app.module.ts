@@ -16,8 +16,8 @@ import { ShopIndivPage } from '../pages/shop-indiv/shop-indiv';
 import { ProductIndivPage } from '../pages/product-indiv/product-indiv';
 import { ShoppingCartPage } from '../pages/shoppingCart/shoppingCart';
 import { DeliveryPage } from '../pages/delivery/delivery';
-import { ConfirmTransactionPage } from '../pages/confirm-transaction/confirm-transaction';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
+import { ConfirmTransactionPage } from '../pages/confirm-transaction/confirm-transaction'
 import { ReviewPage } from '../pages/review/review';
 import { CatConfectionaryPage } from '../pages/category-confectionery/category-confectionery';
 import { CatFlowersPage } from '../pages/category-flowers/category-flowers';
@@ -53,8 +53,8 @@ import { ShopProvider } from '../providers/shop/shop';
     ProductIndivPage,
     ShoppingCartPage,
     DeliveryPage,
-    ConfirmTransactionPage,
     ChangePasswordPage,
+    ConfirmTransactionPage,
     ReviewPage,
     CatConfectionaryPage,
     CatFlowersPage,
@@ -82,9 +82,9 @@ import { ShopProvider } from '../providers/shop/shop';
     ShopIndivPage,
     ProductIndivPage,
     ShoppingCartPage,
-    DeliveryPage,
-    ConfirmTransactionPage,
+    DeliveryPage,    
     ChangePasswordPage,
+    ConfirmTransactionPage,
     ReviewPage,
     CatConfectionaryPage,
     CatFlowersPage,

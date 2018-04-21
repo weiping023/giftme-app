@@ -33,14 +33,15 @@ export class ViewTransactionsPage {
 
       this.transactionProvider.retrieveAllTransactionsByEmail(this.user.email).subscribe(
         response => {
-          //this.transactions = response.transactionsToView;
+          this.transactions = response.transactions;
           console.log("All transactions " + this.transactions);
-          if (this.transactions == null){
+          if (this.transactions === null){
             this.hasTransactions = false;
           }
-          
+          this.hasTransactions = true;
           if (this.hasTransactions){
             for (var i = 0; i < response.transactions.length; i++) {
+              this.hasTransactions = true;
               let transaction = new Transaction();
               transaction.transactionDateTime = new Date(response.transactions[i].transactionDateTime);
               let transactionDateString = transaction.transactionDateTime.toString();

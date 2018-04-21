@@ -4,10 +4,10 @@ import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, ToastController } from 'ionic-angular';
 import { RemoteCheckoutLineItem } from '../../entities/remoteCheckoutLineItem';
 import { CartProduct } from '../../entities/cartProduct';
-//import { ConfirmTransactionPage } from '../confirm-transaction/confirm-transaction';
 import { TransactionProvider } from '../../providers/transaction/transaction';
 import { HomePage } from '../home/home';
 import { Customer } from '../../entities/user';
+import { ConfirmTransactionPage } from '../confirm-transaction/confirm-transaction';
 
 @Component({
   selector: 'page-delivery',
@@ -73,7 +73,7 @@ export class DeliveryPage {
     console.log(this.remoteCheckoutLineItems);
     this.shopAddress = this.cart[0].product.shop.location;
     this.promoCode = sessionStorage.getItem("PromoCode");
-    this.user = JSON.parse(sessionStorage.getItem("user")).customer;
+    this.user = JSON.parse(sessionStorage.getItem("user"));
     this.email = this.user.email;
 
     this.updateDelivery = this.frmBuilder.group({
@@ -87,6 +87,7 @@ export class DeliveryPage {
 
   updateDev() {
     this.submitted = true;
+    this.updateCheckout = false;
     console.log(this.remoteCheckoutLineItems);
     if (this.updateDelivery.valid) {
       if (isNaN(this.updateDelivery.value.cardNumber) && isNaN(this.updateDelivery.value.cvv)) {
@@ -121,33 +122,32 @@ export class DeliveryPage {
           buttons: ['OK']
         });
         alert.present();
-      } else {
-        this.updateCheckout = true;
+      } else {        
         this.customerAddress = this.updateDelivery.value.address;
-
+        this.updateCheckout = false;
         this.transactionProvider.remoteCheckout(this.remoteCheckoutLineItems, this.promoCode, this.email, this.customerAddress, this.shopAddress).subscribe(
   				response => {
-  					let toast = this.toastCtrl.create(
+            this.updateCheckout = true;
+            let toast = this.toastCtrl.create(
   					{
   						message: 'Payment Successful',
   						cssClass: 'toast',
   						duration: 3000
   					});
   					toast.present();
-
+            
             sessionStorage.removeItem("Cart");
-            this.navCtrl.push(HomePage);
+            this.navCtrl.push(ConfirmTransactionPage);
   				},
   				error => {
-  					//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
+            //this.errorMessage = "HTTP " + error.status + ":" + error.error.message;            
   					let alert = this.alertCtrl.create(
   					{
   						title: 'Delivery/Payment',
   						subTitle: 'Invalid details',
   						buttons: ['OK']
   					});
-  					alert.present();
-  					this.navCtrl.push(HomePage);
+  					alert.present();  					
   				}
   			);
       }

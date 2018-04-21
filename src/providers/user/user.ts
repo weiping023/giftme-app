@@ -17,7 +17,7 @@ const httpOptions = {
 @Injectable()
 export class UserProvider {
   _user: any = Customer;
-  ipAddress = '172.25.105.238';
+  ipAddress = '172.25.99.179';
   portNo = "8080";
   fullBaseUrl = 'http://' + this.ipAddress + ':' + this.portNo + '/GiftMe-war/Resources/Customer';
   baseUrl = "/api/Customer";

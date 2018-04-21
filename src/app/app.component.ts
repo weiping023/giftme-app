@@ -58,7 +58,7 @@ export class MyApp {
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
               private alertCtrl: AlertController,
-              private toastCtrl: ToastController,              
+              private toastCtrl: ToastController,          
               private menuCtrl: MenuController)
   {
     this.initializeApp();

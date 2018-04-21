@@ -5,7 +5,7 @@
     </button>
     <ion-title>View Transactions</ion-title>
     <ion-buttons end>
-    <button ion-button icon-left color="dark">
+    <button ion-button icon-left color="dark" (click)="cartTapped($event, page)">
       <ion-icon name="cart"></ion-icon>
         Cart
       </button>
@@ -31,7 +31,8 @@
     </ion-list>
   <!-- </div> -->
 
-  <div *ngIf="!hasTransactions">
+  <div style="text-align:center" *ngIf="!hasTransactions">
+    <img style="width: 30%; margin-top: 5%" src="../assets/img/empty-state-icons/transaction-wallet.svg"/>
     <h3 padding>You have not made any transactions yet</h3>				
   </div>
 </ion-content>
