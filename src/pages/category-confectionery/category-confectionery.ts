@@ -18,15 +18,18 @@ export class CatConfectionaryPage {
 	errorMessage: string;
   products: Product[];
   filteredProducts: Product[];
+  
+  maxPrice: number = 1;
+  prices: any[] = [];
 
-  priceFilter: any= {
-    upper:250,
-    lower:1
-  }
   priceFilterMin: any;
   priceFilterMax: any;
   priceFilteredProducts: Product[];
-  colorFilteredProducts: Product[];
+  priceFilter: any= {
+    upper: this.maxPrice,
+    lower:1
+  }
+  
 
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
@@ -37,8 +40,7 @@ export class CatConfectionaryPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CategoryConfectioneryPage');
 
-    this.priceFilteredProducts = [];
-    this.colorFilteredProducts = [];
+    this.priceFilteredProducts = [];    
     this.filteredProducts =[];
 
     this.productProvider.retrieveAllProducts().subscribe(
@@ -48,9 +50,12 @@ export class CatConfectionaryPage {
         for (var i=0; i <this.products.length;i++){           
           if (this.products[i].category === "Confectionary"){ 
             this.filteredProducts.push(this.products[i]);
+            this.prices.push(this.products[i].price);
           }
         }
-        this.priceFilteredProducts = this.filteredProducts;    
+        this.priceFilteredProducts = this.filteredProducts;   this.calculateMax();
+        this.priceFilter.upper = this.maxPrice;
+        console.log(this.priceFilter.upper);        
 			},
 			error => {
 				this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
@@ -58,11 +63,17 @@ export class CatConfectionaryPage {
 		);
   }
 
+  calculateMax() {
+    this.maxPrice = this.prices.reduce(function(a,b) {
+      return Math.max(a,b);
+    });
+    console.log(this.maxPrice);
+    this.priceFilterMax = this.priceFilter.upper;
+  }
+
   filterProductByPrice(){
     //always reset filteredProducts  
-    this.priceFilteredProducts = [];
-    
-    console.log("filteredproduct",this.filteredProducts);
+    this.priceFilteredProducts = [];        
     
     this.priceFilterMin = this.priceFilter.lower;
     this.priceFilterMax = this.priceFilter.upper;

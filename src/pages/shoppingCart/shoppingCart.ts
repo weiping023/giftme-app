@@ -158,6 +158,22 @@ export class ShoppingCartPage {
     }
   }
 
+  removePromo(promoCode: string){
+    if (this.appliedPromo){      
+      this.discount = 0;
+      this.calculateSubtotal();
+      this.calculateTotal();
+      let alert = this.alertCtrl.create(
+        {title: "Remove Promo Code",
+        subTitle: promoCode + " has been removed succeesfully",
+        buttons: ['OK']
+      });
+      alert.present();
+      this.appliedPromo = false;             
+      this.promoCode = "";      
+    } 
+  }
+
   calculateSubtotal(){
 
   let subtotal = 0;

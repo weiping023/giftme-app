@@ -19,13 +19,17 @@ export class CatFlowersPage {
   products: Product[];  
   filteredProducts: Product[];
 
-  priceFilter: any= {
-    upper:500,
-    lower:1
-  }
+  maxPrice: number = 1;
+  prices: any[] = [];
+
   priceFilterMin: any;
   priceFilterMax: any;
   priceFilteredProducts: Product[];
+
+  priceFilter: any= {
+    upper:this.maxPrice,
+    lower:1
+  }
   
   colours: any;  
 
@@ -60,11 +64,14 @@ export class CatFlowersPage {
           if (this.products[i].category === "Flowers"){
             let productToPush = this.products[i];
             this.filteredProducts.push(productToPush);
+            this.prices.push(this.products[i].price);
           }          
         }
         
         this.priceFilteredProducts = this.filteredProducts;   
         console.log("pricefiltered",this.priceFilteredProducts);
+        this.calculateMax();
+        this.priceFilter.upper = this.maxPrice;
         this.colorFilteredProducts = this.filteredProducts;
         this.finalFilteredProducts = this.filteredProducts;
 			},
@@ -72,6 +79,14 @@ export class CatFlowersPage {
 				this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
 			}
 		);
+  }
+
+  calculateMax() {
+    this.maxPrice = this.prices.reduce(function(a,b) {
+      return Math.max(a,b);
+    });
+    console.log(this.maxPrice);
+    this.priceFilterMax = this.priceFilter.upper;
   }
 
   filterProductByPrice(){

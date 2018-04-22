@@ -35,7 +35,7 @@
       <ion-row>  
         <ion-col>
           <div style= "width: auto; height:auto" align="middle">
-            <img src={{shop.imgPath}} height="80"><br>
+            <img (click)="viewShop(shop.shopId)" src={{shop.imgPath}} height="80"><br>
           </div>  
         </ion-col>
             </ion-row>

@@ -19,14 +19,17 @@ export class CatPlushiesPage {
   products: Product[];
   filteredProducts: Product[];
 
-  priceFilter: any= {
-    upper:250,
-    lower:1
-  }
+  maxPrice: number = 1;
+  prices: any[] = [];
+  
   priceFilterMin: any;
   priceFilterMax: any;
   priceFilteredProducts: Product[];
-  colorFilteredProducts: Product[];
+
+  priceFilter: any= {
+    upper:this.maxPrice,
+    lower:1
+  }
 
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
@@ -38,7 +41,6 @@ export class CatPlushiesPage {
     console.log('ionViewDidLoad CategoryConfectioneryPage');
 
     this.priceFilteredProducts = [];
-    this.colorFilteredProducts = [];
     this.filteredProducts = [];
 
     this.productProvider.retrieveAllProducts().subscribe(
@@ -49,14 +51,25 @@ export class CatPlushiesPage {
           if (this.products[i].category === "Plushies"){
             let productToPush = this.products[i];
             this.filteredProducts.push(productToPush);
+            this.prices.push(this.products[i].price);
           }
         }
         this.priceFilteredProducts = this.filteredProducts;   
+        this.calculateMax();
+        this.priceFilter.upper = this.maxPrice;
 			},
 			error => {
 				this.errorMessage = "HTTP " + error.status + ": " + error.error.message;
 			}
 		);
+  }
+
+  calculateMax() {
+    this.maxPrice = this.prices.reduce(function(a,b) {
+      return Math.max(a,b);
+    });
+    console.log(this.maxPrice);
+    this.priceFilterMax = this.priceFilter.upper;
   }
 
   filterProductByPrice(){

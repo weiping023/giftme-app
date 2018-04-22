@@ -21,15 +21,15 @@
 
   <ion-list>    
     <ion-item>
-      <ion-label item-start>
+      <ion-label item-center>
         <b>Filter by Price</b>
-      </ion-label> 
-      <ion-label item-end>
-        Price Range: ${{priceFilter.lower}} - ${{priceFilter.upper}}
-      </ion-label>     
-
-      <ion-range color="danger" pin="true" dualKnobs="true" [(ngModel)]="priceFilter" min="1" max="100" (ionChange)="filterProductByPrice()"></ion-range>
+      </ion-label>    
+      <ion-range color="darker-orange" pin="true" dualKnobs="true" [(ngModel)]="priceFilter" min="1" max={{maxPrice}} (ionChange)="filterProductByPrice()"></ion-range>
     </ion-item>  
+
+    <ion-label item-center>
+      Price Range: ${{priceFilter.lower}} - ${{priceFilter.upper}}
+    </ion-label>  
   </ion-list>
   
   <ion-grid>    
