@@ -32,6 +32,11 @@
 					</div>
 				</div>
 
+        <ion-item>
+					<ion-label fixed>Email</ion-label>
+					<ion-input type="email" placeholder="Eg. user@gmail.com" id="email" name="email" [(ngModel)]="email" minlength="4" maxlength="32" required="true" email #inemail="ngModel"></ion-input>
+				</ion-item>
+
 				<div *ngIf="inpassword.invalid && (inpassword.dirty || inpassword.touched || submitted)" class="errorText">
 					<div *ngIf="inpassword.errors.required">
 						Password is required.
@@ -44,32 +49,24 @@
 					</div>
 				</div>
 
-				<div *ngIf="loginErrorMessage" class="errorText">
-					{{loginErrorMessage}}
-				</div>
-
-			</div>
-
-			<ion-list>
-				<ion-item>
-					<ion-label fixed>Email</ion-label>
-					<ion-input type="email" placeholder="Eg. user@gmail.com" id="email" name="email" [(ngModel)]="email" minlength="4" maxlength="32" required="true" email #inemail="ngModel"></ion-input>
-				</ion-item>
-
-				<ion-item>
+        <ion-item>
 					<ion-label fixed>Password</ion-label>
 					<ion-input type="password" placeholder="Eg. password" id="password" name="password" [(ngModel)]="password" minlength="4" maxlength="32" required="true" #inpassword="ngModel"></ion-input>
 				</ion-item>
 
-        <div align="center">
-          <button block type="submit" ion-button outline>
-            Login
-					</button>
-					<button block (click)="register()" ion-button outline>
-						Register
-					</button> <br/><br/>
-        </div>
-			</ion-list>
+				<div *ngIf="loginErrorMessage" class="errorText">
+					{{loginErrorMessage}}
+				</div>
+			</div>
+
+      <div align="center">
+        <button block type="submit" ion-button outline>
+          Login
+				</button>
+				<button block (click)="register()" ion-button outline>
+					Register
+				</button> <br/><br/>
+      </div>
 
 			Forgot Your Password?
 			<a (click)="getPassword()"><font color="#e299c4"> <br/> Click here to retrieve your password!</font> </a>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ToastController, AlertController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController } from 'ionic-angular';
 import { ShoppingCartPage } from '../shoppingCart/shoppingCart';
 import { ChangePasswordPage } from '../change-password/change-password';
 import { HomePage } from '../home/home';
@@ -30,7 +30,7 @@ export class ProfilePage implements OnInit{
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams,
 				public toastCtrl: ToastController,
-				public alertCtrl: AlertController, public userProvider: UserProvider, public frmBuilder: FormBuilder) {
+				public alertCtrl: AlertController, public userProvider: UserProvider, public frmBuilder: FormBuilder, public loadingCtrl: LoadingController) {
 		this.submitted = false;
 		this.isUpdated = false;
 		this.currFirstName = "";
@@ -100,11 +100,18 @@ export class ProfilePage implements OnInit{
 				});
 				alert.present();
 			} else {
+				let loading = this.loadingCtrl.create({
+          content: 'Updating your profile, Please wait...',
+          spinner: 'bubbles'
+        });
+        loading.present();
+
 				this.isUpdated = true;
 
 				this.user.firstName = this.updateProfile.value.firstName;
 				this.user.lastName = this.updateProfile.value.lastName;
 				this.user.mobileNumber = this.updateProfile.value.mobileNumber;
+				console.log("updated user " + this.user);
 
 	      sessionStorage.setItem("user", JSON.stringify(this.user));
 
@@ -112,6 +119,7 @@ export class ProfilePage implements OnInit{
 				console.log("updated " + this.user.firstName);
 				this.userProvider.updateCustomer(this.user).subscribe(
 					response => {
+						loading.dismiss();
 						let toast = this.toastCtrl.create(
 						{
 							message: 'Details Updated',
@@ -124,6 +132,7 @@ export class ProfilePage implements OnInit{
 						sessionStorage.setItem("user", JSON.stringify(this.user));
 					},
 					error => {
+						loading.dismiss();
 						//this.errorMessage = "HTTP " + error.status + ":" + error.error.message;
 						let alert = this.alertCtrl.create(
 						{
@@ -132,7 +141,6 @@ export class ProfilePage implements OnInit{
 							buttons: ['OK']
 						});
 						alert.present();
-						this.navCtrl.push(HomePage);
 					}
 				);
 			}

@@ -7,10 +7,6 @@
 <ion-content class="bg-style">
   <div>
     <form [formGroup]="register" (ngSubmit)="signup(signupForm)">
-      <ion-item>
-        <ion-label fixed>Email</ion-label>
-        <ion-input type="email" formControlName="email" advs-email placeholder="eg. user@gmail.com" id="email" minlength="10" maxlength="50" required="true"></ion-input>
-      </ion-item>
 
       <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" class="errorText">
         <div *ngIf="email.errors.required">
@@ -29,8 +25,8 @@
       </div>
 
       <ion-item>
-        <ion-label fixed>Password</ion-label>
-        <ion-input type="password" formControlName="password" advs-compare="verify" placeholder="eg. password" id="password" minlength="6" maxlength="32" required="true"></ion-input>
+        <ion-label fixed>Email</ion-label>
+        <ion-input type="email" formControlName="email" advs-email placeholder="eg. user@gmail.com" id="email" minlength="10" maxlength="50" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" class="errorText">
@@ -46,8 +42,8 @@
       </div>
 
       <ion-item>
-        <ion-label fixed>Verify</ion-label>
-        <ion-input type="password" formControlName="verify" advs-compare="password" placeholder="eg. password" id="verify" minlength="6" maxlength="50" required="true"></ion-input>
+        <ion-label fixed>Password</ion-label>
+        <ion-input type="password" formControlName="password" advs-compare="verify" placeholder="eg. password" id="password" minlength="6" maxlength="32" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="verify.invalid && (verify.dirty || verify.touched || submitted)" class="errorText">
@@ -59,14 +55,14 @@
         </div>
       </div>
 
+      <ion-item>
+        <ion-label fixed>Verify</ion-label>
+        <ion-input type="password" formControlName="verify" advs-compare="password" placeholder="eg. password" id="verify" minlength="6" maxlength="50" required="true"></ion-input>
+      </ion-item>
+
       <div style="padding: 13px">
         <h4>Profile Details</h4>
       </div>
-
-      <ion-item>
-        <ion-label fixed>First Name</ion-label>
-        <ion-input type="text" formControlName="firstName" placeholder="eg. First Name" id="firstName" maxlength="32" required="true"></ion-input>
-      </ion-item>
 
       <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || submitted)" class="errorText">
         <div *ngIf="firstName.errors.required">
@@ -78,8 +74,8 @@
       </div>
 
       <ion-item>
-        <ion-label fixed>Last Name</ion-label>
-        <ion-input type="text" formControlName="lastName" placeholder="eg. Tan" id="lastName" maxlength="32" required="true"></ion-input>
+        <ion-label fixed>First Name</ion-label>
+        <ion-input type="text" formControlName="firstName" placeholder="eg. Jason" id="firstName" maxlength="32" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || submitted)" class="errorText">
@@ -92,8 +88,8 @@
       </div>
 
       <ion-item>
-        <ion-label fixed>Contact</ion-label>
-        <ion-input type="text" formControlName="mobileNumber" placeholder="eg. 12345678" id="mobileNumber" minlength="8" maxlength="8" required="true"></ion-input>
+        <ion-label fixed>Last Name</ion-label>
+        <ion-input type="text" formControlName="lastName" placeholder="eg. Tan" id="lastName" maxlength="32" required="true"></ion-input>
       </ion-item>
 
       <div *ngIf="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched || submitted)" class="errorText">
@@ -106,7 +102,15 @@
         <div *ngIf="mobileNumber.errors.maxlength">
           Mobile number must be 8 characters long.
         </div>
+        <div *ngIf="mobileNumber.errors.mobileNumber">
+          Mobile number must be valid.
+        </div>
       </div>
+
+      <ion-item>
+        <ion-label fixed>Contact</ion-label>
+        <ion-input type="text" formControlName="mobileNumber" placeholder="eg. 98765432" id="mobileNumber" minlength="8" maxlength="8" required="true"></ion-input>
+      </ion-item>
 
       <div align="center">
           <button type="submit" ion-button outline [disabled]="!register.valid">
@@ -116,4 +120,3 @@
     </form>
   </div>
 </ion-content>
-  

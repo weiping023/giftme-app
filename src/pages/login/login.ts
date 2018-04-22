@@ -27,8 +27,8 @@ export class LoginPage {
 	constructor(public navCtrl: NavController,
   						public alertCtrl: AlertController,
 							public navParams: NavParams,
-							public toastCtrl: ToastController, 
-							public userProvider: UserProvider, 
+							public toastCtrl: ToastController,
+							public userProvider: UserProvider,
 							public loadingCtrl: LoadingController)
 	{
 	  this.submitted = false;
@@ -38,7 +38,7 @@ export class LoginPage {
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad LoginPage');
     if (sessionStorage.getItem("isLogin") !== null) {
-			this.isLogin = true;	
+			this.isLogin = true;
 			this.user = JSON.parse(sessionStorage.getItem("user"));
 			this.firstName = this.user.firstName;
     }
@@ -59,6 +59,7 @@ export class LoginPage {
           loading.dismiss();
           console.log(this.email);
           this.user = response.customer;
+          this.user.password = this.password;
           sessionStorage.setItem("user", JSON.stringify(this.user));
 					console.log(sessionStorage.getItem("user"));
 					this.firstName = this.user.firstName;
@@ -76,7 +77,7 @@ export class LoginPage {
 					this.navCtrl.setRoot(HomePage);
         },
         error => {
-          loading.dismiss();          
+          loading.dismiss();
           let alert = this.alertCtrl.create(
     			{
     				title: 'Login',
@@ -90,7 +91,7 @@ export class LoginPage {
 	}
 
 	logout(){
-		console.log("Logout");		
+		console.log("Logout");
 		sessionStorage.clear();
 		this.navCtrl.setRoot(HomePage);
 

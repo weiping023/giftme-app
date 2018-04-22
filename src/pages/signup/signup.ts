@@ -19,6 +19,7 @@ export class SignupPage {
   register: FormGroup;
   registerErrorMessage: string;
   mobnumPattern: string;
+  mobileRegEx: RegExp;
   emailPattern: any;
 
 
@@ -26,7 +27,8 @@ export class SignupPage {
               public toastCtrl: ToastController, public userProvider: UserProvider, public alertCtrl: AlertController, private frmBuilder: FormBuilder, public loadingCtrl: LoadingController) {
     this.submitted = false;
     this.newUser = new Customer();
-    // this.mobnumPattern = "^((\\+91-?)|0)?[0-9]{8}$";
+    // this.mobileRegEx = new RegExp(/(8|9)\d{1,7}/);
+    // this.mobnumPattern = this.mobileRegEx.toString();
     this.emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   }
 
@@ -114,15 +116,15 @@ export class SignupPage {
 
         this.userProvider.createCustomer(this.register.value).subscribe (
           response => {
-            loading.dismiss();                        
+            loading.dismiss();
             console.log("this.newUser",this.newUser);
-            this.newUser.firstName = this.register.value.firstName; 
-            this.newUser.lastName = this.register.value.lastName; 
+            this.newUser.firstName = this.register.value.firstName;
+            this.newUser.lastName = this.register.value.lastName;
             this.newUser.email = this.register.value.email;
             this.newUser.password = this.register.value.password;
-            this.newUser.mobileNumber = this.register.value.mobileNumber;       
+            this.newUser.mobileNumber = this.register.value.mobileNumber;
               sessionStorage.setItem("user", JSON.stringify(this.newUser));
-              sessionStorage.setItem("isLogin", this.newUser.email);            
+              sessionStorage.setItem("isLogin", this.newUser.email);
               let toast = this.toastCtrl.create({
                 message: 'Sign up is Successful!',
                 cssClass: 'toast',
@@ -130,10 +132,10 @@ export class SignupPage {
               });
               toast.present();
               this.navCtrl.push(HomePage);
-              console.log(this.newUser + " successful");      
+              console.log(this.newUser + " successful");
           },
           error => {
-            loading.dismiss();            
+            loading.dismiss();
             let alert = this.alertCtrl.create(
       			{
       				title: 'Register',
